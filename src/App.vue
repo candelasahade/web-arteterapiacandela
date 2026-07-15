@@ -1,8 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import MainSection from '@/components/sections/MainSection.vue'
+</script>
 
 <template>
-  <h1>Pagina web de la Candela</h1>
-  <p>La cucuruchita mas linda</p>
+  <main>
+    <MainSection />
+  </main>
 </template>
 
 <style scoped></style>
