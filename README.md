@@ -1,48 +1,27 @@
-# .
+# Arteterapia Candela — TODO / Deuda técnica
 
-This template should help get you started developing with Vue 3 in Vite.
+Lista de pendientes y deuda técnica del proyecto, para no perderla de vista.
 
-## Recommended IDE Setup
+## SEO / metadata
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- [ ] Comprar el dominio propio y actualizarlo (hoy se usa el subdominio de Netlify `https://leafy-melba-6cf4bb.netlify.app/`) en:
+  - `index.html` (`canonical`, `og:url`)
+  - `public/robots.txt` (línea `Sitemap:`)
+  - `public/sitemap.xml` (`<loc>`)
+- [ ] Conseguir un logo/foto para usar como `og:image` (imagen de previsualización al compartir en redes) y agregar el tag en `index.html`.
+- [ ] Crear la cuenta de Instagram y descomentar/completar el enlace:
+  - Placeholder en `index.html` (comentario junto a los meta tags)
+  - `sameAs` en el bloque JSON-LD de `index.html`
+- [ ] Agregar `theme-color`, `apple-touch-icon` y `manifest.json` una vez que exista una paleta de colores / logo definidos.
 
-## Recommended Browser Setup
+## Contenido
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- [ ] Reemplazar el contenido placeholder de `src/App.vue` ("Pagina web de la Candela" / "La cucuruchita mas linda") por el contenido real del sitio.
+- [ ] Definir y crear la(s) ruta(s) reales en `src/router/index.ts` (actualmente `routes: []`, vacío). El sitio se mantiene como SPA de una sola página, sin necesidad de rutas ni SEO por-ruta.
+- [ ] Crear estructura de `components/` — hoy no existe.
 
-## Type Support for `.vue` Imports in TS
+## Configuración / deuda técnica
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- [ ] Corregir el nombre del proyecto en `package.json` (`"name": "web-arteterapiacande"` está truncado/con typo).
+- [ ] El deploy real es **Netlify**. El repo todavía tiene un workflow de GitHub Actions (`.github/workflows/deploy.yml`) que despliega a GitHub Pages, y `vite.config.ts` sigue teniendo la rama condicional `GITHUB_PAGES` para ese base path. Decidir si se eliminan (quedaron sin usarse) o si se mantienen como respaldo.
+- [ ] Definir esquema de colores / diseño (no hay CSS global ni framework de estilos configurado todavía).
