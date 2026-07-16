@@ -1,3 +1,11 @@
+:root {
+  --color-bg: #f6ede1;
+  --color-text: #4a3428;
+  --color-accent: #b4623e;
+  --color-accent-soft: #e4c3ad;
+  --nav-height: 4rem;
+}
+
 *,
 *::before,
 *::after {
