@@ -13,7 +13,7 @@ const navItems = [
 </script>
 
 <template>
-  <nav class="nav-bar">
+  <nav class="nav-bar" aria-label="Navegación principal">
     <button
       type="button"
       class="nav-bar__toggle"
@@ -25,7 +25,7 @@ const navItems = [
       <span class="nav-bar__toggle-bar" />
       <span class="nav-bar__toggle-bar" />
       <span class="nav-bar__toggle-bar" />
-      <span class="nav-bar__sr-only">Abrir menú</span>
+      <span class="nav-bar__sr-only">{{ isMenuOpen ? 'Cerrar menú' : 'Abrir menú' }}</span>
     </button>
 
     <ul

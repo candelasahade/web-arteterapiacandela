@@ -9,10 +9,7 @@ Lista de pendientes y deuda técnica del proyecto, para no perderla de vista.
   - `public/robots.txt` (línea `Sitemap:`)
   - `public/sitemap.xml` (`<loc>`)
 - [ ] Conseguir un logo/foto para usar como `og:image` (imagen de previsualización al compartir en redes) y agregar el tag en `index.html`.
-- [ ] Crear la cuenta de Instagram y descomentar/completar el enlace:
-  - Placeholder en `index.html` (comentario junto a los meta tags)
-  - `sameAs` en el bloque JSON-LD de `index.html`
-- [ ] Agregar `theme-color`, `apple-touch-icon` y `manifest.json` una vez que exista una paleta de colores / logo definidos.
+- [ ] Agregar `theme-color`, `apple-touch-icon` y `manifest.json` una vez que exista un logo definido.
 
 ## Contenido
 
