@@ -39,7 +39,10 @@ function toggle(index: number) {
 <template>
   <BaseSection id="preguntas-frecuentes" class="bg-alt">
     <div class="faq">
-      <h2 class="faq__title">Preguntas frecuentes</h2>
+      <header class="faq__header">
+        <p class="faq__eyebrow">Todo lo que necesitás saber</p>
+        <h2 class="faq__title">Preguntas frecuentes</h2>
+      </header>
 
       <div class="faq__list">
         <div
@@ -50,13 +53,16 @@ function toggle(index: number) {
         >
           <button
             :id="`faq-question-${index}`"
-            class="faq__question"
+            class="faq__trigger"
             :aria-expanded="openIndex === index"
             :aria-controls="`faq-answer-${index}`"
             @click="toggle(index)"
           >
-            <span>{{ item.question }}</span>
-            <span class="faq__icon" aria-hidden="true">
+            <span class="faq__num" aria-hidden="true">{{
+              String(index + 1).padStart(2, '0')
+            }}</span>
+            <span class="faq__question-text">{{ item.question }}</span>
+            <span class="faq__chevron" aria-hidden="true">
               <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M5 7.5L10 12.5L15 7.5"
@@ -69,16 +75,16 @@ function toggle(index: number) {
             </span>
           </button>
 
+          <!-- Panel always in DOM; height animated via CSS grid trick -->
           <div
             :id="`faq-answer-${index}`"
             role="region"
             :aria-labelledby="`faq-question-${index}`"
+            class="faq__panel"
           >
-            <Transition name="faq-slide">
-              <div v-if="openIndex === index" class="faq__answer-wrap">
-                <p class="faq__answer">{{ item.answer }}</p>
-              </div>
-            </Transition>
+            <div class="faq__panel-inner">
+              <p class="faq__answer">{{ item.answer }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -88,99 +94,133 @@ function toggle(index: number) {
 
 <style scoped>
 .faq {
-  flex: 1;
   width: 100%;
-  max-width: 48rem;
+  max-width: 50rem;
   margin-inline: auto;
+}
+
+.faq__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.faq__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin: 0 0 0.875rem;
 }
 
 .faq__title {
   font-family: var(--font-serif);
   font-weight: 400;
   font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem);
-  text-align: center;
-  margin: 0 0 2.5rem;
+  color: var(--color-text);
+  margin: 0;
 }
 
 .faq__list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  border-top: 1px solid var(--color-border);
 }
 
 .faq__item {
-  background-color: var(--color-background);
-  border: 1px solid var(--color-border);
-  border-radius: 1.25rem;
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
-  transition:
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color 0.25s ease;
 }
 
 .faq__item--open {
-  box-shadow: var(--shadow-card);
-  border-color: color-mix(in srgb, var(--color-secondary) 55%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-secondary) 6%, var(--color-surface));
 }
 
-.faq__question {
+.faq__trigger {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.25rem 1.5rem;
+  display: grid;
+  grid-template-columns: 2.25rem 1fr 1.25rem;
+  align-items: start;
+  gap: 1.25rem;
+  padding: 1.5rem 0.25rem 1.5rem 0;
   background: none;
   border: none;
   cursor: pointer;
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 0.9375rem;
-  color: var(--color-text);
   text-align: left;
-  transition: color 0.2s ease;
+  color: inherit;
 }
 
-.faq__question:hover {
+.faq__num {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.8125rem;
+  color: var(--color-accent);
+  opacity: 0.45;
+  line-height: 1.4;
+  padding-top: 0.1rem;
+  transition: opacity 0.22s ease;
+  user-select: none;
+}
+
+.faq__item--open .faq__num {
+  opacity: 1;
+}
+
+.faq__question-text {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.45;
+  transition: color 0.22s ease;
+}
+
+.faq__trigger:hover .faq__question-text {
   color: var(--color-accent);
 }
 
-.faq__icon {
-  flex-shrink: 0;
+.faq__item--open .faq__question-text {
+  color: color-mix(in srgb, var(--color-accent) 75%, var(--color-text));
+}
+
+.faq__chevron {
   width: 1.25rem;
   height: 1.25rem;
   color: var(--color-accent);
-  transition: transform 0.25s ease;
+  opacity: 0.55;
+  padding-top: 0.1rem;
+  flex-shrink: 0;
+  transition:
+    transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.22s ease;
 }
 
-.faq__item--open .faq__icon {
+.faq__item--open .faq__chevron {
   transform: rotate(180deg);
+  opacity: 1;
 }
 
-.faq__answer-wrap {
-  padding: 0 1.5rem 1.375rem;
+/* CSS grid height trick: animates 0 → auto without JavaScript */
+.faq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.faq__item--open .faq__panel {
+  grid-template-rows: 1fr;
+}
+
+.faq__panel-inner {
+  overflow: hidden;
+}
+
+/* Indent answer to align under the question text (number col + gap) */
 .faq__answer {
   font-family: var(--font-sans);
   font-size: 0.9375rem;
   color: var(--color-text-light);
-  line-height: 1.7;
+  line-height: 1.75;
   margin: 0;
-}
-
-/* Slide transition */
-.faq-slide-enter-active,
-.faq-slide-leave-active {
-  transition:
-    opacity 0.22s ease,
-    transform 0.22s ease;
-}
-
-.faq-slide-enter-from,
-.faq-slide-leave-to {
-  opacity: 0;
-  transform: translateY(-8px);
+  padding: 0 0.25rem 1.625rem calc(2.25rem + 1.25rem);
 }
 </style>
