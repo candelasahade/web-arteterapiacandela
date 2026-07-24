@@ -5,21 +5,27 @@
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:ital@0;1&display=swap"
+      rel="stylesheet"
+    >
+
     <title>Arteterapia Candela | Arteterapia para niños y adolescentes en Barcelona y Sant Cugat</title>
     <meta name="description" content="Arteterapia para niños y adolescentes en Barcelona y Sant Cugat del Vallès. Un espacio terapéutico y creativo para acompañar el crecimiento emocional a través del arte.">
     <meta name="robots" content="index, follow">
 
-    <!-- TODO: update to the final domain once it's purchased/connected in Netlify -->
-    <link rel="canonical" href="https://leafy-melba-6cf4bb.netlify.app/">
+    <link rel="canonical" href="https://arteterapiacandela.com/">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Arteterapia Candela">
     <meta property="og:title" content="Arteterapia Candela | Arteterapia para niños y adolescentes en Barcelona y Sant Cugat">
     <meta property="og:description" content="Arteterapia para niños y adolescentes en Barcelona y Sant Cugat del Vallès. Un espacio terapéutico y creativo para acompañar el crecimiento emocional a través del arte.">
-    <meta property="og:url" content="https://leafy-melba-6cf4bb.netlify.app/">
+    <meta property="og:url" content="https://arteterapiacandela.com/">
     <meta property="og:locale" content="es_ES">
-    <!-- No og:image yet: add one once a logo/photo exists -->
+    <!-- TODO: og:image — add once a logo/photo is available (see TECH_DEBT.md) -->
 
     <!-- Social profiles -->
     <meta property="og:see_also" content="https://www.instagram.com/arteterapia.candela">
@@ -30,6 +36,7 @@
       "@type": "LocalBusiness",
       "name": "Arteterapia Candela",
       "description": "Arteterapia para niños y adolescentes en Barcelona y Sant Cugat del Vallès. Un espacio terapéutico y creativo para acompañar el crecimiento emocional a través del arte.",
+      "url": "https://arteterapiacandela.com/",
       "telephone": "+34692665220",
       "email": "candela.arteterapia@gmail.com",
       "areaServed": ["Barcelona", "Sant Cugat del Vallès"],
@@ -41,8 +48,66 @@
       "sameAs": ["https://www.instagram.com/arteterapia.candela"]
     }
     </script>
+
+    <!-- FAQPage schema — update answers when Candela confirms final copy -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Necesito saber dibujar o pintar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. La arteterapia no busca resultados estéticos ni habilidad artística: el proceso creativo es el medio, no el objetivo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿A partir de qué edad pueden participar los niños?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "TODO: completar con la edad mínima recomendada por Candela."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Las sesiones son online o presenciales?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ambas modalidades están disponibles: presencial en Barcelona y Sant Cugat del Vallès, u online."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo sé si la arteterapia es adecuada para mi hijo o hija?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "En la primera entrevista conversamos sobre la situación particular y evaluamos juntas si este es el espacio adecuado."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuánto dura el proceso terapéutico?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "TODO: completar con los criterios habituales de duración según cada proceso."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
+    <!-- Hidden form for Netlify build-time detection (required for Vue SPA) -->
+    <form name="contacto" netlify netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
+      <input name="nombre" />
+      <input name="email" />
+      <textarea name="mensaje"></textarea>
+    </form>
+
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

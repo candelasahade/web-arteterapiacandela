@@ -1,9 +1,27 @@
 :root {
-  --color-bg: #f6ede1;
-  --color-text: #4a3428;
-  --color-accent: #b4623e;
-  --color-accent-soft: #e4c3ad;
+  /* Brand palette */
+  --color-primary: #dedacd;
+  --color-secondary: #93a88c;
+  --color-accent: #d2652e;
+
+  /* Neutrals */
+  --color-background: #dedacd;
+  --color-surface: #faf8f2;
+  --color-border: #c9c4b0;
+  --color-text: #0d0d0d;
+  --color-text-light: #5c594e;
+
+  /* Typography: Inter for body, Libre Baskerville for headings */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Libre Baskerville', Georgia, serif;
+
+  /* Elevation */
+  --shadow-soft: 0 2px 12px rgba(13, 13, 13, 0.06);
+  --shadow-card: 0 4px 24px rgba(13, 13, 13, 0.09);
+
+  /* Layout */
   --nav-height: 4rem;
+  --section-padding: clamp(3.5rem, 6vw, 6rem);
 }
 
 *,
@@ -12,11 +30,72 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* Skip-to-content link (visually hidden until focused) */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.625rem 1.25rem;
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 0.5rem 0.5rem;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Global keyboard focus ring — safety net for any element without its own :focus-visible style */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 html,
 body {
   margin: 0;
 }
 
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
 #app {
   display: block;
+}
+
+/* Section background utilities (applied via class fallthrough on BaseSection) */
+.bg-alt {
+  background-color: var(--color-surface);
+}
+
+.bg-tinted {
+  background-color: color-mix(in srgb, var(--color-secondary) 10%, var(--color-background));
 }

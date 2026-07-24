@@ -1,24 +1,17 @@
 # Arteterapia Candela — TODO / Deuda técnica
 
-Lista de pendientes y deuda técnica del proyecto, para no perderla de vista.
+Lista de pendientes y deuda técnica del proyecto. Ver también `TECH_DEBT.md` para los
+ítems que dependen de contenido o decisiones de Candela.
 
 ## SEO / metadata
 
-- [ ] Comprar el dominio propio y actualizarlo (hoy se usa el subdominio de Netlify `https://leafy-melba-6cf4bb.netlify.app/`) en:
-  - `index.html` (`canonical`, `og:url`)
-  - `public/robots.txt` (línea `Sitemap:`)
-  - `public/sitemap.xml` (`<loc>`)
-- [ ] Conseguir un logo/foto para usar como `og:image` (imagen de previsualización al compartir en redes) y agregar el tag en `index.html`.
+- [x] Dominio `arteterapiacandela.com` comprado y conectado en Netlify — canonical, og:url, sitemap y robots.txt actualizados.
+- [ ] Conseguir un logo/foto para usar como `og:image` y agregar en `index.html`. Ver instrucciones en `TECH_DEBT.md`.
 - [ ] Agregar `theme-color`, `apple-touch-icon` y `manifest.json` una vez que exista un logo definido.
 
-## Contenido
+## Configuración
 
-- [ ] Reemplazar el contenido placeholder de `src/App.vue` ("Pagina web de la Candela" / "La cucuruchita mas linda") por el contenido real del sitio.
-- [ ] Definir y crear la(s) ruta(s) reales en `src/router/index.ts` (actualmente `routes: []`, vacío). El sitio se mantiene como SPA de una sola página, sin necesidad de rutas ni SEO por-ruta.
-- [ ] Crear estructura de `components/` — hoy no existe.
-
-## Configuración / deuda técnica
-
-- [ ] Corregir el nombre del proyecto en `package.json` (`"name": "web-arteterapiacande"` está truncado/con typo).
-- [ ] El deploy real es **Netlify**. El repo todavía tiene un workflow de GitHub Actions (`.github/workflows/deploy.yml`) que despliega a GitHub Pages, y `vite.config.ts` sigue teniendo la rama condicional `GITHUB_PAGES` para ese base path. Decidir si se eliminan (quedaron sin usarse) o si se mantienen como respaldo.
-- [ ] Definir esquema de colores / diseño (no hay CSS global ni framework de estilos configurado todavía).
+- [x] Nombre del proyecto en `package.json` corregido (`web-arteterapiacandela`).
+- [x] Workflow de GitHub Actions eliminado — el deploy es exclusivamente Netlify.
+- [x] Esquema de colores y diseño definido e implementado.
+- [x] Estructura de componentes creada.

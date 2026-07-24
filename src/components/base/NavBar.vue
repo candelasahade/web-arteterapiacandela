@@ -5,15 +5,17 @@ const isMenuOpen = ref(false)
 
 const navItems = [
   { label: 'Inicio', href: '#main' },
+  { label: 'Arteterapia', href: '#arteterapia' },
   { label: 'Sobre mí', href: '#sobre-mi' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Testimonios', href: '#testimonios' },
+  { label: 'FAQ', href: '#preguntas-frecuentes' },
   { label: 'Contacto', href: '#contacto' },
 ]
 </script>
 
 <template>
   <nav class="nav-bar" aria-label="Navegación principal">
+    <a class="nav-bar__brand" href="#main">Arteterapia Candela</a>
+
     <button
       type="button"
       class="nav-bar__toggle"
@@ -50,9 +52,27 @@ const navItems = [
   display: flex;
   align-items: center;
   height: var(--nav-height);
-  padding-inline: 1rem;
-  background-color: var(--color-bg);
-  border-bottom: 1px solid var(--color-accent-soft);
+  padding-inline: 1.25rem;
+  background-color: color-mix(in srgb, var(--color-background) 94%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-bar__brand {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+
+.nav-bar__brand:hover,
+.nav-bar__brand:focus-visible {
+  color: var(--color-accent);
 }
 
 .nav-bar__toggle {
@@ -67,6 +87,7 @@ const navItems = [
   border: none;
   background: none;
   cursor: pointer;
+  margin-left: auto;
 }
 
 .nav-bar__toggle-bar {
@@ -112,6 +133,8 @@ const navItems = [
   padding: 0.5rem 0.75rem;
   color: var(--color-text);
   text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
   font-weight: 500;
   border-radius: 0.375rem;
   transition:
@@ -122,10 +145,10 @@ const navItems = [
 .nav-bar__link:hover,
 .nav-bar__link:focus-visible {
   color: var(--color-accent);
-  background-color: var(--color-accent-soft);
+  background-color: color-mix(in srgb, var(--color-border) 50%, transparent);
 }
 
-/* Mobile: hamburger + collapsible dropdown panel */
+/* Mobile: hamburger + collapsible dropdown */
 @media (max-width: 767px) {
   .nav-bar__list {
     position: absolute;
@@ -136,21 +159,29 @@ const navItems = [
     flex-direction: column;
     align-items: center;
     gap: 0.25rem;
-    padding: 0.5rem 1rem 1rem;
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-accent-soft);
+    padding: 0.75rem 1rem 1.25rem;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
     transform: translateY(-8px);
     opacity: 0;
     pointer-events: none;
+    visibility: hidden;
     transition:
       transform 0.2s ease,
-      opacity 0.2s ease;
+      opacity 0.2s ease,
+      visibility 0s 0.2s;
   }
 
   .nav-bar__list--open {
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
+    visibility: visible;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease,
+      visibility 0s 0s;
   }
 
   .nav-bar__item {
@@ -159,10 +190,11 @@ const navItems = [
   }
 }
 
-/* Desktop: centered row, no hamburger */
+/* Desktop: brand left, links right */
 @media (min-width: 768px) {
   .nav-bar {
-    justify-content: center;
+    justify-content: space-between;
+    padding-inline: 2rem;
   }
 
   .nav-bar__toggle {
@@ -171,8 +203,7 @@ const navItems = [
 
   .nav-bar__list {
     display: flex;
-    justify-content: center;
-    gap: 1.5rem;
+    gap: 0.25rem;
   }
 }
 </style>

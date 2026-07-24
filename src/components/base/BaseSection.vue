@@ -1,10 +1,10 @@
 <script setup lang="ts">
-defineProps<{ id?: string }>()
+defineProps<{ id?: string; fullHeight?: boolean }>()
 defineSlots<{ default(): unknown }>()
 </script>
 
 <template>
-  <section :id="id" class="base-section">
+  <section :id="id" class="base-section" :class="{ 'base-section--full': fullHeight }">
     <div class="base-section__content">
       <slot />
     </div>
@@ -16,7 +16,9 @@ defineSlots<{ default(): unknown }>()
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
+}
+
+.base-section--full {
   min-height: 100dvh;
 }
 
@@ -27,18 +29,19 @@ defineSlots<{ default(): unknown }>()
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
-  padding-inline: 1rem;
+  padding-inline: 1.25rem;
+  padding-block: var(--section-padding);
 }
 
 @media (min-width: 640px) {
   .base-section__content {
-    padding-inline: 1.5rem;
+    padding-inline: 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .base-section__content {
-    padding-inline: 2.5rem;
+    padding-inline: 3rem;
   }
 }
 </style>

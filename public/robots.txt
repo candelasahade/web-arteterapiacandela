@@ -1,5 +1,4 @@
-# TODO: update the Sitemap URL below once a custom domain is connected in Netlify.
 User-agent: *
 Allow: /
 
-Sitemap: https://leafy-melba-6cf4bb.netlify.app/sitemap.xml
+Sitemap: https://arteterapiacandela.com/sitemap.xml
