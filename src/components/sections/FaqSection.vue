@@ -1,35 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import BaseSection from '../base/BaseSection.vue'
 
-// PLACEHOLDER: preguntas y respuestas a revisar/confirmar con Candela
-const faqs = [
-  {
-    question: '¿Necesito saber dibujar o pintar?',
-    answer:
-      'No. La arteterapia no busca resultados estéticos ni habilidad artística: el proceso creativo es el medio, no el objetivo.',
-  },
-  {
-    question: '¿A partir de qué edad pueden participar los niños?',
-    answer:
-      'Completar con la edad mínima recomendada según la experiencia de Candela.',
-  },
-  {
-    question: '¿Las sesiones son online o presenciales?',
-    answer:
-      'Ambas modalidades están disponibles: presencial en Barcelona y Sant Cugat, u online.',
-  },
-  {
-    question: '¿Cómo sé si la arteterapia es adecuada para mi hijo o hija?',
-    answer:
-      'En la primera entrevista conversamos sobre la situación particular y evaluamos juntas si este es el espacio adecuado.',
-  },
-  {
-    question: '¿Cuánto dura el proceso terapéutico?',
-    answer:
-      'Completar con los criterios habituales de duración según cada proceso.',
-  },
-]
+interface FaqItem {
+  question: string
+  answer: string
+}
+
+const { t, tm } = useI18n()
+
+const faqs = computed(() => tm('faq.items') as FaqItem[])
 
 const openIndex = ref<number | null>(null)
 
@@ -42,8 +23,8 @@ function toggle(index: number) {
   <BaseSection id="preguntas-frecuentes" class="bg-alt">
     <div class="faq">
       <header class="faq__header">
-        <p class="faq__eyebrow">Todo lo que necesitás saber</p>
-        <h2 class="faq__title">Preguntas frecuentes</h2>
+        <p class="faq__eyebrow">{{ t('faq.eyebrow') }}</p>
+        <h2 class="faq__title">{{ t('faq.title') }}</h2>
       </header>
 
       <div class="faq__list">

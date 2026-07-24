@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import BaseSection from '../base/BaseSection.vue'
+
+const { t } = useI18n()
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
@@ -53,10 +56,9 @@ async function handleSubmit() {
   <BaseSection id="contacto" class="bg-tinted">
     <div class="contact">
       <div class="contact__header">
-        <h2 class="contact__title">Hablemos</h2>
+        <h2 class="contact__title">{{ t('contact.title') }}</h2>
         <p class="contact__lead">
-          Escribime para agendar una primera entrevista o resolver cualquier consulta.
-          Intento responder en menos de 48 horas.
+          {{ t('contact.lead') }}
         </p>
       </div>
 
@@ -64,16 +66,38 @@ async function handleSubmit() {
         <!-- Contact form -->
         <div class="contact__form-wrap">
           <!-- Success state -->
-          <div v-if="status === 'success'" class="contact__success" role="alert">
+          <div
+            v-if="status === 'success'"
+            class="contact__success"
+            role="alert"
+          >
             <span class="contact__success-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" />
-                <path d="M8 12.5l2.5 2.5L16 9" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="9"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M8 12.5l2.5 2.5L16 9"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </span>
-            <h3>¡Mensaje enviado!</h3>
-            <p>Muchas gracias por escribirme. Te responderé en menos de 48 horas.</p>
-            <button class="contact__retry-btn" @click="status = 'idle'">Enviar otro mensaje</button>
+            <h3>{{ t('contact.success.title') }}</h3>
+            <p>{{ t('contact.success.body') }}</p>
+            <button class="contact__retry-btn" @click="status = 'idle'">
+              {{ t('contact.success.retry') }}
+            </button>
           </div>
 
           <!-- Form -->
@@ -92,18 +116,25 @@ async function handleSubmit() {
             <!-- Honeypot: visually hidden, bots fill it, humans don't -->
             <div class="contact__honeypot" aria-hidden="true">
               <label>
-                No rellenar este campo
-                <input v-model="fields['bot-field']" name="bot-field" type="text" tabindex="-1" autocomplete="off" />
+                {{ t('contact.honeypotLabel') }}
+                <input
+                  v-model="fields['bot-field']"
+                  name="bot-field"
+                  type="text"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
               </label>
             </div>
 
             <p class="contact__required-note">
-              <span aria-hidden="true">*</span> Campos obligatorios
+              <span aria-hidden="true">*</span> {{ t('contact.requiredNote') }}
             </p>
 
             <div class="contact__field">
               <label class="contact__label" for="contact-nombre">
-                Nombre <span class="contact__required-mark" aria-hidden="true">*</span>
+                {{ t('contact.labels.nombre') }}
+                <span class="contact__required-mark" aria-hidden="true">*</span>
               </label>
               <input
                 id="contact-nombre"
@@ -120,7 +151,8 @@ async function handleSubmit() {
 
             <div class="contact__field">
               <label class="contact__label" for="contact-email">
-                Email <span class="contact__required-mark" aria-hidden="true">*</span>
+                {{ t('contact.labels.email') }}
+                <span class="contact__required-mark" aria-hidden="true">*</span>
               </label>
               <input
                 id="contact-email"
@@ -137,7 +169,8 @@ async function handleSubmit() {
 
             <div class="contact__field">
               <label class="contact__label" for="contact-mensaje">
-                Mensaje <span class="contact__required-mark" aria-hidden="true">*</span>
+                {{ t('contact.labels.mensaje') }}
+                <span class="contact__required-mark" aria-hidden="true">*</span>
               </label>
               <textarea
                 id="contact-mensaje"
@@ -153,24 +186,37 @@ async function handleSubmit() {
 
             <!-- Error banner -->
             <p v-if="status === 'error'" class="contact__error" role="alert">
-              Algo fue mal al enviar el mensaje. Por favor, intentá de nuevo o escribime directamente por email.
+              {{ t('contact.error') }}
             </p>
 
             <button
               class="contact__submit"
               type="submit"
-              :disabled="status === 'loading' || !fields.nombre || !fields.email || !fields.mensaje"
+              :disabled="
+                status === 'loading' ||
+                !fields.nombre ||
+                !fields.email ||
+                !fields.mensaje
+              "
             >
-              <span v-if="status === 'loading'" class="contact__spinner" aria-hidden="true"></span>
-              {{ status === 'loading' ? 'Enviando…' : 'Enviar mensaje' }}
+              <span
+                v-if="status === 'loading'"
+                class="contact__spinner"
+                aria-hidden="true"
+              ></span>
+              {{
+                status === 'loading'
+                  ? t('contact.submit.loading')
+                  : t('contact.submit.idle')
+              }}
             </button>
           </form>
         </div>
       </div>
 
       <p class="contact__phone">
-        O si preferís,
-        <a href="tel:+34692665220">llamá al +34 692 665 220</a>
+        {{ t('contact.phonePrefix') }}
+        <a href="tel:+34692665220">{{ t('contact.phoneCta') }}</a>
       </p>
     </div>
   </BaseSection>
@@ -288,7 +334,8 @@ async function handleSubmit() {
 .contact__input:focus,
 .contact__textarea:focus {
   border-color: var(--color-secondary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-secondary) 20%, transparent);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--color-secondary) 20%, transparent);
 }
 
 .contact__input:disabled,
@@ -323,7 +370,8 @@ async function handleSubmit() {
   border-radius: 999px;
   cursor: pointer;
   letter-spacing: 0.02em;
-  box-shadow: 0 4px 16px color-mix(in srgb, var(--color-accent) 30%, transparent);
+  box-shadow: 0 4px 16px
+    color-mix(in srgb, var(--color-accent) 30%, transparent);
   transition:
     background-color 0.2s ease,
     transform 0.2s ease,
@@ -334,7 +382,8 @@ async function handleSubmit() {
 .contact__submit:hover:not(:disabled) {
   background-color: color-mix(in srgb, var(--color-accent) 85%, black);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px color-mix(in srgb, var(--color-accent) 40%, transparent);
+  box-shadow: 0 6px 20px
+    color-mix(in srgb, var(--color-accent) 40%, transparent);
 }
 
 .contact__submit:disabled {
@@ -356,7 +405,9 @@ async function handleSubmit() {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Success state */
@@ -368,7 +419,8 @@ async function handleSubmit() {
   gap: 0.875rem;
   padding: 2.5rem 2rem;
   background-color: var(--color-surface);
-  border: 1px solid color-mix(in srgb, var(--color-secondary) 50%, var(--color-border));
+  border: 1px solid
+    color-mix(in srgb, var(--color-secondary) 50%, var(--color-border));
   border-radius: 1.5rem;
   box-shadow: var(--shadow-soft);
 }
@@ -411,7 +463,9 @@ async function handleSubmit() {
   border: 1px solid var(--color-border);
   border-radius: 999px;
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .contact__retry-btn:hover {
@@ -432,7 +486,9 @@ async function handleSubmit() {
   font-weight: 500;
   text-decoration: none;
   border-bottom: 1px solid var(--color-border);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .contact__phone a:hover,

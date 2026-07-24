@@ -1,28 +1,34 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import BaseSection from '../base/BaseSection.vue'
+
+const { t, tm } = useI18n()
+
+const phraseLines = computed(() => tm('main.phraseLines') as string[])
 </script>
 
 <template>
   <BaseSection id="main" :full-height="true">
     <div class="main-section">
       <div class="main-section__text">
-        <p class="main-section__eyebrow">Barcelona · Sant Cugat del Vallès · Online</p>
-        <h1 class="main-section__phrase">Un espacio para<br>crear, sentir<br>y crecer</h1>
-        <!-- PLACEHOLDER: párrafo de enfoque a revisar con Candela -->
+        <p class="main-section__eyebrow">{{ t('main.eyebrow') }}</p>
+        <h1 class="main-section__phrase">
+          <template v-for="(line, i) in phraseLines" :key="i"
+            >{{ line }}<br v-if="i < phraseLines.length - 1"
+          /></template>
+        </h1>
         <p class="main-section__lead">
-          Acompaño procesos de crecimiento emocional a través del arte, combinando
-          escucha, presencia y creatividad. Cada persona encuentra su propio
-          lenguaje para expresar aquello que a veces las palabras no alcanzan a
-          decir.
+          {{ t('main.lead') }}
         </p>
-        <a class="main-section__cta" href="#contacto">Solicitar una primera entrevista</a>
+        <a class="main-section__cta" href="#contacto">{{ t('main.cta') }}</a>
       </div>
 
       <!-- Abstract art composition — replaced by a real photo when available -->
       <div
         class="main-section__visual"
         role="img"
-        aria-label="Composición abstracta en tonos tierra que evoca la creatividad artística"
+        :aria-label="t('main.visualAlt')"
       >
         <div class="main-section__paint main-section__paint--1"></div>
         <div class="main-section__paint main-section__paint--2"></div>
@@ -93,7 +99,8 @@ import BaseSection from '../base/BaseSection.vue'
   text-decoration: none;
   border-radius: 999px;
   letter-spacing: 0.02em;
-  box-shadow: 0 4px 16px color-mix(in srgb, var(--color-accent) 30%, transparent);
+  box-shadow: 0 4px 16px
+    color-mix(in srgb, var(--color-accent) 30%, transparent);
   transition:
     background-color 0.2s ease,
     transform 0.2s ease,
@@ -104,7 +111,8 @@ import BaseSection from '../base/BaseSection.vue'
 .main-section__cta:focus-visible {
   background-color: color-mix(in srgb, var(--color-accent) 85%, black);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px color-mix(in srgb, var(--color-accent) 40%, transparent);
+  box-shadow: 0 6px 20px
+    color-mix(in srgb, var(--color-accent) 40%, transparent);
 }
 
 /* Abstract paint composition */
@@ -154,7 +162,11 @@ import BaseSection from '../base/BaseSection.vue'
   height: 35%;
   top: 5%;
   right: 10%;
-  background-color: color-mix(in srgb, var(--color-accent) 20%, var(--color-secondary));
+  background-color: color-mix(
+    in srgb,
+    var(--color-accent) 20%,
+    var(--color-secondary)
+  );
   opacity: 0.7;
   filter: blur(20px);
 }

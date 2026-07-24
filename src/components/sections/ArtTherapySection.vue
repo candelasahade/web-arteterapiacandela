@@ -1,83 +1,61 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import BaseSection from '../base/BaseSection.vue'
+
+interface ArtTherapyCard {
+  title: string
+  paragraphs: string[]
+  facts?: { label: string; value: string }[]
+}
+
+const { t, tm } = useI18n()
+
+const cards = computed(() => tm('artTherapy.cards') as ArtTherapyCard[])
 </script>
 
 <template>
   <BaseSection id="arteterapia" class="bg-alt">
     <div class="art-therapy">
-      <h2 class="art-therapy__title">Arteterapia</h2>
+      <h2 class="art-therapy__title">{{ t('artTherapy.title') }}</h2>
       <p class="art-therapy__intro">
-        Un acompañamiento donde el proceso creativo abre caminos que las palabras a veces no alcanzan.
+        {{ t('artTherapy.intro') }}
       </p>
 
       <div class="art-therapy__grid">
-        <article class="art-therapy__card">
-          <div class="art-therapy__blob art-therapy__blob--accent" aria-hidden="true" />
-          <h3 class="art-therapy__card-title">¿Qué es la arteterapia?</h3>
-          <!-- Definición basada en ATE/FEAPA -->
-          <p class="art-therapy__card-text">
-            Es una vía de acompañamiento que utiliza el proceso de creación
-            artística para facilitar procesos terapéuticos y promover el
-            bienestar emocional, dentro de una relación terapéutica segura y
-            de confianza.
-          </p>
-          <p class="art-therapy__card-text">
-            No es lo mismo que el "arte como sanación" por sí solo: en
-            arteterapia el arte no se usa como herramienta de diagnóstico,
-            sino como un medio para abordar dificultades emocionales,
-            siempre acompañado por una profesional formada específicamente
-            en esta disciplina.
-          </p>
-        </article>
+        <article
+          v-for="(card, i) in cards"
+          :key="card.title"
+          class="art-therapy__card"
+        >
+          <div
+            class="art-therapy__blob"
+            :class="
+              i % 2 === 0
+                ? 'art-therapy__blob--accent'
+                : 'art-therapy__blob--secondary'
+            "
+            aria-hidden="true"
+          />
+          <h3 class="art-therapy__card-title">{{ card.title }}</h3>
 
-        <!-- PLACEHOLDER: situaciones concretas a confirmar con Candela -->
-        <article class="art-therapy__card">
-          <div class="art-therapy__blob art-therapy__blob--secondary" aria-hidden="true" />
-          <h3 class="art-therapy__card-title">¿En qué situaciones puede ayudar?</h3>
-          <p class="art-therapy__card-text">
-            Puede acompañar procesos como la dificultad para expresar
-            emociones, momentos de cambio, situaciones de ansiedad o estrés,
-            o etapas del desarrollo especialmente sensibles en la infancia y
-            la adolescencia. Cada proceso es distinto y se adapta a la
-            persona, no a un diagnóstico.
-          </p>
-        </article>
-
-        <!-- PLACEHOLDER: duración, frecuencia y materiales reales a confirmar -->
-        <article class="art-therapy__card">
-          <div class="art-therapy__blob art-therapy__blob--accent" aria-hidden="true" />
-          <h3 class="art-therapy__card-title">¿Cómo es una sesión?</h3>
-          <dl class="art-therapy__facts">
-            <div class="art-therapy__fact">
-              <dt>Duración</dt>
-              <dd>50–60 minutos</dd>
-            </div>
-            <div class="art-therapy__fact">
-              <dt>Frecuencia</dt>
-              <dd>Semanal o quincenal, según el proceso</dd>
-            </div>
-            <div class="art-therapy__fact">
-              <dt>Materiales</dt>
-              <dd>Pintura, arcilla, collage y otros materiales plásticos</dd>
+          <dl v-if="card.facts" class="art-therapy__facts">
+            <div
+              v-for="fact in card.facts"
+              :key="fact.label"
+              class="art-therapy__fact"
+            >
+              <dt>{{ fact.label }}</dt>
+              <dd>{{ fact.value }}</dd>
             </div>
           </dl>
-          <p class="art-therapy__card-text">
-            Cada sesión combina un espacio de creación con un momento de
-            palabra y reflexión sobre lo que fue apareciendo, siempre
-            respetando el ritmo de cada persona. El proceso comienza con una
-            primera entrevista para conocernos.
-          </p>
-        </article>
 
-        <!-- PLACEHOLDER: ajustar con las palabras propias de Candela -->
-        <article class="art-therapy__card">
-          <div class="art-therapy__blob art-therapy__blob--secondary" aria-hidden="true" />
-          <h3 class="art-therapy__card-title">Mi forma de acompañar</h3>
-          <p class="art-therapy__card-text">
-            Entiendo la arteterapia desde un enfoque relacional: el vínculo
-            que construimos juntas es, en sí mismo, parte del proceso
-            terapéutico. Mi lugar es sostener un espacio seguro donde el
-            arte pueda abrir caminos que a veces las palabras no alcanzan.
+          <p
+            v-for="(paragraph, pi) in card.paragraphs"
+            :key="pi"
+            class="art-therapy__card-text"
+          >
+            {{ paragraph }}
           </p>
         </article>
       </div>

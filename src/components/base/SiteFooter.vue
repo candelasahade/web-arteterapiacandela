@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -8,11 +11,11 @@
         <div class="footer__brand">
           <p class="footer__name">Arteterapia Candela</p>
           <p class="footer__tagline">
-            Un espacio terapéutico y creativo para crecer a través del arte.
+            {{ t('footer.tagline') }}
           </p>
         </div>
 
-        <nav class="footer__nav" aria-label="Redes sociales">
+        <nav class="footer__nav" :aria-label="t('footer.socialAriaLabel')">
           <ul class="footer__social">
             <li>
               <a
@@ -20,11 +23,30 @@
                 href="https://www.instagram.com/arteterapia.candela"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram de Arteterapia Candela"
+                :aria-label="t('footer.instagramLabel')"
               >
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" stroke-width="1.5" />
-                  <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5" />
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <rect
+                    x="2"
+                    y="2"
+                    width="20"
+                    height="20"
+                    rx="5.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
                   <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
                 </svg>
               </a>
@@ -37,7 +59,9 @@
       <hr class="footer__divider" />
 
       <div class="footer__bottom">
-        <p class="footer__copyright">© {{ new Date().getFullYear() }} Arteterapia Candela</p>
+        <p class="footer__copyright">
+          © {{ new Date().getFullYear() }} Arteterapia Candela
+        </p>
         <p class="footer__location">Barcelona · Sant Cugat del Vallès</p>
       </div>
     </div>

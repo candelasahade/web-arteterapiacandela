@@ -12,7 +12,8 @@
   --color-text-light: #5c594e;
 
   /* Typography: Inter for body, Libre Baskerville for headings */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Libre Baskerville', Georgia, serif;
 
   /* Elevation */
@@ -97,5 +98,9 @@ body {
 }
 
 .bg-tinted {
-  background-color: color-mix(in srgb, var(--color-secondary) 10%, var(--color-background));
+  background-color: color-mix(
+    in srgb,
+    var(--color-secondary) 10%,
+    var(--color-background)
+  );
 }

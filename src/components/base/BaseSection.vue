@@ -4,7 +4,11 @@ defineSlots<{ default(): unknown }>()
 </script>
 
 <template>
-  <section :id="id" class="base-section" :class="{ 'base-section--full': fullHeight }">
+  <section
+    :id="id"
+    class="base-section"
+    :class="{ 'base-section--full': fullHeight }"
+  >
     <div class="base-section__content">
       <slot />
     </div>

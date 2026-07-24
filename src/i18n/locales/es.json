@@ -1,0 +1,137 @@
+{
+  "skipLink": "Saltar al contenido principal",
+  "nav": {
+    "ariaLabel": "Navegación principal",
+    "toggleOpen": "Abrir menú",
+    "toggleClose": "Cerrar menú",
+    "items": {
+      "home": "Inicio",
+      "artTherapy": "Arteterapia",
+      "about": "Sobre mí",
+      "faq": "FAQ",
+      "contact": "Contacto"
+    }
+  },
+  "footer": {
+    "tagline": "Un espacio terapéutico y creativo para crecer a través del arte.",
+    "socialAriaLabel": "Redes sociales",
+    "instagramLabel": "Instagram de Arteterapia Candela"
+  },
+  "main": {
+    "eyebrow": "Barcelona · Sant Cugat del Vallès · Online",
+    "phraseLines": ["Un espacio para", "crear, sentir", "y crecer"],
+    "lead": "Acompaño procesos de crecimiento emocional a través del arte, combinando escucha, presencia y creatividad. Cada persona encuentra su propio lenguaje para expresar aquello que a veces las palabras no alcanzan a decir.",
+    "cta": "Solicitar una primera entrevista",
+    "visualAlt": "Composición abstracta en tonos tierra que evoca la creatividad artística"
+  },
+  "artTherapy": {
+    "title": "Arteterapia",
+    "intro": "Un acompañamiento donde el proceso creativo abre caminos que las palabras a veces no alcanzan.",
+    "cards": [
+      {
+        "title": "¿Qué es la arteterapia?",
+        "paragraphs": [
+          "Es una vía de acompañamiento que utiliza el proceso de creación artística para facilitar procesos terapéuticos y promover el bienestar emocional, dentro de una relación terapéutica segura y de confianza.",
+          "No es lo mismo que el \"arte como sanación\" por sí solo: en arteterapia el arte no se usa como herramienta de diagnóstico, sino como un medio para abordar dificultades emocionales, siempre acompañado por una profesional formada específicamente en esta disciplina."
+        ]
+      },
+      {
+        "title": "¿En qué situaciones puede ayudar?",
+        "paragraphs": [
+          "Puede acompañar procesos como la dificultad para expresar emociones, momentos de cambio, situaciones de ansiedad o estrés, o etapas del desarrollo especialmente sensibles en la infancia y la adolescencia. Cada proceso es distinto y se adapta a la persona, no a un diagnóstico."
+        ]
+      },
+      {
+        "title": "¿Cómo es una sesión?",
+        "facts": [
+          { "label": "Duración", "value": "50–60 minutos" },
+          {
+            "label": "Frecuencia",
+            "value": "Semanal o quincenal, según el proceso"
+          },
+          {
+            "label": "Materiales",
+            "value": "Pintura, arcilla, collage y otros materiales plásticos"
+          }
+        ],
+        "paragraphs": [
+          "Cada sesión combina un espacio de creación con un momento de palabra y reflexión sobre lo que fue apareciendo, siempre respetando el ritmo de cada persona. El proceso comienza con una primera entrevista para conocernos."
+        ]
+      },
+      {
+        "title": "Mi forma de acompañar",
+        "paragraphs": [
+          "Entiendo la arteterapia desde un enfoque relacional: el vínculo que construimos juntas es, en sí mismo, parte del proceso terapéutico. Mi lugar es sostener un espacio seguro donde el arte pueda abrir caminos que a veces las palabras no alcanzan."
+        ]
+      }
+    ]
+  },
+  "about": {
+    "title": "Sobre mí",
+    "photoAlt": "Foto de Candela (próximamente)",
+    "introText": "Soy Candela, arteterapeuta especializada en el acompañamiento de niños y adolescentes. Creo en el arte como un lenguaje capaz de decir aquello que a veces cuesta poner en palabras.",
+    "blocks": [
+      {
+        "title": "Qué me llevó a la arteterapia",
+        "body": "Desde siempre el arte fue mi manera de procesar lo que sentía. Con el tiempo entendí que quería acompañar a otras personas a encontrar ese mismo espacio de expresión y cuidado."
+      },
+      {
+        "title": "Formación",
+        "body": "Magíster en Arteterapia Relacional."
+      },
+      {
+        "title": "Experiencia",
+        "body": "Completar con la trayectoria de Candela: dónde trabajó, con qué poblaciones y proyectos destacados."
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Todo lo que necesitás saber",
+    "title": "Preguntas frecuentes",
+    "items": [
+      {
+        "question": "¿Necesito saber dibujar o pintar?",
+        "answer": "No. La arteterapia no busca resultados estéticos ni habilidad artística: el proceso creativo es el medio, no el objetivo."
+      },
+      {
+        "question": "¿A partir de qué edad pueden participar los niños?",
+        "answer": "Completar con la edad mínima recomendada según la experiencia de Candela."
+      },
+      {
+        "question": "¿Las sesiones son online o presenciales?",
+        "answer": "Ambas modalidades están disponibles: presencial en Barcelona y Sant Cugat, u online."
+      },
+      {
+        "question": "¿Cómo sé si la arteterapia es adecuada para mi hijo o hija?",
+        "answer": "En la primera entrevista conversamos sobre la situación particular y evaluamos juntas si este es el espacio adecuado."
+      },
+      {
+        "question": "¿Cuánto dura el proceso terapéutico?",
+        "answer": "Completar con los criterios habituales de duración según cada proceso."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Hablemos",
+    "lead": "Escribime para agendar una primera entrevista o resolver cualquier consulta. Intento responder en menos de 48 horas.",
+    "requiredNote": "Campos obligatorios",
+    "honeypotLabel": "No rellenar este campo",
+    "labels": {
+      "nombre": "Nombre",
+      "email": "Email",
+      "mensaje": "Mensaje"
+    },
+    "submit": {
+      "idle": "Enviar mensaje",
+      "loading": "Enviando…"
+    },
+    "success": {
+      "title": "¡Mensaje enviado!",
+      "body": "Muchas gracias por escribirme. Te responderé en menos de 48 horas.",
+      "retry": "Enviar otro mensaje"
+    },
+    "error": "Algo fue mal al enviar el mensaje. Por favor, intentá de nuevo o escribime directamente por email.",
+    "phonePrefix": "O si preferís,",
+    "phoneCta": "llamá al +34 692 665 220"
+  }
+}

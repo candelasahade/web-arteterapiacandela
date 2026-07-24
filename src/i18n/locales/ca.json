@@ -1,0 +1,137 @@
+{
+  "skipLink": "Saltar al contingut principal",
+  "nav": {
+    "ariaLabel": "Navegació principal",
+    "toggleOpen": "Obrir menú",
+    "toggleClose": "Tancar menú",
+    "items": {
+      "home": "Inici",
+      "artTherapy": "Art-teràpia",
+      "about": "Sobre mi",
+      "faq": "FAQ",
+      "contact": "Contacte"
+    }
+  },
+  "footer": {
+    "tagline": "Un espai terapèutic i creatiu per créixer a través de l'art.",
+    "socialAriaLabel": "Xarxes socials",
+    "instagramLabel": "Instagram d'Art-teràpia Candela"
+  },
+  "main": {
+    "eyebrow": "Barcelona · Sant Cugat del Vallès · Online",
+    "phraseLines": ["Un espai per", "crear, sentir", "i créixer"],
+    "lead": "Acompanyo processos de creixement emocional a través de l'art, combinant escolta, presència i creativitat. Cada persona troba el seu propi llenguatge per expressar allò que de vegades les paraules no arriben a dir.",
+    "cta": "Sol·licitar una primera entrevista",
+    "visualAlt": "Composició abstracta en tons terra que evoca la creativitat artística"
+  },
+  "artTherapy": {
+    "title": "Art-teràpia",
+    "intro": "Un acompanyament on el procés creatiu obre camins que, de vegades, les paraules no assoleixen.",
+    "cards": [
+      {
+        "title": "Què és l'art-teràpia?",
+        "paragraphs": [
+          "És una via d'acompanyament que utilitza el procés de creació artística per facilitar processos terapèutics i promoure el benestar emocional, dins d'una relació terapèutica segura i de confiança.",
+          "No és el mateix que l'«art com a sanació» per si sol: en art-teràpia l'art no s'utilitza com a eina de diagnòstic, sinó com un mitjà per abordar dificultats emocionals, sempre acompanyat per una professional formada específicament en aquesta disciplina."
+        ]
+      },
+      {
+        "title": "En quines situacions pot ajudar?",
+        "paragraphs": [
+          "Pot acompanyar processos com la dificultat per expressar emocions, moments de canvi, situacions d'ansietat o estrès, o etapes del desenvolupament especialment sensibles en la infància i l'adolescència. Cada procés és diferent i s'adapta a la persona, no a un diagnòstic."
+        ]
+      },
+      {
+        "title": "Com és una sessió?",
+        "facts": [
+          { "label": "Durada", "value": "50–60 minuts" },
+          {
+            "label": "Freqüència",
+            "value": "Setmanal o quinzenal, segons el procés"
+          },
+          {
+            "label": "Materials",
+            "value": "Pintura, argila, collage i altres materials plàstics"
+          }
+        ],
+        "paragraphs": [
+          "Cada sessió combina un espai de creació amb un moment de paraula i reflexió sobre allò que ha anat apareixent, sempre respectant el ritme de cada persona. El procés comença amb una primera entrevista per conèixer-nos."
+        ]
+      },
+      {
+        "title": "La meva manera d'acompanyar",
+        "paragraphs": [
+          "Entenc l'art-teràpia des d'un enfocament relacional: el vincle que construïm juntes és, en si mateix, part del procés terapèutic. El meu lloc és sostenir un espai segur on l'art pugui obrir camins que de vegades les paraules no assoleixen."
+        ]
+      }
+    ]
+  },
+  "about": {
+    "title": "Sobre mi",
+    "photoAlt": "Foto de Candela (properament)",
+    "introText": "Sóc Candela, art-terapeuta especialitzada en l'acompanyament d'infants i adolescents. Crec en l'art com un llenguatge capaç de dir allò que de vegades costa posar en paraules.",
+    "blocks": [
+      {
+        "title": "Què em va portar a l'art-teràpia",
+        "body": "Des de sempre l'art va ser la meva manera de processar allò que sentia. Amb el temps vaig entendre que volia acompanyar altres persones a trobar aquest mateix espai d'expressió i cura."
+      },
+      {
+        "title": "Formació",
+        "body": "Màster en Art-teràpia Relacional."
+      },
+      {
+        "title": "Experiència",
+        "body": "Completar amb la trajectòria de Candela: on va treballar, amb quines poblacions i projectes destacats."
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Tot el que necessites saber",
+    "title": "Preguntes freqüents",
+    "items": [
+      {
+        "question": "Necessito saber dibuixar o pintar?",
+        "answer": "No. L'art-teràpia no busca resultats estètics ni habilitat artística: el procés creatiu és el mitjà, no l'objectiu."
+      },
+      {
+        "question": "A partir de quina edat poden participar els infants?",
+        "answer": "Completar amb l'edat mínima recomanada segons l'experiència de Candela."
+      },
+      {
+        "question": "Les sessions són online o presencials?",
+        "answer": "Ambdues modalitats estan disponibles: presencial a Barcelona i Sant Cugat, o online."
+      },
+      {
+        "question": "Com sé si l'art-teràpia és adequada per al meu fill o filla?",
+        "answer": "A la primera entrevista conversem sobre la situació particular i avaluem juntes si aquest és l'espai adequat."
+      },
+      {
+        "question": "Quant dura el procés terapèutic?",
+        "answer": "Completar amb els criteris habituals de durada segons cada procés."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Parlem",
+    "lead": "Escriu-me per agendar una primera entrevista o resoldre qualsevol consulta. Intento respondre en menys de 48 hores.",
+    "requiredNote": "Camps obligatoris",
+    "honeypotLabel": "No emplenar aquest camp",
+    "labels": {
+      "nombre": "Nom",
+      "email": "Correu electrònic",
+      "mensaje": "Missatge"
+    },
+    "submit": {
+      "idle": "Enviar missatge",
+      "loading": "Enviant…"
+    },
+    "success": {
+      "title": "Missatge enviat!",
+      "body": "Moltes gràcies per escriure'm. Et respondré en menys de 48 hores.",
+      "retry": "Enviar un altre missatge"
+    },
+    "error": "Alguna cosa ha anat malament en enviar el missatge. Si us plau, torna-ho a intentar o escriu-me directament per correu electrònic.",
+    "phonePrefix": "O si ho prefereixes,",
+    "phoneCta": "truca al +34 692 665 220"
+  }
+}

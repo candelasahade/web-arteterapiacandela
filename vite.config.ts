@@ -12,4 +12,15 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  define: {
+    // Required by vue-i18n: Vue's compile-time feature flags aren't
+    // injected automatically outside the browser build.
+    __VUE_PROD_DEVTOOLS__: 'false',
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false',
+  },
+  ssr: {
+    // vue-i18n reads the __VUE_*__ defines above; those substitutions only
+    // apply to code Vite bundles, so it can't stay externalized in SSR.
+    noExternal: ['vue-i18n'],
+  },
 })

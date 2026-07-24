@@ -1,34 +1,44 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import LanguageSwitcher from './LanguageSwitcher.vue'
+
+const { t } = useI18n()
 
 const isMenuOpen = ref(false)
 
 const navItems = [
-  { label: 'Inicio', href: '#main' },
-  { label: 'Arteterapia', href: '#arteterapia' },
-  { label: 'Sobre mí', href: '#sobre-mi' },
-  { label: 'FAQ', href: '#preguntas-frecuentes' },
-  { label: 'Contacto', href: '#contacto' },
+  { key: 'home', href: '#main' },
+  { key: 'artTherapy', href: '#arteterapia' },
+  { key: 'about', href: '#sobre-mi' },
+  { key: 'faq', href: '#preguntas-frecuentes' },
+  { key: 'contact', href: '#contacto' },
 ]
 </script>
 
 <template>
-  <nav class="nav-bar" aria-label="Navegación principal">
+  <nav class="nav-bar" :aria-label="t('nav.ariaLabel')">
     <a class="nav-bar__brand" href="#main">Arteterapia Candela</a>
 
-    <button
-      type="button"
-      class="nav-bar__toggle"
-      :class="{ 'nav-bar__toggle--open': isMenuOpen }"
-      aria-controls="nav-bar-menu"
-      :aria-expanded="isMenuOpen"
-      @click="isMenuOpen = !isMenuOpen"
-    >
-      <span class="nav-bar__toggle-bar" />
-      <span class="nav-bar__toggle-bar" />
-      <span class="nav-bar__toggle-bar" />
-      <span class="nav-bar__sr-only">{{ isMenuOpen ? 'Cerrar menú' : 'Abrir menú' }}</span>
-    </button>
+    <div class="nav-bar__actions">
+      <LanguageSwitcher />
+
+      <button
+        type="button"
+        class="nav-bar__toggle"
+        :class="{ 'nav-bar__toggle--open': isMenuOpen }"
+        aria-controls="nav-bar-menu"
+        :aria-expanded="isMenuOpen"
+        @click="isMenuOpen = !isMenuOpen"
+      >
+        <span class="nav-bar__toggle-bar" />
+        <span class="nav-bar__toggle-bar" />
+        <span class="nav-bar__toggle-bar" />
+        <span class="nav-bar__sr-only">{{
+          isMenuOpen ? t('nav.toggleClose') : t('nav.toggleOpen')
+        }}</span>
+      </button>
+    </div>
 
     <ul
       id="nav-bar-menu"
@@ -37,7 +47,7 @@ const navItems = [
     >
       <li v-for="item in navItems" :key="item.href" class="nav-bar__item">
         <a class="nav-bar__link" :href="item.href" @click="isMenuOpen = false">
-          {{ item.label }}
+          {{ t(`nav.items.${item.key}`) }}
         </a>
       </li>
     </ul>
@@ -53,7 +63,11 @@ const navItems = [
   align-items: center;
   height: var(--nav-height);
   padding-inline: 1.25rem;
-  background-color: color-mix(in srgb, var(--color-background) 94%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--color-background) 94%,
+    transparent
+  );
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-border);
@@ -75,6 +89,13 @@ const navItems = [
   color: var(--color-accent);
 }
 
+.nav-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
 .nav-bar__toggle {
   display: flex;
   flex-direction: column;
@@ -87,7 +108,6 @@ const navItems = [
   border: none;
   background: none;
   cursor: pointer;
-  margin-left: auto;
 }
 
 .nav-bar__toggle-bar {
@@ -190,10 +210,11 @@ const navItems = [
   }
 }
 
-/* Desktop: brand left, links right */
+/* Desktop: brand left, language switcher + links right */
 @media (min-width: 768px) {
   .nav-bar {
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 1.5rem;
     padding-inline: 2rem;
   }
 
