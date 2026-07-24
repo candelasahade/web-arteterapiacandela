@@ -21,7 +21,7 @@
   --shadow-card: 0 4px 24px rgba(13, 13, 13, 0.09);
 
   /* Layout */
-  --nav-height: 4rem;
+  --nav-height: 4.75rem;
   --section-padding: clamp(3.5rem, 6vw, 6rem);
 }
 

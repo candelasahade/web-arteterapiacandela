@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import LanguageSwitcher from './LanguageSwitcher.vue'
 
@@ -14,10 +14,69 @@ const navItems = [
   { key: 'faq', href: '#preguntas-frecuentes' },
   { key: 'contact', href: '#contacto' },
 ]
+
+// Which section is currently sitting behind the sticky nav — used to flip
+// the nav's own background so it never blends into a same-colored section.
+type SectionTone = 'base' | 'surface'
+const SECTION_TONES: Record<string, SectionTone> = {
+  main: 'base',
+  arteterapia: 'surface',
+  'sobre-mi': 'base',
+  'preguntas-frecuentes': 'surface',
+  contacto: 'surface',
+}
+
+const navRef = ref<HTMLElement | null>(null)
+const activeTone = ref<SectionTone>('base')
+
+let observer: IntersectionObserver | null = null
+
+function observeSections() {
+  observer?.disconnect()
+
+  const navHeight = navRef.value?.offsetHeight ?? 64
+  // Shrink the observed root down to a 1px line just below the nav, so
+  // whichever section crosses that line is the one currently behind it.
+  const bottomInset = Math.max(window.innerHeight - navHeight - 1, 0)
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          const tone = SECTION_TONES[entry.target.id]
+          if (tone) activeTone.value = tone
+        }
+      }
+    },
+    { rootMargin: `-${navHeight}px 0px -${bottomInset}px 0px`, threshold: 0 },
+  )
+
+  for (const id of Object.keys(SECTION_TONES)) {
+    const el = document.getElementById(id)
+    if (el) observer.observe(el)
+  }
+}
+
+onMounted(() => {
+  observeSections()
+  window.addEventListener('resize', observeSections)
+})
+
+onBeforeUnmount(() => {
+  observer?.disconnect()
+  window.removeEventListener('resize', observeSections)
+})
 </script>
 
 <template>
-  <nav class="nav-bar" :aria-label="t('nav.ariaLabel')">
+  <nav
+    ref="navRef"
+    class="nav-bar"
+    :class="[
+      activeTone === 'base' ? 'nav-bar--on-base' : 'nav-bar--on-surface',
+    ]"
+    :aria-label="t('nav.ariaLabel')"
+  >
     <a class="nav-bar__brand" href="#main">Arteterapia Candela</a>
 
     <div class="nav-bar__actions">
@@ -63,19 +122,38 @@ const navItems = [
   align-items: center;
   height: var(--nav-height);
   padding-inline: 1.25rem;
-  background-color: color-mix(
-    in srgb,
-    var(--color-background) 94%,
-    transparent
-  );
+  border-bottom: 1px solid transparent;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--color-border);
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+/* Section behind is plain --color-background (Main/About): lift the nav
+   with the lighter surface tone so it doesn't disappear into it. */
+.nav-bar--on-base {
+  background-color: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  border-bottom-color: var(--color-border);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Section behind is already surface/tinted (ArtTherapy/FAQ/Contact): the
+   original background-tinted nav reads fine against it. */
+.nav-bar--on-surface {
+  background-color: color-mix(
+    in srgb,
+    var(--color-background) 90%,
+    transparent
+  );
+  border-bottom-color: color-mix(in srgb, var(--color-border) 55%, transparent);
+  box-shadow: none;
 }
 
 .nav-bar__brand {
   font-family: var(--font-serif);
-  font-size: 1.0625rem;
+  font-size: 1.1875rem;
   font-weight: 400;
   color: var(--color-text);
   text-decoration: none;
@@ -154,7 +232,7 @@ const navItems = [
   color: var(--color-text);
   text-decoration: none;
   font-family: var(--font-sans);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 500;
   border-radius: 0.375rem;
   transition:
