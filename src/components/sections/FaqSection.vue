@@ -11,7 +11,8 @@ const faqs = [
   },
   {
     question: '¿A partir de qué edad pueden participar los niños?',
-    answer: 'Completar con la edad mínima recomendada según la experiencia de Candela.',
+    answer:
+      'Completar con la edad mínima recomendada según la experiencia de Candela.',
   },
   {
     question: '¿Las sesiones son online o presenciales?',
@@ -25,7 +26,8 @@ const faqs = [
   },
   {
     question: '¿Cuánto dura el proceso terapéutico?',
-    answer: 'Completar con los criterios habituales de duración según cada proceso.',
+    answer:
+      'Completar con los criterios habituales de duración según cada proceso.',
   },
 ]
 
@@ -63,7 +65,11 @@ function toggle(index: number) {
             }}</span>
             <span class="faq__question-text">{{ item.question }}</span>
             <span class="faq__chevron" aria-hidden="true">
-              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M5 7.5L10 12.5L15 7.5"
                   stroke="currentColor"
@@ -132,7 +138,11 @@ function toggle(index: number) {
 }
 
 .faq__item--open {
-  background-color: color-mix(in srgb, var(--color-secondary) 6%, var(--color-surface));
+  background-color: color-mix(
+    in srgb,
+    var(--color-secondary) 6%,
+    var(--color-surface)
+  );
 }
 
 .faq__trigger {
@@ -152,7 +162,7 @@ function toggle(index: number) {
 .faq__num {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 0.8125rem;
+  font-size: 2rem;
   color: var(--color-accent);
   opacity: 0.45;
   line-height: 1.4;
@@ -172,6 +182,7 @@ function toggle(index: number) {
   color: var(--color-text);
   line-height: 1.45;
   transition: color 0.22s ease;
+  margin: auto 0;
 }
 
 .faq__trigger:hover .faq__question-text {
