@@ -37,3 +37,8 @@ __screenshots__/
 
 # Vite
 *.timestamp-*-*.mjs
+
+# Obsidian / graphify
+.obsidian/
+graphify-out/
+CLAUDE.md

@@ -19,49 +19,62 @@
   },
   "main": {
     "eyebrow": "Barcelona · Sant Cugat del Vallès · Online",
-    "phraseLines": ["Un espacio para", "crear, sentir", "y crecer"],
-    "lead": "Acompaño procesos de crecimiento emocional a través del arte, combinando escucha, presencia y creatividad. Cada persona encuentra su propio lenguaje para expresar aquello que a veces las palabras no alcanzan a decir.",
+    "phraseLines": ["Un espacio para", "expresar, jugar", "y sentir"],
+    "lead": "Acompañamiento terapéutico atraves del arte",
     "cta": "Solicitar una primera entrevista",
     "visualAlt": "Composición abstracta en tonos tierra que evoca la creatividad artística"
   },
   "artTherapy": {
     "title": "Arteterapia",
-    "intro": "Un acompañamiento donde el proceso creativo abre caminos que las palabras a veces no alcanzan.",
+    "intro": {
+      "quote": "El arte ofrece un espacio para que el descubrimiento emerja de forma natural, antes del pensamiento consciente.",
+      "author": "Shaun McNiff"
+    },
     "cards": [
       {
         "title": "¿Qué es la arteterapia?",
+        "quote": {
+          "text": "La arteterapia es una profesión basada en las aplicaciones psicoterapéuticas del proceso artístico y en la importancia de la relación entre persona usuaria y arteterapeuta. Utiliza esencialmente los medios propios de las artes visuales para promover cambios significativos y duraderos en las personas, potenciando su desarrollo y evolución como seres individuales y sociales.",
+          "author": "Asociación Profesional Española de Arteterapeutas (ATe)"
+        },
         "paragraphs": [
-          "Es una vía de acompañamiento que utiliza el proceso de creación artística para facilitar procesos terapéuticos y promover el bienestar emocional, dentro de una relación terapéutica segura y de confianza.",
-          "No es lo mismo que el \"arte como sanación\" por sí solo: en arteterapia el arte no se usa como herramienta de diagnóstico, sino como un medio para abordar dificultades emocionales, siempre acompañado por una profesional formada específicamente en esta disciplina."
+          "La arteterapia relacional es un espacio de cuidado donde, a través de la creación artística y la relación terapéutica, se favorecen la expresión, el autoconocimiento y el bienestar emocional. No es necesario saber de arte; lo importante es el proceso, no el resultado."
         ]
       },
       {
         "title": "¿En qué situaciones puede ayudar?",
-        "paragraphs": [
-          "Puede acompañar procesos como la dificultad para expresar emociones, momentos de cambio, situaciones de ansiedad o estrés, o etapas del desarrollo especialmente sensibles en la infancia y la adolescencia. Cada proceso es distinto y se adapta a la persona, no a un diagnóstico."
+        "list": [
+          "Dificultades en la regulación emocional.",
+          "Dificultades en la expresión verbal.",
+          "Procesos de duelo o pérdida.",
+          "Estrés, ansiedad o sobrecarga emocional.",
+          "Momentos de cambio o transición.",
+          "Conflictos familiares, escolares o en las relaciones.",
+          "Baja autoestima o inseguridad.",
+          "Necesidad de un espacio de expresión y contención emocional."
         ]
       },
       {
         "title": "¿Cómo es una sesión?",
         "facts": [
-          { "label": "Duración", "value": "50–60 minutos" },
+          { "label": "Duración", "value": "50 minutos" },
           {
             "label": "Frecuencia",
             "value": "Semanal o quincenal, según el proceso"
           },
           {
             "label": "Materiales",
-            "value": "Pintura, arcilla, collage y otros materiales plásticos"
+            "value": "Pintura, arcilla, materiales naturales, collage, ceras y otros materiales plásticos"
           }
         ],
         "paragraphs": [
-          "Cada sesión combina un espacio de creación con un momento de palabra y reflexión sobre lo que fue apareciendo, siempre respetando el ritmo de cada persona. El proceso comienza con una primera entrevista para conocernos."
+          "Cada sesión combina un espacio de creación plástica y juego con un momento de palabra y reflexión sobre lo creado, siempre respetando el ritmo de cada persona. El proceso comienza con una primera entrevista de acogida, en la que exploramos las necesidades y objetivos de la persona."
         ]
       },
       {
         "title": "Mi forma de acompañar",
         "paragraphs": [
-          "Entiendo la arteterapia desde un enfoque relacional: el vínculo que construimos juntas es, en sí mismo, parte del proceso terapéutico. Mi lugar es sostener un espacio seguro donde el arte pueda abrir caminos que a veces las palabras no alcanzan."
+          "Realizo el acompañamiento terapéutico desde el respeto y sin juicios, respetando el ritmo y las necesidades de cada persona. Trabajo desde un enfoque relacional, en el que el vínculo que se construye forma una parte esencial del proceso terapéutico."
         ]
       }
     ]
@@ -69,19 +82,15 @@
   "about": {
     "title": "Sobre mí",
     "photoAlt": "Foto de Candela (próximamente)",
-    "introText": "Soy Candela, arteterapeuta especializada en el acompañamiento de niños y adolescentes. Creo en el arte como un lenguaje capaz de decir aquello que a veces cuesta poner en palabras.",
+    "introText": "Soy Candela Sahade, arteterapeuta relacional, con experiencia en el acompañamiento de niños y adolescentes.",
     "blocks": [
       {
         "title": "Qué me llevó a la arteterapia",
-        "body": "Desde siempre el arte fue mi manera de procesar lo que sentía. Con el tiempo entendí que quería acompañar a otras personas a encontrar ese mismo espacio de expresión y cuidado."
+        "body": "Desde siempre, el arte ha sido mi manera de procesar lo que sentía. Cantar y pintar fueron, desde pequeña, formas de conocerme y expresarme. Algo que me caracteriza desde pequeña es mi deseo de comprender y ayudar a las personas, lo que me llevó a formarme como médica y, más adelante, a interesarme por la salud mental. Trabajando en diferentes países, tuve la oportunidad de conocer personas de diferentes edades, culturas y necesidades. En esos encuentros, noté que, a través de la creación artística, surgían temáticas que muchas veces no habían podido expresarse con palabras; los dibujos hablaban de miedos, deseos, recuerdos y sentidos. Fue entonces cuando descubrí la arteterapia. Con el tiempo comprendí que quería acompañar a las personas desde ese lugar, uniendo el cuidado de la salud mental con el poder transformador de la expresión artística."
       },
       {
         "title": "Formación",
-        "body": "Magíster en Arteterapia Relacional."
-      },
-      {
-        "title": "Experiencia",
-        "body": "Completar con la trayectoria de Candela: dónde trabajó, con qué poblaciones y proyectos destacados."
+        "list": ["Magíster en Arteterapia Relacional", "Grado en Medicina"]
       }
     ]
   },
@@ -91,23 +100,23 @@
     "items": [
       {
         "question": "¿Necesito saber dibujar o pintar?",
-        "answer": "No. La arteterapia no busca resultados estéticos ni habilidad artística: el proceso creativo es el medio, no el objetivo."
+        "answer": "No. La arteterapia no busca resultados estéticos ni habilidad artística. El objetivo tampoco es aprender a dibujar o pintar, sino utilizar el proceso artístico como un medio."
       },
       {
         "question": "¿A partir de qué edad pueden participar los niños?",
-        "answer": "Completar con la edad mínima recomendada según la experiencia de Candela."
+        "answer": "A partir de los 3 años."
       },
       {
         "question": "¿Las sesiones son online o presenciales?",
-        "answer": "Ambas modalidades están disponibles: presencial en Barcelona y Sant Cugat, u online."
+        "answer": "Ambas modalidades están disponibles: presencial en Barcelona y Sant Cugat, u online (solo adultos)."
       },
       {
         "question": "¿Cómo sé si la arteterapia es adecuada para mi hijo o hija?",
-        "answer": "En la primera entrevista conversamos sobre la situación particular y evaluamos juntas si este es el espacio adecuado."
+        "answer": "En la primera entrevista conversamos sobre la situación particular y evaluamos juntos/as si este es el espacio adecuado."
       },
       {
         "question": "¿Cuánto dura el proceso terapéutico?",
-        "answer": "Completar con los criterios habituales de duración según cada proceso."
+        "answer": "Cada proceso de arteterapia es único, por lo que su duración se adapta a las necesidades y objetivos de cada persona. En general, puede organizarse en módulos de 12 sesiones. Al finalizar cada módulo, se realiza una valoración conjunta para decidir la continuidad del proceso."
       }
     ]
   },

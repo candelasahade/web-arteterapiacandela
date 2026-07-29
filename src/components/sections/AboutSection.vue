@@ -5,7 +5,8 @@ import BaseSection from '../base/BaseSection.vue'
 
 interface AboutBlock {
   title: string
-  body: string
+  body?: string
+  list?: string[]
 }
 
 const { t, tm } = useI18n()
@@ -57,7 +58,10 @@ const blocks = computed(() => tm('about.blocks') as AboutBlock[])
       <div class="about__details">
         <div v-for="block in blocks" :key="block.title" class="about__block">
           <h3>{{ block.title }}</h3>
-          <p>{{ block.body }}</p>
+          <p v-if="block.body">{{ block.body }}</p>
+          <ul v-if="block.list" class="about__block-list">
+            <li v-for="(item, li) in block.list" :key="li">{{ item }}</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -159,6 +163,22 @@ const blocks = computed(() => tm('about.blocks') as AboutBlock[])
   margin: 0;
 }
 
+.about__block-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0;
+  padding-left: 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+.about__block-list li::marker {
+  color: var(--color-accent);
+}
+
 @media (min-width: 768px) {
   .about__intro {
     flex-direction: row;
@@ -172,7 +192,8 @@ const blocks = computed(() => tm('about.blocks') as AboutBlock[])
   }
 
   .about__details {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
   }
 }
 </style>

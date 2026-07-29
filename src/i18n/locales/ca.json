@@ -26,42 +26,55 @@
   },
   "artTherapy": {
     "title": "Art-teràpia",
-    "intro": "Un acompanyament on el procés creatiu obre camins que, de vegades, les paraules no assoleixen.",
+    "intro": {
+      "quote": "L'art ofereix un espai perquè el descobriment emergeixi de manera natural, abans del pensament conscient.",
+      "author": "Shaun McNiff"
+    },
     "cards": [
       {
         "title": "Què és l'art-teràpia?",
+        "quote": {
+          "text": "L'art-teràpia és una professió basada en les aplicacions psicoterapèutiques del procés artístic i en la importància de la relació entre la persona usuària i l'art-terapeuta. Utilitza essencialment els mitjans propis de les arts visuals per promoure canvis significatius i duradors en les persones, potenciant el seu desenvolupament i evolució com a éssers individuals i socials.",
+          "author": "Asociación Profesional Española de Arteterapeutas (ATe)"
+        },
         "paragraphs": [
-          "És una via d'acompanyament que utilitza el procés de creació artística per facilitar processos terapèutics i promoure el benestar emocional, dins d'una relació terapèutica segura i de confiança.",
-          "No és el mateix que l'«art com a sanació» per si sol: en art-teràpia l'art no s'utilitza com a eina de diagnòstic, sinó com un mitjà per abordar dificultats emocionals, sempre acompanyat per una professional formada específicament en aquesta disciplina."
+          "L'art-teràpia relacional és un espai de cura on, a través de la creació artística i la relació terapèutica, s'afavoreixen l'expressió, l'autoconeixement i el benestar emocional. No cal saber d'art; el que importa és el procés, no el resultat."
         ]
       },
       {
         "title": "En quines situacions pot ajudar?",
-        "paragraphs": [
-          "Pot acompanyar processos com la dificultat per expressar emocions, moments de canvi, situacions d'ansietat o estrès, o etapes del desenvolupament especialment sensibles en la infància i l'adolescència. Cada procés és diferent i s'adapta a la persona, no a un diagnòstic."
+        "list": [
+          "Dificultats en la regulació emocional.",
+          "Dificultats en l'expressió verbal.",
+          "Processos de dol o pèrdua.",
+          "Estrès, ansietat o sobrecàrrega emocional.",
+          "Moments de canvi o transició.",
+          "Conflictes familiars, escolars o en les relacions.",
+          "Baixa autoestima o inseguretat.",
+          "Necessitat d'un espai d'expressió i contenció emocional."
         ]
       },
       {
         "title": "Com és una sessió?",
         "facts": [
-          { "label": "Durada", "value": "50–60 minuts" },
+          { "label": "Durada", "value": "50 minuts" },
           {
             "label": "Freqüència",
             "value": "Setmanal o quinzenal, segons el procés"
           },
           {
             "label": "Materials",
-            "value": "Pintura, argila, collage i altres materials plàstics"
+            "value": "Pintura, argila, materials naturals, collage, ceres i altres materials plàstics"
           }
         ],
         "paragraphs": [
-          "Cada sessió combina un espai de creació amb un moment de paraula i reflexió sobre allò que ha anat apareixent, sempre respectant el ritme de cada persona. El procés comença amb una primera entrevista per conèixer-nos."
+          "Cada sessió combina un espai de creació plàstica i joc amb un moment de paraula i reflexió sobre allò creat, sempre respectant el ritme de cada persona. El procés comença amb una primera entrevista d'acollida, en la qual explorem les necessitats i els objectius de la persona."
         ]
       },
       {
         "title": "La meva manera d'acompanyar",
         "paragraphs": [
-          "Entenc l'art-teràpia des d'un enfocament relacional: el vincle que construïm juntes és, en si mateix, part del procés terapèutic. El meu lloc és sostenir un espai segur on l'art pugui obrir camins que de vegades les paraules no assoleixen."
+          "Realitzo l'acompanyament terapèutic des del respecte i sense judicis, respectant el ritme i les necessitats de cada persona. Treballo des d'un enfocament relacional, en el qual el vincle que es construeix forma una part essencial del procés terapèutic."
         ]
       }
     ]
@@ -69,19 +82,15 @@
   "about": {
     "title": "Sobre mi",
     "photoAlt": "Foto de Candela (properament)",
-    "introText": "Sóc Candela, art-terapeuta especialitzada en l'acompanyament d'infants i adolescents. Crec en l'art com un llenguatge capaç de dir allò que de vegades costa posar en paraules.",
+    "introText": "Sóc Candela Sahade, art-terapeuta relacional, amb experiència en l'acompanyament de nens i adolescents.",
     "blocks": [
       {
         "title": "Què em va portar a l'art-teràpia",
-        "body": "Des de sempre l'art va ser la meva manera de processar allò que sentia. Amb el temps vaig entendre que volia acompanyar altres persones a trobar aquest mateix espai d'expressió i cura."
+        "body": "Des de sempre, l'art ha estat la meva manera de processar allò que sentia. Cantar i pintar van ser, des de petita, maneres de conèixer-me i expressar-me. Una cosa que em caracteritza des de petita és el meu desig de comprendre i ajudar les persones, cosa que em va portar a formar-me com a metgessa i, més endavant, a interessar-me per la salut mental. Treballant en diferents països, vaig tenir l'oportunitat de conèixer persones de diferents edats, cultures i necessitats. En aquestes trobades, vaig notar que, a través de la creació artística, sorgien temàtiques que moltes vegades no s'havien pogut expressar amb paraules; els dibuixos parlaven de pors, desitjos, records i sentits. Va ser llavors quan vaig descobrir l'art-teràpia. Amb el temps vaig comprendre que volia acompanyar les persones des d'aquest lloc, unint la cura de la salut mental amb el poder transformador de l'expressió artística."
       },
       {
         "title": "Formació",
-        "body": "Màster en Art-teràpia Relacional."
-      },
-      {
-        "title": "Experiència",
-        "body": "Completar amb la trajectòria de Candela: on va treballar, amb quines poblacions i projectes destacats."
+        "list": ["Màster en Art-teràpia Relacional", "Grau en Medicina"]
       }
     ]
   },
@@ -91,23 +100,23 @@
     "items": [
       {
         "question": "Necessito saber dibuixar o pintar?",
-        "answer": "No. L'art-teràpia no busca resultats estètics ni habilitat artística: el procés creatiu és el mitjà, no l'objectiu."
+        "answer": "No. L'art-teràpia no busca resultats estètics ni habilitat artística. L'objectiu tampoc és aprendre a dibuixar o pintar, sinó utilitzar el procés artístic com un mitjà."
       },
       {
         "question": "A partir de quina edat poden participar els infants?",
-        "answer": "Completar amb l'edat mínima recomanada segons l'experiència de Candela."
+        "answer": "A partir dels 3 anys."
       },
       {
         "question": "Les sessions són online o presencials?",
-        "answer": "Ambdues modalitats estan disponibles: presencial a Barcelona i Sant Cugat, o online."
+        "answer": "Ambdues modalitats estan disponibles: presencial a Barcelona i Sant Cugat, o online (només adults)."
       },
       {
         "question": "Com sé si l'art-teràpia és adequada per al meu fill o filla?",
-        "answer": "A la primera entrevista conversem sobre la situació particular i avaluem juntes si aquest és l'espai adequat."
+        "answer": "A la primera entrevista conversem sobre la situació particular i avaluem junts/es si aquest és l'espai adequat."
       },
       {
         "question": "Quant dura el procés terapèutic?",
-        "answer": "Completar amb els criteris habituals de durada segons cada procés."
+        "answer": "Cada procés d'art-teràpia és únic, per la qual cosa la seva durada s'adapta a les necessitats i els objectius de cada persona. En general, es pot organitzar en mòduls de 12 sessions. En finalitzar cada mòdul, es fa una valoració conjunta per decidir la continuïtat del procés."
       }
     ]
   },

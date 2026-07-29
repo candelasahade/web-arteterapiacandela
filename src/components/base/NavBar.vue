@@ -77,7 +77,10 @@ onBeforeUnmount(() => {
     ]"
     :aria-label="t('nav.ariaLabel')"
   >
-    <a class="nav-bar__brand" href="#main">Arteterapia Candela</a>
+    <a class="nav-bar__brand" href="#main"
+      >Arteterapia <span class="nav-bar__brand-dot" aria-hidden="true"></span>
+      Candela</a
+    >
 
     <div class="nav-bar__actions">
       <LanguageSwitcher />
@@ -165,6 +168,15 @@ onBeforeUnmount(() => {
 .nav-bar__brand:hover,
 .nav-bar__brand:focus-visible {
   color: var(--color-accent);
+}
+
+.nav-bar__brand-dot {
+  display: inline-block;
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  vertical-align: middle;
 }
 
 .nav-bar__actions {

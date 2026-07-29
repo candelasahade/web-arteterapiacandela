@@ -41,9 +41,7 @@ function toggle(index: number) {
             :aria-controls="`faq-answer-${index}`"
             @click="toggle(index)"
           >
-            <span class="faq__num" aria-hidden="true">{{
-              String(index + 1).padStart(2, '0')
-            }}</span>
+            <span class="faq__num" aria-hidden="true"></span>
             <span class="faq__question-text">{{ item.question }}</span>
             <span class="faq__chevron" aria-hidden="true">
               <svg
@@ -141,15 +139,13 @@ function toggle(index: number) {
 }
 
 .faq__num {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 2rem;
-  color: var(--color-accent);
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: var(--color-accent);
   opacity: 0.45;
-  line-height: 1.4;
-  padding-top: 0.1rem;
   transition: opacity 0.22s ease;
-  user-select: none;
 }
 
 .faq__item--open .faq__num {

@@ -7,6 +7,8 @@ interface ArtTherapyCard {
   title: string
   paragraphs: string[]
   facts?: { label: string; value: string }[]
+  quote?: { text: string; author: string }
+  list?: string[]
 }
 
 const { t, tm } = useI18n()
@@ -19,7 +21,12 @@ const cards = computed(() => tm('artTherapy.cards') as ArtTherapyCard[])
     <div class="art-therapy">
       <h2 class="art-therapy__title">{{ t('artTherapy.title') }}</h2>
       <p class="art-therapy__intro">
-        {{ t('artTherapy.intro') }}
+        <q class="art-therapy__intro-quote">{{
+          t('artTherapy.intro.quote')
+        }}</q>
+        <cite class="art-therapy__intro-author">{{
+          t('artTherapy.intro.author')
+        }}</cite>
       </p>
 
       <div class="art-therapy__grid">
@@ -39,6 +46,11 @@ const cards = computed(() => tm('artTherapy.cards') as ArtTherapyCard[])
           />
           <h3 class="art-therapy__card-title">{{ card.title }}</h3>
 
+          <blockquote v-if="card.quote" class="art-therapy__card-quote">
+            <q>{{ card.quote.text }}</q>
+            <cite>{{ card.quote.author }}</cite>
+          </blockquote>
+
           <dl v-if="card.facts" class="art-therapy__facts">
             <div
               v-for="fact in card.facts"
@@ -49,6 +61,10 @@ const cards = computed(() => tm('artTherapy.cards') as ArtTherapyCard[])
               <dd>{{ fact.value }}</dd>
             </div>
           </dl>
+
+          <ul v-if="card.list" class="art-therapy__list">
+            <li v-for="(item, li) in card.list" :key="li">{{ item }}</li>
+          </ul>
 
           <p
             v-for="(paragraph, pi) in card.paragraphs"
@@ -80,11 +96,28 @@ const cards = computed(() => tm('artTherapy.cards') as ArtTherapyCard[])
 .art-therapy__intro {
   font-family: var(--font-sans);
   font-size: 1.0625rem;
-  color: var(--color-text-light);
   text-align: center;
   max-width: 52ch;
   margin: 0 auto 3rem;
   line-height: 1.7;
+}
+
+.art-therapy__intro-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.art-therapy__intro-author {
+  display: block;
+  margin-top: 0.5rem;
+  font-style: normal;
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+}
+
+.art-therapy__intro-author::before {
+  content: '— ';
 }
 
 .art-therapy__grid {
@@ -134,6 +167,36 @@ const cards = computed(() => tm('artTherapy.cards') as ArtTherapyCard[])
   font-size: 1.25rem;
   line-height: 1.3;
   margin: 0;
+}
+
+.art-therapy__card-quote {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.art-therapy__card-quote cite {
+  font-style: normal;
+}
+
+.art-therapy__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding-left: 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+.art-therapy__list li::marker {
+  color: var(--color-accent);
 }
 
 .art-therapy__card-text {
