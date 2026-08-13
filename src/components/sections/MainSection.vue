@@ -24,17 +24,17 @@ const phraseLines = computed(() => tm('main.phraseLines') as string[])
         <a class="main-section__cta" href="#contacto">{{ t('main.cta') }}</a>
       </div>
 
-      <!-- Abstract art composition — replaced by a real photo when available -->
-      <div
+      <img
         class="main-section__visual"
-        role="img"
-        :aria-label="t('main.visualAlt')"
-      >
-        <div class="main-section__paint main-section__paint--1"></div>
-        <div class="main-section__paint main-section__paint--2"></div>
-        <div class="main-section__paint main-section__paint--3"></div>
-        <div class="main-section__paint main-section__paint--4"></div>
-      </div>
+        src="/hero-1600.webp"
+        srcset="/hero-400.webp 400w, /hero-800.webp 800w, /hero-1600.webp 1600w"
+        sizes="(min-width: 768px) 480px, 420px"
+        width="1600"
+        height="1600"
+        :alt="t('main.visualAlt')"
+        decoding="async"
+        fetchpriority="high"
+      />
     </div>
   </BaseSection>
 </template>
@@ -55,7 +55,6 @@ const phraseLines = computed(() => tm('main.phraseLines') as string[])
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
-  flex: 1;
   text-align: center;
 }
 
@@ -115,60 +114,13 @@ const phraseLines = computed(() => tm('main.phraseLines') as string[])
     color-mix(in srgb, var(--color-accent) 40%, transparent);
 }
 
-/* Abstract paint composition */
+/* Dibujo principal — mismo hueco que ocupaba la composición abstracta */
 .main-section__visual {
-  position: relative;
   flex-shrink: 0;
-  width: min(360px, 100%);
+  width: min(420px, 100%);
+  height: auto;
   aspect-ratio: 1;
-  border-radius: 42% 58% 52% 48% / 48% 52% 48% 52%;
-  background-color: var(--color-surface);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-}
-
-.main-section__paint {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(32px);
-}
-
-.main-section__paint--1 {
-  width: 70%;
-  height: 70%;
-  top: -15%;
-  left: -15%;
-  background-color: color-mix(in srgb, var(--color-secondary) 55%, transparent);
-}
-
-.main-section__paint--2 {
-  width: 60%;
-  height: 60%;
-  bottom: -10%;
-  right: -10%;
-  background-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
-}
-
-.main-section__paint--3 {
-  width: 50%;
-  height: 50%;
-  top: 30%;
-  left: 20%;
-  background-color: color-mix(in srgb, var(--color-primary) 80%, transparent);
-}
-
-.main-section__paint--4 {
-  width: 35%;
-  height: 35%;
-  top: 5%;
-  right: 10%;
-  background-color: color-mix(
-    in srgb,
-    var(--color-accent) 20%,
-    var(--color-secondary)
-  );
-  opacity: 0.7;
-  filter: blur(20px);
+  object-fit: contain;
 }
 
 @media (min-width: 768px) {
@@ -178,12 +130,13 @@ const phraseLines = computed(() => tm('main.phraseLines') as string[])
   }
 
   .main-section__text {
+    flex: 1;
     align-items: flex-start;
     text-align: left;
   }
 
   .main-section__visual {
-    width: min(400px, 42%);
+    width: min(480px, 46%);
   }
 }
 </style>
