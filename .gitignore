@@ -42,3 +42,7 @@ __screenshots__/
 .obsidian/
 graphify-out/
 CLAUDE.md
+
+# Originales de dibujos a mano (bandeja de entrada local, pesados)
+raw-art/*
+!raw-art/README.md

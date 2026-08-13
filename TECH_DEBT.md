@@ -3,6 +3,12 @@
 Items that cannot be resolved without content or decisions from Candela.
 Hand this file back to Claude when each item is ready to close.
 
+> **Dibujos a mano.** Varios de los ítems de abajo (og:image, logo, imagen del
+> hero, iconos PWA) se resuelven con dibujos de Candela. El circuito ya está
+> montado: ella captura siguiendo `GUIA-CAPTURA-DIBUJOS.md`, los originales se
+> dejan en `raw-art/`, y `tools/process_art.py` genera los assets finales en
+> `public/`. No hace falta Adobe ni ninguna herramienta de pago.
+
 ---
 
 ## Needs: Real photo or logo for social sharing (`og:image`)
