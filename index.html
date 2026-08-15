@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
-    <!-- TODO: replace with a proper 180x180 PNG once a logo asset is available (see og:image TODO below) -->
-    <link rel="apple-touch-icon" href="/favicon.ico">
+    <!-- TODO: replace with a purpose-cropped 180x180 PNG once the digitize pipeline supports custom sizes; using the full-res master as an interim (works, just heavier than ideal) -->
+    <link rel="apple-touch-icon" href="/adorno-hoja-negro-master.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,7 +51,7 @@
     }
     </script>
 
-    <!-- FAQPage schema — update answers when Candela confirms final copy -->
+    <!-- FAQPage schema — keep in sync with src/i18n/locales/es.json "faq.items" -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -62,7 +62,7 @@
           "name": "¿Necesito saber dibujar o pintar?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. La arteterapia no busca resultados estéticos ni habilidad artística: el proceso creativo es el medio, no el objetivo."
+            "text": "No. La arteterapia no busca resultados estéticos ni habilidad artística. El objetivo tampoco es aprender a dibujar o pintar, sino utilizar el proceso artístico como un medio."
           }
         },
         {
@@ -70,7 +70,7 @@
           "name": "¿A partir de qué edad pueden participar los niños?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "TODO: completar con la edad mínima recomendada por Candela."
+            "text": "A partir de los 3 años."
           }
         },
         {
@@ -78,7 +78,7 @@
           "name": "¿Las sesiones son online o presenciales?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Ambas modalidades están disponibles: presencial en Barcelona y Sant Cugat del Vallès, u online."
+            "text": "Ambas modalidades están disponibles: presencial en Barcelona y Sant Cugat, u online (solo adultos)."
           }
         },
         {
@@ -86,7 +86,7 @@
           "name": "¿Cómo sé si la arteterapia es adecuada para mi hijo o hija?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "En la primera entrevista conversamos sobre la situación particular y evaluamos juntas si este es el espacio adecuado."
+            "text": "En la primera entrevista conversamos sobre la situación particular y evaluamos juntos/as si este es el espacio adecuado."
           }
         },
         {
@@ -94,7 +94,7 @@
           "name": "¿Cuánto dura el proceso terapéutico?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "TODO: completar con los criterios habituales de duración según cada proceso."
+            "text": "Cada proceso de arteterapia es único, por lo que su duración se adapta a las necesidades y objetivos de cada persona. En general, puede organizarse en módulos de 12 sesiones. Al finalizar cada módulo, se realiza una valoración conjunta para decidir la continuidad del proceso."
           }
         }
       ]

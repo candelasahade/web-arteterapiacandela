@@ -5,12 +5,20 @@ digitize.py — turn a photo/scan of a hand-made drawing into web-ready assets.
 No Adobe, no cloud services, no paid tools. Pure OpenCV/NumPy/Pillow.
 
   python3 digitize.py INPUT.jpg --out OUT_DIR --name hoja [--trace] [--ink "#3b3a46"]
+  python3 digitize.py INPUT.jpg --out public --name icon --square --ico --sizes 180 --png
 
 Produces
   <name>-master.png    full-res RGBA, paper removed, lossless (the archive copy)
-  <name>-1600.webp     web raster w/ transparency (plus -800, -400)
+  <name>-1600.webp     web raster w/ transparency (plus one per --sizes width)
+  <name>-1600.png      same, as PNG — only with --png (apple-touch-icon / PWA
+                        manifest icons don't reliably accept WebP)
+  <name>.ico           multi-res favicon (16/32/48/64), transparent — only
+                        with --ico
   <name>.svg           real vector trace (only with --trace; for line art / logos)
   <name>-check.png     side-by-side contact sheet to eyeball the result
+
+--sizes overrides the default export widths (1600,800,400) — pass a single
+value like --sizes 180 to emit just the width you need (e.g. an icon).
 
 Pipeline
   1. flatten uneven lighting     (divide by a morphological background estimate)
@@ -97,6 +105,26 @@ def build_alpha(f32: np.ndarray, white: float = 0.94, black: float = 0.38) -> np
     return np.clip(a, 0, 1).astype(np.float32)
 
 
+def unpremultiply(rgb: np.ndarray, alpha: np.ndarray, paper: float = 255.0) -> np.ndarray:
+    """Recover the true pigment colour from a stroke seen over white paper.
+
+    What the camera recorded is already a composite: C = ink*a + paper*(1-a).
+    Shipping C as the RGB of a transparent PNG means every soft edge carries a
+    ghost of the paper — invisible on a light background, a pale halo on a dark
+    one (a browser tab strip in dark mode, for instance). Solving for `ink` fixes
+    that.
+
+    Dividing by small alpha amplifies paper grain into noise, so the colour is
+    blended toward a blurred copy exactly where alpha is low — the eye can't
+    resolve hue in near-transparent pixels anyway, but the PNG encoder pays for it.
+    """
+    a = np.clip(alpha, 1e-3, 1.0)[..., None]
+    ink = np.clip((rgb - paper * (1.0 - a)) / a, 0, 255)
+    soft = cv2.GaussianBlur(ink, (0, 0), 1.5)
+    w = np.clip((0.35 - alpha) / 0.35, 0, 1)[..., None]
+    return ink * (1 - w) + soft * w
+
+
 def despeckle(alpha: np.ndarray, min_area_frac: float = 2e-5) -> np.ndarray:
     """Drop isolated blobs (paper fibres, dust, JPEG mosquito noise)."""
     h, w = alpha.shape
@@ -169,6 +197,30 @@ def autocrop(rgba: np.ndarray, pad_frac: float = 0.02) -> np.ndarray:
     y0, y1 = max(0, ys.min() - pad), min(rgba.shape[0], ys.max() + pad + 1)
     x0, x1 = max(0, xs.min() - pad), min(rgba.shape[1], xs.max() + pad + 1)
     return rgba[y0:y1, x0:x1]
+
+
+# 16/32/48 is what browsers actually pull from an .ico; 64 covers Windows
+# shortcuts. Bundling 128 and 256 multiplies the file size for frames nothing
+# requests — anything larger belongs in a PNG (apple-touch-icon, PWA manifest).
+ICO_SIZES = (16, 32, 48, 64)
+
+
+def save_ico(rgba: np.ndarray, path: str, sizes=ICO_SIZES) -> None:
+    """Write a multi-resolution .ico with a real alpha channel.
+
+    Every size is downsampled here with INTER_AREA rather than left to the ICO
+    encoder: at 16 px an area average is the difference between a legible mark
+    and a smear. Alpha survives — a favicon with a baked white square looks
+    broken on a dark tab strip.
+    """
+    from PIL import Image
+    frames = []
+    for s in sizes:
+        small = cv2.resize(rgba, (s, s), interpolation=cv2.INTER_AREA)
+        frames.append(Image.fromarray(cv2.cvtColor(small, cv2.COLOR_BGRA2RGBA)))
+    biggest = frames[-1]
+    biggest.save(path, format="ICO", sizes=[(s, s) for s in sizes],
+                 append_images=frames[:-1])
 
 
 def recolour(rgb: np.ndarray, alpha: np.ndarray, hex_colour: str) -> np.ndarray:
@@ -275,7 +327,9 @@ def trace_svg(alpha: np.ndarray, colour: str = "#3b3a46",
 def process(path: str, out_dir: str, name: str, do_trace: bool,
             ink: str | None, widths=(1600, 800, 400), keep_colour=True,
             bg: str = "poly", square: bool = False, margin: float = 0.08,
-            fill: str | None = None, keep_border: bool = False) -> dict:
+            fill: str | None = None, keep_border: bool = False,
+            ico: bool = False, ico_margin: float = 0.03,
+            also_png: bool = False) -> dict:
     raw = cv2.imread(path, cv2.IMREAD_COLOR)
     if raw is None:
         sys.exit(f"cannot read {path}")
@@ -287,18 +341,22 @@ def process(path: str, out_dir: str, name: str, do_trace: bool,
     if not keep_border:
         alpha = drop_border_blobs(alpha)
 
-    rgb = flat if keep_colour else flat
-    if ink:
-        rgb = recolour(rgb, alpha, ink)
+    rgb = recolour(flat, alpha, ink) if ink else unpremultiply(flat, alpha)
 
     rgba = np.dstack([rgb, alpha * 255.0]).astype(np.uint8)
     # Crop tight first: with --square the margin is applied by the canvas, so
     # padding twice would leave the drawing floating in too much air.
-    rgba = autocrop(rgba, 0.0 if square else 0.02)
-    if square:
-        rgba = square_canvas(rgba, margin, fill)
+    art = autocrop(rgba, 0.0)
+    rgba = square_canvas(art, margin, fill) if square else autocrop(rgba, 0.02)
 
     made = {}
+    if ico:
+        # Its own, tighter margin: a favicon is 16 px of real estate and the
+        # generous margin that suits a hero wastes a third of it.
+        p = os.path.join(out_dir, f"{name}.ico")
+        save_ico(square_canvas(art, ico_margin, None), p)
+        made["ico"] = p
+
     master = os.path.join(out_dir, f"{name}-master.png")
     cv2.imwrite(master, rgba, [cv2.IMWRITE_PNG_COMPRESSION, 9])
     made["master"] = master
@@ -311,6 +369,12 @@ def process(path: str, out_dir: str, name: str, do_trace: bool,
         p = os.path.join(out_dir, f"{name}-{wpx}.webp")
         cv2.imwrite(p, small, [cv2.IMWRITE_WEBP_QUALITY, 88])
         made[f"webp{wpx}"] = p
+        if also_png:
+            # Some consumers (apple-touch-icon, PWA manifest icons) don't
+            # reliably accept WebP and need an actual PNG at the exact size.
+            pp = os.path.join(out_dir, f"{name}-{wpx}.png")
+            cv2.imwrite(pp, small, [cv2.IMWRITE_PNG_COMPRESSION, 9])
+            made[f"png{wpx}"] = pp
 
     if do_trace:
         svg = trace_svg(rgba[:, :, 3].astype(np.float32) / 255.0,
@@ -350,8 +414,23 @@ if __name__ == "__main__":
                     help='flatten onto a solid background, e.g. "#dedacd" (default: transparent)')
     ap.add_argument("--keep-border", action="store_true",
                     help="keep artefacts touching the frame edge (spiral binding, page lip)")
+    ap.add_argument("--ico", action="store_true",
+                    help="also emit a multi-size .ico favicon (always transparent)")
+    ap.add_argument("--ico-margin", type=float, default=0.03,
+                    help="margin for the .ico only; favicons want it tight")
+    ap.add_argument("--sizes", default=None,
+                    help='comma-separated export widths in px, e.g. "180" or '
+                         '"1600,800,400" (default: 1600,800,400). Each is only '
+                         'emitted if the source is at least that wide.')
+    ap.add_argument("--png", action="store_true",
+                    help="also emit a plain .png (not just .webp) at every "
+                         "--sizes width — needed for apple-touch-icon / PWA "
+                         "manifest icons, which don't reliably accept WebP")
     a = ap.parse_args()
-    for k, v in process(a.input, a.out, a.name, a.trace, a.ink, bg=a.bg,
-                        square=a.square, margin=a.margin, fill=a.fill,
-                        keep_border=a.keep_border).items():
+    widths = (tuple(int(x) for x in a.sizes.split(",")) if a.sizes
+              else (1600, 800, 400))
+    for k, v in process(a.input, a.out, a.name, a.trace, a.ink, widths=widths,
+                        bg=a.bg, square=a.square, margin=a.margin, fill=a.fill,
+                        keep_border=a.keep_border, ico=a.ico,
+                        ico_margin=a.ico_margin, also_png=a.png).items():
         print(f"{k:10s} {v}  ({os.path.getsize(v)/1024:.1f} kB)")

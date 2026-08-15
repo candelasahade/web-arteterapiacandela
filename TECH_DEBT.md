@@ -6,8 +6,9 @@ Hand this file back to Claude when each item is ready to close.
 > **Dibujos a mano.** Varios de los ítems de abajo (og:image, logo, imagen del
 > hero, iconos PWA) se resuelven con dibujos de Candela. El circuito ya está
 > montado: ella captura siguiendo `GUIA-CAPTURA-DIBUJOS.md`, los originales se
-> dejan en `raw-art/`, y `tools/process_art.py` genera los assets finales en
-> `public/`. No hace falta Adobe ni ninguna herramienta de pago.
+> dejan en `raw-art/`, y `tools/process_art.py` / `tools/digitize.py` generan
+> los assets finales en `public/`. No hace falta Adobe ni ninguna herramienta
+> de pago.
 
 ---
 
@@ -15,8 +16,11 @@ Hand this file back to Claude when each item is ready to close.
 
 Without an image, shares on WhatsApp, Instagram DM, or Twitter/X show no preview.
 
+The leaf drawings digitized so far (`adorno-hoja*`) are square (1407×1407) and
+won't work directly here — this needs a **landscape** asset.
+
 What to provide:
-- A photo of Candela, a branded image, or a logo
+- A photo of Candela, a branded image, or a logo, composed/cropped to 16:9
 - Recommended size: **1200 × 630 px** (16:9), JPG or PNG
 - Save it to `/public/og-image.jpg` (or similar name)
 - Then add this line to `index.html` inside `<head>`, replacing the TODO comment:
@@ -38,36 +42,6 @@ What to provide:
   <img class="about__photo" src="/your-photo.jpg" alt="Foto de Candela, arteterapeuta" />
   ```
 - Also remove the `.about__photo-ring` decorative div — it was designed for the placeholder.
-
----
-
-## Needs: Candela's bio and experience text
-
-The "Sobre mí" section has three blocks that need real content:
-
-- **Qué me llevó a la arteterapia** — current text is approximate, needs her own words
-- **Formación** — only has "Magíster en Arteterapia Relacional", confirm if complete
-- **Experiencia** — currently a blank placeholder, needs real trajectory and projects
-
-File to edit: `src/components/sections/AboutSection.vue`
-
----
-
-## Needs: FAQ final answers from Candela
-
-Two FAQ answers are still placeholders and need Candela's input:
-
-| Question | Status |
-|---|---|
-| ¿Necesito saber dibujar o pintar? | ✓ OK |
-| **¿A partir de qué edad pueden participar los niños?** | ⚠ PLACEHOLDER |
-| ¿Las sesiones son online o presenciales? | ✓ OK |
-| ¿Cómo sé si la arteterapia es adecuada para mi hijo o hija? | ✓ OK |
-| **¿Cuánto dura el proceso terapéutico?** | ⚠ PLACEHOLDER |
-
-Once confirmed, update **both** places:
-1. `src/components/sections/FaqSection.vue` — what users see on the page
-2. `index.html` — the `FAQPage` JSON-LD script (what Google indexes for rich snippets)
 
 ---
 
@@ -102,5 +76,5 @@ When the profile URL is available, re-add this block inside `<ul class="footer__
 
 - **Self-host fonts** — currently loaded from Google Fonts (third-party request, GDPR concern). Self-hosting Inter + Libre Baskerville improves LCP and removes the dependency. Use [google-webfonts-helper](https://gwfh.mranftl.com/) to download the woff2 files.
 - **LocalBusiness schema enrichment** — add `openingHours`, `priceRange`, and `image` fields to the JSON-LD in `index.html` once confirmed with Candela.
-- **Hero image** — the abstract paint composition in the hero is a temporary placeholder. Replace `.main-section__visual` with a real `<img>` (workspace, art materials, or Candela working) when a photo is available.
-- **PWA icons** — add `theme-color`, `apple-touch-icon`, and `manifest.json` once a logo exists.
+- **Proper apple-touch-icon crop** — currently points at `/adorno-hoja-negro-master.png`, the full 1407×1407 master (188 KB). Works, but a purpose-cropped 180×180 opaque PNG would be much lighter. `tools/digitize.py` now supports `--sizes 180 --png`; just needs a sandbox run against the source drawing, e.g. `python3 tools/digitize.py raw-art/PruebaIcono1.PNG --out public --name apple-touch-icon --square --fill "#dedacd" --sizes 180 --png`, then swap the `index.html` link over.
+- **PWA manifest** — add `theme-color` and a `manifest.json` (with 192/512 icons) now that a logo mark exists, if an installable/PWA experience is wanted.
