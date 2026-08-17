@@ -51,7 +51,51 @@ const { t } = useI18n()
                 </svg>
               </a>
             </li>
-            <!-- TODO: add LinkedIn link once URL is available (see TECH_DEBT.md) -->
+            <li>
+              <a
+                class="footer__social-link"
+                href="https://es.linkedin.com/in/candela-sahade-508b11257"
+                target="_blank"
+                rel="noopener noreferrer"
+                :aria-label="t('footer.linkedinLabel')"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <rect
+                    x="2"
+                    y="2"
+                    width="20"
+                    height="20"
+                    rx="4"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M7 10v7"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M11 17v-4c0-1.657 1.343-3 3-3s3 1.343 3 3v4"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M11 10v7"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                  <circle cx="7" cy="7.5" r="1" fill="currentColor" />
+                </svg>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>

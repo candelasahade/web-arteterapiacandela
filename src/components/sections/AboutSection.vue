@@ -7,6 +7,7 @@ interface AboutBlock {
   title: string
   body?: string
   list?: string[]
+  link?: { label: string; url: string }
 }
 
 const { t, tm } = useI18n()
@@ -62,6 +63,50 @@ const blocks = computed(() => tm('about.blocks') as AboutBlock[])
           <ul v-if="block.list" class="about__block-list">
             <li v-for="(item, li) in block.list" :key="li">{{ item }}</li>
           </ul>
+          <a
+            v-if="block.link"
+            class="about__block-link"
+            :href="block.link.url"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <rect
+                x="2"
+                y="2"
+                width="20"
+                height="20"
+                rx="4"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M7 10v7"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M11 17v-4c0-1.657 1.343-3 3-3s3 1.343 3 3v4"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M11 10v7"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <circle cx="7" cy="7.5" r="1" fill="currentColor" />
+            </svg>
+            {{ block.link.label }}
+          </a>
         </div>
       </div>
     </div>
@@ -177,6 +222,36 @@ const blocks = computed(() => tm('about.blocks') as AboutBlock[])
 
 .about__block-list li::marker {
   color: var(--color-accent);
+}
+
+.about__block-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding: 0.5rem 0.9375rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-accent);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.about__block-link svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.about__block-link:hover,
+.about__block-link:focus-visible {
+  border-color: var(--color-accent);
+  background-color: color-mix(in srgb, var(--color-accent) 7%, transparent);
 }
 
 @media (min-width: 768px) {

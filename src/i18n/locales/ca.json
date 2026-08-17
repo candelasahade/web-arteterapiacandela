@@ -15,10 +15,11 @@
   "footer": {
     "tagline": "Un espai terapèutic i creatiu per créixer a través de l'art.",
     "socialAriaLabel": "Xarxes socials",
-    "instagramLabel": "Instagram d'Art-teràpia Candela"
+    "instagramLabel": "Instagram d'Art-teràpia Candela",
+    "linkedinLabel": "LinkedIn de Candela Sahade"
   },
   "main": {
-    "eyebrow": "Barcelona · Sant Cugat del Vallès · Online",
+    "eyebrow": "Barcelona y Sant Cugat del Vallès",
     "phraseLines": ["Un espai per", "crear, sentir", "i créixer"],
     "lead": "Acompanyo processos de creixement emocional a través de l'art, combinant escolta, presència i creativitat. Cada persona troba el seu propi llenguatge per expressar allò que de vegades les paraules no arriben a dir.",
     "cta": "Sol·licitar una primera entrevista",
@@ -90,7 +91,11 @@
       },
       {
         "title": "Formació",
-        "list": ["Màster en Art-teràpia Relacional", "Grau en Medicina"]
+        "list": ["Màster en Art-teràpia Relacional", "Grau en Medicina"],
+        "link": {
+          "label": "Veure perfil de LinkedIn",
+          "url": "https://es.linkedin.com/in/candela-sahade-508b11257"
+        }
       }
     ]
   },

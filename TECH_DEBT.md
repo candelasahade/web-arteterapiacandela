@@ -45,36 +45,8 @@ What to provide:
 
 ---
 
-## Needs: LinkedIn profile URL
-
-The LinkedIn icon is not shown in the footer to avoid a broken link.
-When the profile URL is available, re-add this block inside `<ul class="footer__social">` in `SiteFooter.vue`:
-
-```html
-<li>
-  <a
-    class="footer__social-link"
-    href="https://www.linkedin.com/in/TU-PERFIL"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="LinkedIn de Arteterapia Candela"
-  >
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="1.5" />
-      <path d="M7 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-      <path d="M11 17v-4c0-1.657 1.343-3 3-3s3 1.343 3 3v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-      <path d="M11 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-      <circle cx="7" cy="7.5" r="1" fill="currentColor" />
-    </svg>
-  </a>
-</li>
-```
-
----
-
 ## Nice to have (no external dependency)
 
 - **Self-host fonts** — currently loaded from Google Fonts (third-party request, GDPR concern). Self-hosting Inter + Libre Baskerville improves LCP and removes the dependency. Use [google-webfonts-helper](https://gwfh.mranftl.com/) to download the woff2 files.
 - **LocalBusiness schema enrichment** — add `openingHours`, `priceRange`, and `image` fields to the JSON-LD in `index.html` once confirmed with Candela.
-- **Proper apple-touch-icon crop** — currently points at `/adorno-hoja-negro-master.png`, the full 1407×1407 master (188 KB). Works, but a purpose-cropped 180×180 opaque PNG would be much lighter. `tools/digitize.py` now supports `--sizes 180 --png`; just needs a sandbox run against the source drawing, e.g. `python3 tools/digitize.py raw-art/PruebaIcono1.PNG --out public --name apple-touch-icon --square --fill "#dedacd" --sizes 180 --png`, then swap the `index.html` link over.
 - **PWA manifest** — add `theme-color` and a `manifest.json` (with 192/512 icons) now that a logo mark exists, if an installable/PWA experience is wanted.
