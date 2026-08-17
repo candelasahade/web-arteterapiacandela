@@ -5,20 +5,12 @@ digitize.py — turn a photo/scan of a hand-made drawing into web-ready assets.
 No Adobe, no cloud services, no paid tools. Pure OpenCV/NumPy/Pillow.
 
   python3 digitize.py INPUT.jpg --out OUT_DIR --name hoja [--trace] [--ink "#3b3a46"]
-  python3 digitize.py INPUT.jpg --out public --name icon --square --ico --sizes 180 --png
 
 Produces
   <name>-master.png    full-res RGBA, paper removed, lossless (the archive copy)
-  <name>-1600.webp     web raster w/ transparency (plus one per --sizes width)
-  <name>-1600.png      same, as PNG — only with --png (apple-touch-icon / PWA
-                        manifest icons don't reliably accept WebP)
-  <name>.ico           multi-res favicon (16/32/48/64), transparent — only
-                        with --ico
+  <name>-1600.webp     web raster w/ transparency (plus -800, -400)
   <name>.svg           real vector trace (only with --trace; for line art / logos)
   <name>-check.png     side-by-side contact sheet to eyeball the result
-
---sizes overrides the default export widths (1600,800,400) — pass a single
-value like --sizes 180 to emit just the width you need (e.g. an icon).
 
 Pipeline
   1. flatten uneven lighting     (divide by a morphological background estimate)
@@ -329,7 +321,7 @@ def process(path: str, out_dir: str, name: str, do_trace: bool,
             bg: str = "poly", square: bool = False, margin: float = 0.08,
             fill: str | None = None, keep_border: bool = False,
             ico: bool = False, ico_margin: float = 0.03,
-            also_png: bool = False) -> dict:
+            png: bool = False) -> dict:
     raw = cv2.imread(path, cv2.IMREAD_COLOR)
     if raw is None:
         sys.exit(f"cannot read {path}")
@@ -369,12 +361,10 @@ def process(path: str, out_dir: str, name: str, do_trace: bool,
         p = os.path.join(out_dir, f"{name}-{wpx}.webp")
         cv2.imwrite(p, small, [cv2.IMWRITE_WEBP_QUALITY, 88])
         made[f"webp{wpx}"] = p
-        if also_png:
-            # Some consumers (apple-touch-icon, PWA manifest icons) don't
-            # reliably accept WebP and need an actual PNG at the exact size.
-            pp = os.path.join(out_dir, f"{name}-{wpx}.png")
-            cv2.imwrite(pp, small, [cv2.IMWRITE_PNG_COMPRESSION, 9])
-            made[f"png{wpx}"] = pp
+        if png:
+            p = os.path.join(out_dir, f"{name}-{wpx}.png")
+            cv2.imwrite(p, small, [cv2.IMWRITE_PNG_COMPRESSION, 9])
+            made[f"png{wpx}"] = p
 
     if do_trace:
         svg = trace_svg(rgba[:, :, 3].astype(np.float32) / 255.0,
@@ -418,19 +408,14 @@ if __name__ == "__main__":
                     help="also emit a multi-size .ico favicon (always transparent)")
     ap.add_argument("--ico-margin", type=float, default=0.03,
                     help="margin for the .ico only; favicons want it tight")
-    ap.add_argument("--sizes", default=None,
-                    help='comma-separated export widths in px, e.g. "180" or '
-                         '"1600,800,400" (default: 1600,800,400). Each is only '
-                         'emitted if the source is at least that wide.')
+    ap.add_argument("--widths", type=int, nargs="+", default=[1600, 800, 400],
+                    help="output widths (widths larger than the source are skipped)")
     ap.add_argument("--png", action="store_true",
-                    help="also emit a plain .png (not just .webp) at every "
-                         "--sizes width — needed for apple-touch-icon / PWA "
-                         "manifest icons, which don't reliably accept WebP")
+                    help="also write PNG at each width (apple-touch-icon, WhatsApp, print)")
     a = ap.parse_args()
-    widths = (tuple(int(x) for x in a.sizes.split(",")) if a.sizes
-              else (1600, 800, 400))
-    for k, v in process(a.input, a.out, a.name, a.trace, a.ink, widths=widths,
-                        bg=a.bg, square=a.square, margin=a.margin, fill=a.fill,
+    for k, v in process(a.input, a.out, a.name, a.trace, a.ink, bg=a.bg,
+                        square=a.square, margin=a.margin, fill=a.fill,
                         keep_border=a.keep_border, ico=a.ico,
-                        ico_margin=a.ico_margin, also_png=a.png).items():
+                        ico_margin=a.ico_margin, widths=tuple(a.widths),
+                        png=a.png).items():
         print(f"{k:10s} {v}  ({os.path.getsize(v)/1024:.1f} kB)")

@@ -2,9 +2,13 @@
 <html lang="es-ES">
   <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <!-- TODO: replace with a purpose-cropped 180x180 PNG once the digitize pipeline supports custom sizes; using the full-res master as an interim (works, just heavier than ideal) -->
-    <link rel="apple-touch-icon" href="/adorno-hoja-negro-master.png">
+    <!-- Google reads the search-result icon from rel="icon" on the home page.
+         The .ico covers legacy browsers; the PNG is what Google prefers (it asks
+         for well over 48x48). apple-touch-icon must be an opaque PNG: iOS ignores
+         .ico entirely and composites any transparency onto black. -->
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64">
+    <link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
