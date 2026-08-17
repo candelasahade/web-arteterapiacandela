@@ -13,6 +13,17 @@ interface AboutBlock {
 const { t, tm } = useI18n()
 
 const blocks = computed(() => tm('about.blocks') as AboutBlock[])
+
+// Fixed, hand-placed values (not random) — this site prerenders at build
+// time, so Math.random() here would mismatch between server and client.
+const heroWatermarks = [
+  { left: '-1%', bottom: '-0.5rem', rotate: -18, size: '5.75rem' },
+  { left: '16%', bottom: '1.5rem', rotate: 24, size: '4.25rem' },
+  { left: '34%', bottom: '-1.25rem', rotate: -8, size: '6.25rem' },
+  { left: '52%', bottom: '1.25rem', rotate: 33, size: '4.5rem' },
+  { left: '70%', bottom: '-0.75rem', rotate: -28, size: '6rem' },
+  { left: '88%', bottom: '1rem', rotate: 12, size: '5.25rem' },
+]
 </script>
 
 <template>
@@ -57,7 +68,29 @@ const blocks = computed(() => tm('about.blocks') as AboutBlock[])
       </div>
 
       <div class="about__details">
-        <div v-for="block in blocks" :key="block.title" class="about__block">
+        <div
+          v-for="(block, index) in blocks"
+          :key="block.title"
+          class="about__block"
+          :class="{ 'about__block--hero': index === 0 }"
+        >
+          <template v-if="index === 0">
+            <img
+              v-for="(w, wi) in heroWatermarks"
+              :key="wi"
+              class="about__block-watermark"
+              :style="{
+                left: w.left,
+                bottom: w.bottom,
+                width: w.size,
+                transform: `rotate(${w.rotate}deg)`,
+              }"
+              src="/adorno-hoja-negro-400.webp"
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+            />
+          </template>
           <h3>{{ block.title }}</h3>
           <p v-if="block.body">{{ block.body }}</p>
           <ul v-if="block.list" class="about__block-list">
@@ -192,6 +225,21 @@ const blocks = computed(() => tm('about.blocks') as AboutBlock[])
   box-shadow: var(--shadow-soft);
 }
 
+.about__block--hero {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.about__block-watermark {
+  position: absolute;
+  z-index: -1;
+  height: auto;
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
+}
+
 .about__block h3 {
   font-family: var(--font-serif);
   font-weight: 400;
@@ -268,7 +316,11 @@ const blocks = computed(() => tm('about.blocks') as AboutBlock[])
 
   .about__details {
     grid-template-columns: 2fr 1fr;
-    align-items: start;
+    grid-template-rows: auto auto;
+  }
+
+  .about__block:first-child {
+    grid-row: 1 / 3;
   }
 }
 </style>

@@ -83,7 +83,7 @@
   "about": {
     "title": "Sobre mi",
     "photoAlt": "Foto de Candela (properament)",
-    "introText": "Sóc Candela Sahade, art-terapeuta relacional, amb experiència en l'acompanyament de nens i adolescents.",
+    "introText": "Sóc Candela Sahade, metgessa i art-terapeuta relacional, amb experiència en l'acompanyament de nens i adolescents.",
     "blocks": [
       {
         "title": "Què em va portar a l'art-teràpia",
@@ -96,6 +96,15 @@
           "label": "Veure perfil de LinkedIn",
           "url": "https://es.linkedin.com/in/candela-sahade-508b11257"
         }
+      },
+      {
+        "title": "Experiència",
+        "list": [
+          "Metgessa en clíniques de salut mental i atenció primària.",
+          "Mestra en escoles infantils.",
+          "Monitora especialitzada a la Fundació Summae.",
+          "Art-terapeuta al CDIAP DAPSI de Sant Cugat."
+        ]
       }
     ]
   },

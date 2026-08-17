@@ -21,7 +21,7 @@
   "main": {
     "eyebrow": "Barcelona y Sant Cugat del Vallès",
     "phraseLines": ["Un espacio para", "expresar, jugar", "y sentir"],
-    "lead": "Acompañamiento terapéutico atraves del arte",
+    "lead": "Acompañamiento terapéutico através del arte",
     "cta": "Solicitar una primera entrevista",
     "visualAlt": "Dibujo original de Candela: un rostro trazado a tinta"
   },
@@ -83,7 +83,7 @@
   "about": {
     "title": "Sobre mí",
     "photoAlt": "Foto de Candela (próximamente)",
-    "introText": "Soy Candela Sahade, arteterapeuta relacional, con experiencia en el acompañamiento de niños y adolescentes.",
+    "introText": "Soy Candela Sahade, médica y arteterapeuta relacional, con experiencia en el acompañamiento de niños y adolescentes.",
     "blocks": [
       {
         "title": "Qué me llevó a la arteterapia",
@@ -96,6 +96,15 @@
           "label": "Ver perfil de LinkedIn",
           "url": "https://es.linkedin.com/in/candela-sahade-508b11257"
         }
+      },
+      {
+        "title": "Experiencia",
+        "list": [
+          "Médica en clínicas de salud mental y atención primaria.",
+          "Maestra en escuelas infantiles.",
+          "Monitora especializada en la Fundació Summae.",
+          "Arteterapeuta en CDIAP DAPSI de Sant Cugat."
+        ]
       }
     ]
   },
