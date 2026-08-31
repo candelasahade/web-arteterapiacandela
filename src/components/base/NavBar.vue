@@ -78,8 +78,8 @@ onBeforeUnmount(() => {
     :aria-label="t('nav.ariaLabel')"
   >
     <a class="nav-bar__brand" href="#main"
-      >Arteterapia <span class="nav-bar__brand-dot" aria-hidden="true"></span>
-      Candela</a
+      >Arteterapia
+      <span class="nav-bar__brand-dot" aria-hidden="true"></span> Candela</a
     >
 
     <div class="nav-bar__actions">

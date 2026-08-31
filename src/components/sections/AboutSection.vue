@@ -14,8 +14,6 @@ const { t, tm } = useI18n()
 
 const blocks = computed(() => tm('about.blocks') as AboutBlock[])
 
-// Fixed, hand-placed values (not random) — this site prerenders at build
-// time, so Math.random() here would mismatch between server and client.
 const heroWatermarks = [
   { left: '-1%', bottom: '-0.5rem', rotate: -18, size: '5.75rem' },
   { left: '16%', bottom: '1.5rem', rotate: 24, size: '4.25rem' },
@@ -32,33 +30,17 @@ const heroWatermarks = [
       <h2 class="about__title">{{ t('about.title') }}</h2>
 
       <div class="about__intro">
-        <!-- PLACEHOLDER: sustituir por foto real -->
         <div class="about__photo-wrap">
-          <div
+          <img
             class="about__photo"
-            role="img"
-            :aria-label="t('about.photoAlt')"
-          >
-            <svg
-              class="about__photo-icon"
-              viewBox="0 0 80 80"
-              fill="none"
-              aria-hidden="true"
-            >
-              <circle
-                cx="40"
-                cy="30"
-                r="16"
-                fill="currentColor"
-                opacity="0.35"
-              />
-              <path
-                d="M8 76c0-17.673 14.327-32 32-32s32 14.327 32 32"
-                fill="currentColor"
-                opacity="0.22"
-              />
-            </svg>
-          </div>
+            src="/sobre-mi-640.webp"
+            srcset="/sobre-mi-320.webp 320w, /sobre-mi-640.webp 640w"
+            sizes="(min-width: 768px) 11rem, 10rem"
+            width="640"
+            height="616"
+            :alt="t('about.photoAlt')"
+            decoding="async"
+          />
           <div class="about__photo-ring" aria-hidden="true"></div>
         </div>
 
@@ -180,18 +162,10 @@ const heroWatermarks = [
   width: 10rem;
   height: 10rem;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  object-fit: cover;
   background-color: var(--color-surface);
   border: 2px solid var(--color-border);
-  color: var(--color-secondary);
-  overflow: hidden;
-}
-
-.about__photo-icon {
-  width: 65%;
-  height: 65%;
 }
 
 .about__photo-ring {

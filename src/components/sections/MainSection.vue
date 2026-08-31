@@ -1,11 +1,78 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BaseSection from '../base/BaseSection.vue'
+import { heroCarouselSlides } from '@/data/heroCarousel'
 
 const { t, tm } = useI18n()
 
 const phraseLines = computed(() => tm('main.phraseLines') as string[])
+
+// Hand-picked crop focal points per photo (object-fit: cover crops
+// landscape photos horizontally and portrait photos vertically — these
+// keep the subject in frame instead of a blind center crop). Falls back
+// to 'center' for any photo without an entry here.
+const FOCAL_POSITIONS: Record<string, string> = {
+  'carrusel-1': '60% center',
+  'carrusel-2': '65% center',
+  'carrusel-3': 'center 25%',
+  'carrusel-5': 'center 35%',
+}
+
+const AUTOPLAY_MS = 5500
+
+const activeIndex = ref(0)
+let timer: ReturnType<typeof setInterval> | undefined
+let reduceMotion = false
+
+function slideAlt(index: number): string {
+  const alts = tm('main.carouselAlt') as string[]
+  return alts[index] ?? t('main.carouselAltFallback', { n: index + 1 })
+}
+
+function stopAutoplay() {
+  clearInterval(timer)
+  timer = undefined
+}
+
+function startAutoplay() {
+  if (reduceMotion || heroCarouselSlides.length < 2) return
+  stopAutoplay()
+  timer = setInterval(() => {
+    activeIndex.value = (activeIndex.value + 1) % heroCarouselSlides.length
+  }, AUTOPLAY_MS)
+}
+
+function goTo(index: number) {
+  activeIndex.value = index
+  startAutoplay()
+}
+
+let touchStartX = 0
+
+function onTouchStart(event: TouchEvent) {
+  touchStartX = event.touches[0]?.clientX ?? 0
+}
+
+function onTouchEnd(event: TouchEvent) {
+  const endX = event.changedTouches[0]?.clientX
+  if (endX === undefined) return
+  const delta = endX - touchStartX
+  if (Math.abs(delta) < 40) return
+  const count = heroCarouselSlides.length
+  activeIndex.value =
+    delta < 0
+      ? (activeIndex.value + 1) % count
+      : (activeIndex.value - 1 + count) % count
+  startAutoplay()
+}
+
+onMounted(() => {
+  reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  startAutoplay()
+})
+
+onBeforeUnmount(stopAutoplay)
 </script>
 
 <template>
@@ -24,17 +91,52 @@ const phraseLines = computed(() => tm('main.phraseLines') as string[])
         <a class="main-section__cta" href="#contacto">{{ t('main.cta') }}</a>
       </div>
 
-      <img
-        class="main-section__visual"
-        src="/hero-1600.webp"
-        srcset="/hero-400.webp 400w, /hero-800.webp 800w, /hero-1600.webp 1600w"
-        sizes="(min-width: 768px) 480px, 420px"
-        width="1600"
-        height="1600"
-        :alt="t('main.visualAlt')"
-        decoding="async"
-        fetchpriority="high"
-      />
+      <div
+        class="hero-carousel"
+        @mouseenter="stopAutoplay"
+        @mouseleave="startAutoplay"
+        @focusin="stopAutoplay"
+        @focusout="startAutoplay"
+        @touchstart.passive="onTouchStart"
+        @touchend.passive="onTouchEnd"
+      >
+        <div class="hero-carousel__frame">
+          <img
+            v-for="(slide, index) in heroCarouselSlides"
+            :key="slide.id"
+            class="hero-carousel__slide"
+            :class="{ 'hero-carousel__slide--active': index === activeIndex }"
+            :style="{ objectPosition: FOCAL_POSITIONS[slide.id] ?? 'center' }"
+            :src="slide.src"
+            :srcset="slide.srcset"
+            sizes="(min-width: 768px) 624px, 546px"
+            :width="slide.width"
+            :height="slide.height"
+            :alt="slideAlt(index)"
+            :loading="index === 0 ? undefined : 'lazy'"
+            :fetchpriority="index === 0 ? 'high' : undefined"
+            decoding="async"
+          />
+        </div>
+
+        <div
+          v-if="heroCarouselSlides.length > 1"
+          class="hero-carousel__dots"
+          role="tablist"
+        >
+          <button
+            v-for="(slide, index) in heroCarouselSlides"
+            :key="slide.id"
+            type="button"
+            class="hero-carousel__dot"
+            :class="{ 'hero-carousel__dot--active': index === activeIndex }"
+            role="tab"
+            :aria-selected="index === activeIndex"
+            :aria-label="t('main.carouselDotLabel', { n: index + 1 })"
+            @click="goTo(index)"
+          />
+        </div>
+      </div>
     </div>
   </BaseSection>
 </template>
@@ -114,13 +216,75 @@ const phraseLines = computed(() => tm('main.phraseLines') as string[])
     color-mix(in srgb, var(--color-accent) 40%, transparent);
 }
 
-/* Dibujo principal — mismo hueco que ocupaba la composición abstracta */
-.main-section__visual {
+/* Photo carousel — same slot the single hero drawing used to occupy */
+.hero-carousel {
   flex-shrink: 0;
-  width: min(420px, 100%);
-  height: auto;
+  width: min(628px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-carousel__frame {
+  position: relative;
+  width: 100%;
   aspect-ratio: 1;
-  object-fit: contain;
+  background-color: var(--color-surface);
+  border-radius: 1.5rem;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.hero-carousel__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.hero-carousel__slide--active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero-carousel__dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hero-carousel__dot {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-carousel__dot::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--color-border);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.hero-carousel__dot--active::before {
+  background-color: var(--color-accent);
+  transform: scale(1.35);
 }
 
 @media (min-width: 768px) {
@@ -135,8 +299,8 @@ const phraseLines = computed(() => tm('main.phraseLines') as string[])
     text-align: left;
   }
 
-  .main-section__visual {
-    width: min(480px, 46%);
+  .hero-carousel {
+    width: min(718px, 46%);
   }
 }
 </style>

@@ -13,7 +13,7 @@
     }
   },
   "footer": {
-    "tagline": "Un espacio terapéutico y creativo para crecer a través del arte.",
+    "tagline": "Un espacio para expresar, jugar y sentir.",
     "socialAriaLabel": "Redes sociales",
     "instagramLabel": "Instagram de Arteterapia Candela",
     "linkedinLabel": "LinkedIn de Candela Sahade"
@@ -23,7 +23,15 @@
     "phraseLines": ["Un espacio para", "expresar, jugar", "y sentir"],
     "lead": "Acompañamiento terapéutico através del arte",
     "cta": "Solicitar una primera entrevista",
-    "visualAlt": "Dibujo original de Candela: un rostro trazado a tinta"
+    "carouselAlt": [
+      "Un niño pinta con témpera roja junto a una mariposa de papel",
+      "Dos niños miran a través de binoculares caseros junto a una adulta",
+      "Una niña y una adulta trabajan con arcilla y materiales naturales al aire libre",
+      "Una obra pintada con manos, un corazón y una mariposa de papel",
+      "Una mesa de manualidades con tijeras, pegatinas y un collage en proceso"
+    ],
+    "carouselDotLabel": "Ir a la foto {n}",
+    "carouselAltFallback": "Foto {n} de una sesión de arteterapia"
   },
   "artTherapy": {
     "title": "Arteterapia",

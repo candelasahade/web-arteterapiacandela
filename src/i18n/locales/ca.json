@@ -13,7 +13,7 @@
     }
   },
   "footer": {
-    "tagline": "Un espai terapèutic i creatiu per créixer a través de l'art.",
+    "tagline": "Un espai per expressar, jugar i sentir.",
     "socialAriaLabel": "Xarxes socials",
     "instagramLabel": "Instagram d'Art-teràpia Candela",
     "linkedinLabel": "LinkedIn de Candela Sahade"
@@ -23,7 +23,15 @@
     "phraseLines": ["Un espai per", "crear, sentir", "i créixer"],
     "lead": "Acompanyo processos de creixement emocional a través de l'art, combinant escolta, presència i creativitat. Cada persona troba el seu propi llenguatge per expressar allò que de vegades les paraules no arriben a dir.",
     "cta": "Sol·licitar una primera entrevista",
-    "visualAlt": "Dibuix original de la Candela: un rostre traçat a tinta"
+    "carouselAlt": [
+      "Un nen pinta amb tremp vermell al costat d'una papallona de paper",
+      "Dos nens miren a través de binocles casolans al costat d'una adulta",
+      "Una nena i una adulta treballen amb argila i materials naturals a l'aire lliure",
+      "Una obra pintada amb mans, un cor i una papallona de paper",
+      "Una taula de manualitats amb tisores, adhesius i un collage en procés"
+    ],
+    "carouselDotLabel": "Anar a la foto {n}",
+    "carouselAltFallback": "Foto {n} d'una sessió d'art-teràpia"
   },
   "artTherapy": {
     "title": "Art-teràpia",
