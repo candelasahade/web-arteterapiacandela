@@ -71,6 +71,42 @@ and reports IoU against the thresholded source, plus an overlay image where
 green is the trace and red is the original. Re-run it if you change tracing
 parameters — eyeballing an SVG hides thinning.
 
+## The second decision: is the input raw or already cleaned?
+
+Independent of raster-vs-vector, and easier to get wrong because both failure
+modes are silent — you get a plausible-looking file that has quietly lost part of
+the drawing.
+
+`digitize.py` defaults assume a **photo of a sheet of paper**: uneven light, a
+warm paper cast, the edge of the page, maybe a spiral binding. Two steps handle
+that, and both are actively harmful on an input that has already been cut out to
+pure white:
+
+- **The paper model** (`flatten_lighting_poly`) fits a smooth surface to the
+  pixels it believes are paper and divides it out. A large flat block of
+  saturated colour is smooth and low-frequency, so the fit absorbs it as
+  background. On `olas.png` — a wide strip whose lower half is one solid blue
+  band — this bleached the band to a pale pink and dropped ink retention to 0.83.
+  `--bg none` skips flattening. Retention went back to 0.97.
+- **Border-blob removal** (`drop_border_blobs`) erases components touching the
+  frame, which is what kills spiral binding and page lips. On a tight crop the
+  artwork *is* what touches the frame, so it erases the drawing. `--keep-border`
+  disables it.
+
+So: raw camera/scanner capture → defaults. Pre-cleaned cut-out → `--bg none
+--keep-border`. When in doubt, check ink retention (fraction of source pixels
+darker than 230 that survive as alpha > 100); anything under ~0.9 on a solid
+piece means something got eaten.
+
+## Colour under transparency
+
+RGB in a keyed PNG is still the camera's composite, `ink*a + paper*(1-a)`.
+Shipping that directly means every antialiased edge carries a ghost of white
+paper — invisible on the sand background, a pale halo on dark, which is exactly
+where a favicon lives. `unpremultiply()` solves for `ink`, blending toward a
+blurred copy where alpha is low so that dividing by small alpha doesn't amplify
+paper grain into PNG weight.
+
 ## Tuning
 
 Defaults are a starting point. Expect to adjust per image:

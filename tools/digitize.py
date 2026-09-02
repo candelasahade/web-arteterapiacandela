@@ -327,7 +327,15 @@ def process(path: str, out_dir: str, name: str, do_trace: bool,
         sys.exit(f"cannot read {path}")
     os.makedirs(out_dir, exist_ok=True)
 
-    flat = flatten_lighting_poly(raw) if bg == 'poly' else flatten_lighting(raw)
+    if bg == 'none':
+        # Already-clean input (a scan someone has cut out to pure white). Both
+        # paper models assume the artwork is a small perturbation on a smooth
+        # background; give them a big flat block of saturated colour and they fit
+        # the artwork itself as "paper" and divide it away. That is exactly what
+        # ate the lower half of the waves drawing.
+        flat = raw.astype(np.float32)
+    else:
+        flat = flatten_lighting_poly(raw) if bg == 'poly' else flatten_lighting(raw)
     flat = neutralise_paper(flat)
     alpha = despeckle(build_alpha(flat))
     if not keep_border:
@@ -393,8 +401,9 @@ if __name__ == "__main__":
     ap.add_argument("--out", default="out")
     ap.add_argument("--name", default="art")
     ap.add_argument("--trace", action="store_true", help="also emit a vector SVG")
-    ap.add_argument("--bg", default="poly", choices=["poly", "morph"],
-                    help="paper model: poly (keeps big washes) | morph (harsher light)")
+    ap.add_argument("--bg", default="poly", choices=["poly", "morph", "none"],
+                    help="paper model: poly (keeps big washes) | morph (harsher light) "
+                         "| none (input is already clean white; skip flattening)")
     ap.add_argument("--ink", default=None, help='flatten to one colour, e.g. "#3b3a46"')
     ap.add_argument("--square", action="store_true",
                     help="centre the drawing on a square canvas (pads, never scales)")

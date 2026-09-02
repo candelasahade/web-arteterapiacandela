@@ -35,15 +35,26 @@ Se convierten automáticamente.
 ## Procesado
 
 ```bash
-# Dibujo con textura (acuarela, lápiz, color) -> raster con fondo transparente
-python3 tools/process_art.py raw-art/principal-01.png --name hero --outdir public
+# Foto de un dibujo sobre papel (con sombras, tono cálido, borde de hoja)
+python3 tools/digitize.py raw-art/principal-01.png --name hero --out public \
+    --square --fill "#dedacd"
 
-# Trazo limpio (logo, iconos) -> SVG
-python3 tools/process_art.py raw-art/logo-01.png --name logo --mode vector --outdir public
+# Escaneo ya recortado a blanco puro (fondo limpio, sin márgenes)
+python3 tools/digitize.py raw-art/nube.png --name nube --out public \
+    --bg none --keep-border --widths 800 400
 
-# Lote entero
-python3 tools/process_art.py raw-art/adorno-*.png --outdir public --widths 800 400
+# Favicon
+python3 tools/digitize.py raw-art/logo-01.png --name favicon --out public --square --ico
 ```
+
+### Los dos casos que hay que distinguir
+
+Antes de lanzar nada, mira el original y decide cuál es:
+
+| El original es… | Flags | Por qué |
+|---|---|---|
+| **Foto o escaneo de una hoja**: se ve el papel, sombras, el borde de la hoja, la espiral del cuaderno | (por defecto) | El modelo polinómico quita la sombra y el tono del papel; el filtro de bordes se lleva la espiral y el canto de la hoja |
+| **Ya recortado a blanco puro**, el dibujo llega hasta el borde de la imagen | `--bg none --keep-border` | Sin `--bg none` el modelo de papel confunde una mancha grande de color con fondo y **se la come**; sin `--keep-border` se borra todo lo que toque el borde, que aquí es el propio dibujo |
 
 Los parámetros útiles cuando algo no sale a la primera:
 
@@ -51,8 +62,14 @@ Los parámetros útiles cuando algo no sale a la primera:
 |---|---|
 | `--white 0.92` | Bájalo si queda "suciedad" de papel alrededor del dibujo |
 | `--black 0.45` | Súbelo si el trazo queda demasiado transparente |
-| `--simplify 0.003` | (vector) Súbelo para un trazo más simplificado, bájalo para más fiel |
-| `--no-deskew` | Si el enderezado automático se equivoca |
+| `--bg none` | El original ya viene limpio sobre blanco (ver tabla de arriba) |
+| `--keep-border` | El dibujo toca el borde de la imagen y no hay que recortarlo |
+| `--square --margin 0.08` | Lienzo cuadrado con el dibujo centrado (no reescala, sólo rellena) |
+| `--fill "#dedacd"` | Fondo sólido en vez de transparente |
+| `--ico` | Genera además un favicon .ico multi-tamaño |
+| `--png` | Escribe también PNG en cada ancho, no sólo WebP |
+| `--ink "#0d0d0d"` | Versión monocroma conservando la textura |
+| `--trace` | (sólo trazo limpio) Genera además un SVG vectorial |
 
 Requiere `python3` con `numpy`, `opencv-python` y `Pillow`. ImageMagick es
 opcional (sólo para HEIC y RAW).
