@@ -79,11 +79,19 @@ onBeforeUnmount(() => {
   >
     <a class="nav-bar__brand" href="#main"
       >Arteterapia
-      <span class="nav-bar__brand-dot" aria-hidden="true"></span> Candela</a
+      <span class="nav-bar__brand-dot" aria-hidden="true"></span> Candela
+      <img
+        class="nav-bar__brand-mark"
+        src="/icon-192.png"
+        width="192"
+        height="192"
+        alt=""
+        aria-hidden="true"
+      /></a
     >
 
     <div class="nav-bar__actions">
-      <LanguageSwitcher />
+      <LanguageSwitcher class="nav-bar__lang nav-bar__lang--desktop" />
 
       <button
         type="button"
@@ -111,6 +119,12 @@ onBeforeUnmount(() => {
         <a class="nav-bar__link" :href="item.href" @click="isMenuOpen = false">
           {{ t(`nav.items.${item.key}`) }}
         </a>
+      </li>
+
+      <!-- Mobile only: the flags live at the foot of the dropdown, so the
+           collapsed bar carries just the brand and the hamburger. -->
+      <li class="nav-bar__item nav-bar__item--lang">
+        <LanguageSwitcher class="nav-bar__lang nav-bar__lang--mobile" />
       </li>
     </ul>
   </nav>
@@ -176,6 +190,17 @@ onBeforeUnmount(() => {
   height: 0.3em;
   border-radius: 50%;
   background-color: var(--color-accent);
+  vertical-align: middle;
+}
+
+/* The mark is taller than the brand's line box; the negative block margins keep
+   it from stretching that line box, so the nav keeps its exact --nav-height. */
+.nav-bar__brand-mark {
+  display: inline-block;
+  width: auto;
+  height: 2.25rem;
+  margin-inline-start: 0.4rem;
+  margin-block: -1rem;
   vertical-align: middle;
 }
 
@@ -298,6 +323,18 @@ onBeforeUnmount(() => {
     width: 100%;
     text-align: center;
   }
+
+  .nav-bar__lang--desktop {
+    display: none;
+  }
+
+  .nav-bar__item--lang {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+  }
 }
 
 /* Desktop: brand left, language switcher + links right */
@@ -315,6 +352,10 @@ onBeforeUnmount(() => {
   .nav-bar__list {
     display: flex;
     gap: 0.25rem;
+  }
+
+  .nav-bar__item--lang {
+    display: none;
   }
 }
 </style>

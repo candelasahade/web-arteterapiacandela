@@ -19,15 +19,38 @@ const cards = computed(() => tm('artTherapy.cards') as ArtTherapyCard[])
 <template>
   <BaseSection id="arteterapia" class="bg-alt">
     <div class="art-therapy">
-      <h2 class="art-therapy__title">{{ t('artTherapy.title') }}</h2>
-      <p class="art-therapy__intro">
-        <q class="art-therapy__intro-quote">{{
-          t('artTherapy.intro.quote')
-        }}</q>
-        <cite class="art-therapy__intro-author">{{
-          t('artTherapy.intro.author')
-        }}</cite>
-      </p>
+      <div class="art-therapy__head">
+        <h2 class="art-therapy__title">{{ t('artTherapy.title') }}</h2>
+        <p class="art-therapy__intro">
+          <q class="art-therapy__intro-quote">{{
+            t('artTherapy.intro.quote')
+          }}</q>
+          <cite class="art-therapy__intro-author">{{
+            t('artTherapy.intro.author')
+          }}</cite>
+        </p>
+
+        <!-- Decorative only. On wide screens the pair flanks the heading from
+             the section edges (out of the flow, so it can't push text around);
+             below 1024px it collapses into a small centred posy under the
+             quote, where there is no room to flank without crowding it. -->
+        <div class="art-therapy__flowers" aria-hidden="true">
+          <img
+            class="art-therapy__flower art-therapy__flower--small"
+            src="/flor-chica-400.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            class="art-therapy__flower art-therapy__flower--big"
+            src="/flor-grande-400.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
 
       <div class="art-therapy__grid">
         <article
@@ -85,6 +108,10 @@ const cards = computed(() => tm('artTherapy.cards') as ArtTherapyCard[])
   width: 100%;
 }
 
+.art-therapy__head {
+  position: relative;
+}
+
 .art-therapy__title {
   font-family: var(--font-serif);
   font-weight: 400;
@@ -118,6 +145,33 @@ const cards = computed(() => tm('artTherapy.cards') as ArtTherapyCard[])
 
 .art-therapy__intro-author::before {
   content: '— ';
+}
+
+.art-therapy__flowers {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1.25rem;
+  margin: -1.25rem 0 2.25rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Height (never width) is the fixed dimension: the space is reserved before
+   the lazy-loaded file arrives, so nothing jumps when it does. */
+.art-therapy__flower {
+  display: block;
+  width: auto;
+}
+
+.art-therapy__flower--small {
+  height: 3.25rem;
+  transform: rotate(-6deg);
+}
+
+.art-therapy__flower--big {
+  height: 4.5rem;
+  transform: rotate(5deg);
 }
 
 .art-therapy__grid {
@@ -243,6 +297,37 @@ const cards = computed(() => tm('artTherapy.cards') as ArtTherapyCard[])
 @media (min-width: 768px) {
   .art-therapy__grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Wide enough for the flowers to sit beside the heading instead of under it. */
+@media (min-width: 1024px) {
+  .art-therapy__head {
+    padding-inline: 11rem;
+  }
+
+  /* Narrower than the section: the pair tucks in beside the title instead of
+     sitting out on the corners, while still clearing the 52ch quote. */
+  .art-therapy__flowers {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: min(100%, 57rem);
+    transform: translateX(-50%);
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+  }
+
+  .art-therapy__flower--small {
+    height: clamp(6rem, 9vw, 8rem);
+    transform: rotate(-4deg);
+  }
+
+  .art-therapy__flower--big {
+    height: clamp(7.5rem, 11vw, 10.5rem);
+    transform: rotate(3deg);
   }
 }
 </style>

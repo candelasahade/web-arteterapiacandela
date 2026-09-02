@@ -13,15 +13,6 @@ interface AboutBlock {
 const { t, tm } = useI18n()
 
 const blocks = computed(() => tm('about.blocks') as AboutBlock[])
-
-const heroWatermarks = [
-  { left: '-1%', bottom: '-0.5rem', rotate: -18, size: '5.75rem' },
-  { left: '16%', bottom: '1.5rem', rotate: 24, size: '4.25rem' },
-  { left: '34%', bottom: '-1.25rem', rotate: -8, size: '6.25rem' },
-  { left: '52%', bottom: '1.25rem', rotate: 33, size: '4.5rem' },
-  { left: '70%', bottom: '-0.75rem', rotate: -28, size: '6rem' },
-  { left: '88%', bottom: '1rem', rotate: 12, size: '5.25rem' },
-]
 </script>
 
 <template>
@@ -47,6 +38,17 @@ const heroWatermarks = [
         <p class="about__intro-text">
           {{ t('about.introText') }}
         </p>
+
+        <!-- Decorative: closes the intro row on the right; on narrow screens
+             the row stacks, so it lands centred under the text instead. -->
+        <img
+          class="about__bird"
+          src="/pajaro-400.webp"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
 
       <div class="about__details">
@@ -56,23 +58,15 @@ const heroWatermarks = [
           class="about__block"
           :class="{ 'about__block--hero': index === 0 }"
         >
-          <template v-if="index === 0">
-            <img
-              v-for="(w, wi) in heroWatermarks"
-              :key="wi"
-              class="about__block-watermark"
-              :style="{
-                left: w.left,
-                bottom: w.bottom,
-                width: w.size,
-                transform: `rotate(${w.rotate}deg)`,
-              }"
-              src="/adorno-hoja-negro-400.webp"
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-            />
-          </template>
+          <img
+            v-if="index === 0"
+            class="about__block-waves"
+            src="/olas-800.webp"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
           <h3>{{ block.title }}</h3>
           <p v-if="block.body">{{ block.body }}</p>
           <ul v-if="block.list" class="about__block-list">
@@ -185,6 +179,18 @@ const heroWatermarks = [
   margin: 0;
 }
 
+/* Height (never width) is the fixed dimension, so the space is reserved
+   before the lazy-loaded file arrives and nothing jumps when it does. */
+.about__bird {
+  display: block;
+  flex-shrink: 0;
+  width: auto;
+  height: 5rem;
+  transform: rotate(-4deg);
+  pointer-events: none;
+  user-select: none;
+}
+
 .about__details {
   display: grid;
   grid-template-columns: 1fr;
@@ -205,11 +211,15 @@ const heroWatermarks = [
   overflow: hidden;
 }
 
-.about__block-watermark {
+.about__block-waves {
   position: absolute;
   z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
   height: auto;
-  opacity: 0.2;
+  opacity: 0.22;
   pointer-events: none;
   user-select: none;
 }
@@ -286,6 +296,16 @@ const heroWatermarks = [
   .about__photo {
     width: 11rem;
     height: 11rem;
+  }
+
+  /* Occupies exactly the right-hand track of the .about__details grid below
+     (2fr 1fr with a 1.25rem gap) and centres itself inside it, so the bird
+     sits over the "Formación" card rather than flush with the section edge. */
+  .about__bird {
+    width: calc((100% - 1.25rem) / 3);
+    height: clamp(7rem, 10vw, 9.5rem);
+    object-fit: contain;
+    margin-left: auto;
   }
 
   .about__details {

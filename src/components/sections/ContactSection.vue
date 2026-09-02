@@ -60,6 +60,26 @@ async function handleSubmit() {
         <p class="contact__lead">
           {{ t('contact.lead') }}
         </p>
+
+        <!-- Decorative only, same treatment as the FAQ heading: flanking the
+             heading on wide screens (out of the flow), a small centred pair
+             under it below 1024px. -->
+        <div class="contact__decor" aria-hidden="true">
+          <img
+            class="contact__drawing contact__drawing--building"
+            src="/edificio-400.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            class="contact__drawing contact__drawing--star"
+            src="/estrella-400.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
       </div>
 
       <div class="contact__body">
@@ -233,8 +253,36 @@ async function handleSubmit() {
 }
 
 .contact__header {
+  position: relative;
   text-align: center;
   width: 100%;
+}
+
+.contact__decor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Height (never width) is the fixed dimension, so the row's space is reserved
+   before the lazy-loaded files arrive and nothing jumps when they do. */
+.contact__drawing {
+  display: block;
+  width: auto;
+}
+
+.contact__drawing--building {
+  height: 3.5rem;
+  transform: rotate(-3deg);
+}
+
+.contact__drawing--star {
+  height: 2.75rem;
+  transform: rotate(6deg);
 }
 
 .contact__title {
@@ -502,6 +550,34 @@ async function handleSubmit() {
     max-width: 44rem;
     margin-inline: auto;
     width: 100%;
+  }
+}
+
+/* Same 52rem band as the FAQ heading, so both sections sit their drawings at
+   an identical distance from the title. */
+@media (min-width: 1024px) {
+  .contact__decor {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: min(52rem, calc(100vw - 8rem));
+    transform: translateX(-50%);
+    justify-content: space-between;
+    margin: 0;
+  }
+
+  /* The building is much narrower than the star, so it needs a nudge inward
+     to look equally close to the title. */
+  .contact__drawing--building {
+    height: clamp(5rem, 7vw, 7.5rem);
+    margin-left: 2.5rem;
+    transform: rotate(-3deg);
+  }
+
+  .contact__drawing--star {
+    height: clamp(4rem, 5.5vw, 5.5rem);
+    transform: rotate(5deg);
   }
 }
 </style>

@@ -25,6 +25,26 @@ function toggle(index: number) {
       <header class="faq__header">
         <p class="faq__eyebrow">{{ t('faq.eyebrow') }}</p>
         <h2 class="faq__title">{{ t('faq.title') }}</h2>
+
+        <!-- Decorative only, same treatment as the flowers in the art therapy
+             section: flanking the heading on wide screens (out of the flow),
+             a small centred pair under it below 1024px. -->
+        <div class="faq__decor" aria-hidden="true">
+          <img
+            class="faq__drawing faq__drawing--cloud"
+            src="/nube-400.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            class="faq__drawing faq__drawing--star"
+            src="/estrella-400.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
       </header>
 
       <div class="faq__list">
@@ -85,8 +105,36 @@ function toggle(index: number) {
 }
 
 .faq__header {
+  position: relative;
   text-align: center;
   margin-bottom: 3rem;
+}
+
+.faq__decor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Height (never width) is the fixed dimension, so the row's space is reserved
+   before the lazy-loaded files arrive and nothing jumps when they do. */
+.faq__drawing {
+  display: block;
+  width: auto;
+}
+
+.faq__drawing--cloud {
+  height: 3rem;
+  transform: rotate(-4deg);
+}
+
+.faq__drawing--star {
+  height: 2.75rem;
+  transform: rotate(6deg);
 }
 
 .faq__eyebrow {
@@ -200,6 +248,35 @@ function toggle(index: number) {
 
 .faq__panel-inner {
   overflow: hidden;
+}
+
+/* Wide enough for the pair to sit beside the heading instead of under it.
+   The band reaches past the 50rem FAQ column, but never past the section's
+   own gutters. */
+@media (min-width: 1024px) {
+  .faq__decor {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: min(calc(100% + 2rem), calc(100vw - 8rem));
+    transform: translateX(-50%);
+    justify-content: space-between;
+    margin: 0;
+  }
+
+  .faq__drawing--cloud {
+    height: clamp(4.5rem, 6vw, 6rem);
+    transform: rotate(-3deg);
+  }
+
+  /* The star is much narrower than the cloud, so it needs a nudge inward to
+     look equally close to the title. */
+  .faq__drawing--star {
+    height: clamp(4rem, 5.5vw, 5.5rem);
+    margin-right: 2.5rem;
+    transform: rotate(5deg);
+  }
 }
 
 /* Indent answer to align under the question text (number col + gap) */
