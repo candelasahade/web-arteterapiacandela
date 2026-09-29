@@ -20,7 +20,13 @@ onMounted(() => {
     },
     { threshold: 0.12 },
   )
-  fadeRefs.value.forEach((el) => observer?.observe(el))
+  fadeRefs.value.forEach((el) => {
+    if (el.getBoundingClientRect().top < window.innerHeight) {
+      el.classList.add('is-visible')
+    } else {
+      observer?.observe(el)
+    }
+  })
 })
 
 onBeforeUnmount(() => observer?.disconnect())
