@@ -136,7 +136,7 @@ onBeforeUnmount(() => observer?.disconnect())
 }
 
 .about__photo-wrap {
-  flex-shrink: 0;
+  min-width: 0;
 }
 
 .about__photo {
@@ -181,14 +181,15 @@ onBeforeUnmount(() => observer?.disconnect())
 
 @media (min-width: 768px) {
   .about__content {
-    flex-direction: row;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: clamp(16rem, 30%, 26rem) 1fr;
+    align-items: start;
     gap: 3rem;
   }
 
   .about__photo {
-    max-width: none;
-    width: clamp(16rem, 30%, 26rem);
+    max-width: 100%;
+    width: 100%;
   }
 }
 </style>

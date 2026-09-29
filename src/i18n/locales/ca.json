@@ -107,9 +107,9 @@
     "requiredNote": "Camps obligatoris",
     "honeypotLabel": "No emplenar aquest camp",
     "labels": {
-      "nombre": "Nom *",
-      "email": "Correu electrònic *",
-      "mensaje": "Missatge *"
+      "nombre": "Nom",
+      "email": "Correu electrònic",
+      "mensaje": "Missatge"
     },
     "submit": {
       "idle": "Enviar missatge",

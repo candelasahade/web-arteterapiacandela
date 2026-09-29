@@ -130,7 +130,7 @@ onBeforeUnmount(() => {
   padding: 0 1.875rem;
   background-color: rgba(255, 255, 255, 0.61);
   box-shadow: var(--shadow-pill);
-  border: none;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 1.875rem;
   font-family: var(--font-body);
   font-size: var(--text-label);
