@@ -53,14 +53,12 @@ async function handleSubmit() {
 <template>
   <section id="contacto" class="contact">
     <div class="contact__inner">
-      <!-- Decorative illustrations -->
-      <div class="contact__decor" aria-hidden="true">
-        <img class="contact__decor-building" src="/edificio-400.webp" alt="" loading="lazy" decoding="async" />
-        <img class="contact__decor-rainbow" src="/arcoiris-800.webp" alt="" loading="lazy" decoding="async" />
+      <!-- Heading with flanking illustrations -->
+      <div class="contact__header">
+        <img class="contact__decor-building" src="/edificio-400.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <h2 class="contact__title">{{ t('contact.title') }}</h2>
+        <img class="contact__decor-rainbow" src="/arcoiris-800.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
       </div>
-
-      <!-- Heading -->
-      <h2 class="contact__title">{{ t('contact.title') }}</h2>
       <p class="contact__lead">{{ t('contact.lead') }}</p>
 
       <!-- Success state -->
@@ -180,15 +178,12 @@ async function handleSubmit() {
   gap: 1.5rem;
 }
 
-/* ── Decorations ────────────────────────────────────────── */
-.contact__decor {
+/* ── Header row: image | title | image ──────────────────── */
+.contact__header {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  gap: 4rem;
-  pointer-events: none;
-  user-select: none;
-  margin-bottom: 0.5rem;
+  gap: 2rem;
 }
 
 .contact__decor-building {
@@ -196,6 +191,9 @@ async function handleSubmit() {
   width: auto;
   height: clamp(4rem, 7vw, 7.5rem);
   transform: rotate(-3deg);
+  pointer-events: none;
+  user-select: none;
+  flex-shrink: 0;
 }
 
 .contact__decor-rainbow {
@@ -203,6 +201,9 @@ async function handleSubmit() {
   width: auto;
   height: clamp(3.5rem, 6vw, 6rem);
   transform: rotate(5deg);
+  pointer-events: none;
+  user-select: none;
+  flex-shrink: 0;
 }
 
 /* ── Heading ────────────────────────────────────────────── */
@@ -220,7 +221,7 @@ async function handleSubmit() {
 .contact__lead {
   font-family: var(--font-body);
   font-size: var(--text-body-lg);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.17;
   letter-spacing: 0;
   text-align: center;
@@ -255,7 +256,7 @@ async function handleSubmit() {
 .contact__label {
   font-family: var(--font-body);
   font-size: var(--text-body-lg);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: var(--tracking-tight);
   color: var(--color-black);
 }
@@ -312,7 +313,7 @@ async function handleSubmit() {
   color: var(--color-white);
   font-family: var(--font-body);
   font-size: var(--text-body-lg);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: var(--tracking-tight);
   border: none;
   border-radius: var(--card-radius);
@@ -371,7 +372,7 @@ async function handleSubmit() {
 .contact__success-body {
   font-family: var(--font-body);
   font-size: var(--text-body-lg);
-  font-weight: 300;
+  font-weight: 400;
   color: var(--color-black);
   margin: 0;
 }
@@ -395,7 +396,7 @@ async function handleSubmit() {
 .contact__phone {
   font-family: var(--font-body);
   font-size: var(--text-body-lg);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0;
   text-align: center;
   color: var(--color-black);
