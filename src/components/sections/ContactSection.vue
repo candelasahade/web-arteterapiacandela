@@ -253,7 +253,7 @@ async function handleSubmit() {
 
 .contact__lead {
   font-family: var(--font-body);
-  font-size: 1.875rem;
+  font-size: 1.375rem;
   font-weight: 400;
   line-height: 1.17;
   letter-spacing: 0;
@@ -288,7 +288,7 @@ async function handleSubmit() {
 
 .contact__label {
   font-family: var(--font-body);
-  font-size: 1.875rem;
+  font-size: 1.375rem;
   font-weight: 400;
   letter-spacing: var(--tracking-tight);
   color: var(--color-black);
@@ -345,7 +345,7 @@ async function handleSubmit() {
   background-color: var(--color-crimson);
   color: var(--color-white);
   font-family: var(--font-body);
-  font-size: 1.875rem;
+  font-size: 1.375rem;
   font-weight: 400;
   letter-spacing: var(--tracking-tight);
   border: none;
@@ -430,7 +430,7 @@ async function handleSubmit() {
 /* ── Phone ──────────────────────────────────────────────── */
 .contact__phone {
   font-family: var(--font-body);
-  font-size: 1.875rem;
+  font-size: 1.375rem;
   font-weight: 400;
   letter-spacing: 0;
   text-align: center;
