@@ -102,7 +102,7 @@ onBeforeUnmount(() => observer?.disconnect())
 .about__left {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 2.5rem; /* 40px — Figma: label bottom y=4518, portrait top y=4558 */
 }
 
 .about__label {
@@ -196,6 +196,11 @@ onBeforeUnmount(() => observer?.disconnect())
   .about__photo {
     max-width: 100%;
     width: 100%;
+  }
+
+  /* Push heading down to align with portrait top: label (1.5rem) + gap (2.5rem) = 4rem */
+  .about__right {
+    padding-top: 4rem;
   }
 }
 </style>
