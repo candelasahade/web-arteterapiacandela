@@ -103,17 +103,15 @@ onBeforeUnmount(() => observer?.disconnect())
 
 /* ── Hero ───────────────────────────────────────────────── */
 .hero {
-  padding: 0 var(--page-gutter) 2rem;
+  padding-bottom: 2rem;
 }
 
 .hero__inner {
-  max-width: var(--page-max);
-  margin-inline: auto;
+  width: 100%;
 }
 
 .hero__photo-wrap {
   position: relative;
-  border-radius: var(--card-radius);
   overflow: hidden;
   aspect-ratio: 16 / 10;
   background-color: var(--color-cream);
