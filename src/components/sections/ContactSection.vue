@@ -55,9 +55,23 @@ async function handleSubmit() {
     <div class="contact__inner">
       <!-- Heading with flanking illustrations -->
       <div class="contact__header">
-        <img class="contact__decor-building" src="/edificio-400.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <img
+          class="contact__decor-building"
+          src="/edificio-400.webp"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
         <h2 class="contact__title">{{ t('contact.title') }}</h2>
-        <img class="contact__decor-rainbow" src="/arcoiris-800.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <img
+          class="contact__decor-rainbow"
+          src="/arcoiris-800.webp"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <p class="contact__lead">{{ t('contact.lead') }}</p>
 
@@ -86,7 +100,13 @@ async function handleSubmit() {
         <div class="contact__honeypot" aria-hidden="true">
           <label>
             {{ t('contact.honeypotLabel') }}
-            <input v-model="fields['bot-field']" name="bot-field" type="text" tabindex="-1" autocomplete="off" />
+            <input
+              v-model="fields['bot-field']"
+              name="bot-field"
+              type="text"
+              tabindex="-1"
+              autocomplete="off"
+            />
           </label>
         </div>
 
@@ -147,10 +167,23 @@ async function handleSubmit() {
         <button
           class="contact__submit"
           type="submit"
-          :disabled="status === 'loading' || !fields.nombre || !fields.email || !fields.mensaje"
+          :disabled="
+            status === 'loading' ||
+            !fields.nombre ||
+            !fields.email ||
+            !fields.mensaje
+          "
         >
-          <span v-if="status === 'loading'" class="contact__spinner" aria-hidden="true"></span>
-          {{ status === 'loading' ? t('contact.submit.loading') : t('contact.submit.idle') }}
+          <span
+            v-if="status === 'loading'"
+            class="contact__spinner"
+            aria-hidden="true"
+          ></span>
+          {{
+            status === 'loading'
+              ? t('contact.submit.loading')
+              : t('contact.submit.idle')
+          }}
         </button>
       </form>
 
@@ -220,7 +253,7 @@ async function handleSubmit() {
 
 .contact__lead {
   font-family: var(--font-body);
-  font-size: var(--text-body-lg);
+  font-size: var(--text-body-md);
   font-weight: 400;
   line-height: 1.17;
   letter-spacing: 0;
@@ -344,7 +377,9 @@ async function handleSubmit() {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Success ────────────────────────────────────────────── */
