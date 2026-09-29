@@ -288,7 +288,7 @@ async function handleSubmit() {
 
 .contact__label {
   font-family: var(--font-body);
-  font-size: var(--text-body-lg);
+  font-size: 1rem;
   font-weight: 400;
   letter-spacing: var(--tracking-tight);
   color: var(--color-black);
@@ -430,7 +430,7 @@ async function handleSubmit() {
 /* ── Phone ──────────────────────────────────────────────── */
 .contact__phone {
   font-family: var(--font-body);
-  font-size: var(--text-body-lg);
+  font-size: 1rem;
   font-weight: 400;
   letter-spacing: 0;
   text-align: center;
