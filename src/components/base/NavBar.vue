@@ -103,7 +103,7 @@ onBeforeUnmount(() => {
 .nav {
   position: relative;
   z-index: 100;
-  padding: 1.0625rem var(--page-gutter);
+  padding: 1.0625rem var(--page-gutter) 0.3125rem;
   background-color: var(--color-white);
 }
 
@@ -115,8 +115,8 @@ onBeforeUnmount(() => {
 /* Desktop */
 .nav__list--desktop {
   display: none;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -279,6 +279,7 @@ onBeforeUnmount(() => {
 
   .nav__list--desktop {
     display: flex;
+    width: 100%;
   }
 }
 </style>
