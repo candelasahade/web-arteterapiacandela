@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="es-ES">
+<html lang="es-ES" id="html-root">
   <head>
     <meta charset="UTF-8">
+    <!-- Set lang before first paint to match stored locale -->
+    <script>(function(){try{var l=localStorage.getItem('arteterapiacandela:locale');if(l==='ca')document.getElementById('html-root').lang='ca-ES';}catch(e){}})();</script>
     <!-- Google reads the search-result icon from rel="icon" on the home page.
          The .ico covers legacy browsers; the PNG is what Google prefers (it asks
          for well over 48x48). apple-touch-icon must be an opaque PNG: iOS ignores
@@ -31,7 +33,10 @@
     <meta property="og:description" content="Arteterapia para niños y adolescentes en Barcelona y Sant Cugat del Vallès. Espacio para crecer emocionalmente a través del arte.">
     <meta property="og:url" content="https://arteterapiacandela.com/">
     <meta property="og:locale" content="es_ES">
-    <!-- TODO: og:image — add once a logo/photo is available (see TECH_DEBT.md) -->
+    <meta property="og:image" content="https://arteterapiacandela.com/hero.png">
+    <meta property="og:image:width" content="2048">
+    <meta property="og:image:height" content="1365">
+    <meta property="og:image:alt" content="Sesión de arteterapia infantil — Arteterapia Candela">
 
     <!-- Social profiles -->
     <meta property="og:see_also" content="https://www.instagram.com/arteterapia.candela">

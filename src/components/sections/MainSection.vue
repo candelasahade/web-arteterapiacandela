@@ -48,7 +48,7 @@ onBeforeUnmount(() => observer?.disconnect())
             decoding="async"
           />
           <div class="hero__overlay" aria-hidden="true" />
-          <p class="hero__tagline">{{ t('main.tagline') }}</p>
+          <h1 class="hero__tagline">{{ t('main.tagline') }}</h1>
         </div>
       </div>
     </div>
