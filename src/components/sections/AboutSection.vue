@@ -29,10 +29,31 @@ onBeforeUnmount(() => observer?.disconnect())
 <template>
   <section id="sobre-mi" class="about">
     <div class="about__inner">
-      <!-- Label + heading -->
-      <div class="about__header">
+
+      <!-- Left column: label + portrait -->
+      <div
+        class="about__left fade-in"
+        :ref="(el) => el && fadeRefs.push(el as HTMLElement)"
+      >
         <p class="about__label">{{ t('about.label') }}</p>
+        <img
+          class="about__photo"
+          src="/about-portrait-4892dc.png"
+          :alt="t('about.photoAlt')"
+          width="972"
+          height="1776"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <!-- Right column: heading + waves + bio -->
+      <div
+        class="about__right fade-in"
+        :ref="(el) => el && fadeRefs.push(el as HTMLElement)"
+      >
         <h2 class="about__heading">{{ t('about.heading') }}</h2>
+
         <img
           class="about__waves"
           src="/olas-800.webp"
@@ -41,24 +62,6 @@ onBeforeUnmount(() => observer?.disconnect())
           loading="lazy"
           decoding="async"
         />
-      </div>
-
-      <!-- Content: photo + bio -->
-      <div
-        class="about__content fade-in"
-        :ref="(el) => el && fadeRefs.push(el as HTMLElement)"
-      >
-        <div class="about__photo-wrap">
-          <img
-            class="about__photo"
-            src="/about-portrait-4892dc.png"
-            :alt="t('about.photoAlt')"
-            width="972"
-            height="1776"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
 
         <div class="about__bio">
           <p class="about__bio-text" v-for="(para, i) in bios" :key="i">
@@ -74,6 +77,7 @@ onBeforeUnmount(() => observer?.disconnect())
           </a>
         </div>
       </div>
+
     </div>
   </section>
 </template>
@@ -84,18 +88,21 @@ onBeforeUnmount(() => observer?.disconnect())
   padding-block: var(--section-padding);
 }
 
+/* ── Grid ───────────────────────────────────────────────── */
 .about__inner {
   max-width: var(--page-max);
   margin-inline: auto;
   padding-inline: var(--page-gutter);
   display: flex;
   flex-direction: column;
-  gap: clamp(2rem, 4vw, 3rem);
+  gap: 2rem;
 }
 
-/* ── Header ─────────────────────────────────────────────── */
-.about__header {
-  position: relative;
+/* ── Left column ────────────────────────────────────────── */
+.about__left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .about__label {
@@ -104,7 +111,23 @@ onBeforeUnmount(() => observer?.disconnect())
   font-weight: 400;
   letter-spacing: var(--tracking-tight);
   color: var(--color-black);
-  margin: 0 0 1rem;
+  margin: 0;
+}
+
+.about__photo {
+  display: block;
+  width: 100%;
+  max-width: 22rem;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--card-radius);
+}
+
+/* ── Right column ───────────────────────────────────────── */
+.about__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .about__heading {
@@ -117,35 +140,15 @@ onBeforeUnmount(() => observer?.disconnect())
   margin: 0;
 }
 
+/* Figma: waves 183×51px, 41px below heading bottom, 63px above bio */
 .about__waves {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: auto;
-  height: clamp(2rem, 4vw, 3.2rem);
+  display: block;
+  width: 11.4375rem; /* 183px — matches Figma 1280px frame */
+  height: auto;
+  margin-top: 2.5625rem;   /* 41px */
+  margin-bottom: 3.9375rem; /* 63px */
   pointer-events: none;
   user-select: none;
-  opacity: 0.7;
-}
-
-/* ── Content ────────────────────────────────────────────── */
-.about__content {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.about__photo-wrap {
-  min-width: 0;
-}
-
-.about__photo {
-  display: block;
-  width: 100%;
-  max-width: 22rem;
-  height: auto;
-  object-fit: cover;
-  border-radius: var(--card-radius);
 }
 
 .about__bio {
@@ -179,12 +182,15 @@ onBeforeUnmount(() => observer?.disconnect())
   color: var(--color-crimson);
 }
 
+/* ── Desktop: 2-column grid ─────────────────────────────── */
 @media (min-width: 768px) {
-  .about__content {
+  .about__inner {
     display: grid;
-    grid-template-columns: clamp(16rem, 30%, 26rem) 1fr;
+    /* Left col ≈ 400px (32% of 1240px content), gap 55px, right col fills rest */
+    grid-template-columns: clamp(16rem, 32%, 26rem) 1fr;
+    column-gap: 3.4375rem; /* 55px */
+    row-gap: 0;
     align-items: start;
-    gap: 3rem;
   }
 
   .about__photo {
