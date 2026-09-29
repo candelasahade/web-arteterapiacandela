@@ -24,6 +24,11 @@ export function initLocaleClientSync() {
     (value) => {
       document.documentElement.lang = value === 'ca' ? 'ca-ES' : 'es-ES'
       localStorage.setItem(LOCALE_STORAGE_KEY, value)
+
+      const t = i18n.global.t
+      document.title = t('meta.title')
+      const descEl = document.querySelector<HTMLMetaElement>('meta[name="description"]')
+      if (descEl) descEl.content = t('meta.description')
     },
     { immediate: true },
   )
