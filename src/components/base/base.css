@@ -99,6 +99,32 @@ body {
   background-color: var(--color-cream);
 }
 
+/* ── Large screen: 1440px+ (designed for 1920px monitors) ── */
+@media (min-width: 1440px) {
+  :root {
+    --page-max: 1440px;
+    --text-headline: clamp(4rem, 5.5vw, 5rem);     /* 80px at 1440+ */
+    --text-subhead:  clamp(2.5rem, 3.5vw, 3.125rem); /* 50px at 1440+ */
+    --text-body-lg:  clamp(1.875rem, 2.7vw, 2.375rem); /* 38px at 1440+ */
+    --text-label: 1.375rem; /* 22px */
+    --section-padding: 8rem;
+    --page-gutter: 3.5rem;
+  }
+}
+
+/* ── XL screen: 2560px+ ─────────────────────────────────── */
+@media (min-width: 2560px) {
+  :root {
+    --page-max: 1800px;
+    --text-headline: clamp(5rem, 5vw, 6rem);          /* 96px at 2560 */
+    --text-subhead:  clamp(3.125rem, 3.1vw, 3.75rem); /* 60px at 2560 */
+    --text-body-lg:  clamp(2.375rem, 2.4vw, 2.875rem); /* 46px at 2560 */
+    --text-label: 1.625rem; /* 26px */
+    --section-padding: 10rem;
+    --page-gutter: 5rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
