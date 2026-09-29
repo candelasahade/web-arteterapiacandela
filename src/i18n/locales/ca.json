@@ -4,12 +4,13 @@
     "ariaLabel": "Navegació principal",
     "toggleOpen": "Obrir menú",
     "toggleClose": "Tancar menú",
+    "backToTop": "Tornar al principi",
     "items": {
       "home": "Inici",
       "artTherapy": "Art-teràpia",
       "about": "Sobre mi",
       "faq": "FAQ",
-      "contact": "Contacte"
+      "contact": "Parlem"
     }
   },
   "footer": {
@@ -19,109 +20,67 @@
     "linkedinLabel": "LinkedIn de Candela Sahade"
   },
   "main": {
-    "eyebrow": "Barcelona y Sant Cugat del Vallès",
-    "phraseLines": ["Un espai per", "crear, sentir", "i créixer"],
-    "lead": "Acompanyo processos de creixement emocional a través de l'art, combinant escolta, presència i creativitat. Cada persona troba el seu propi llenguatge per expressar allò que de vegades les paraules no arriben a dir.",
-    "cta": "Sol·licitar una primera entrevista",
-    "carouselAlt": [
-      "Un nen pinta amb tremp vermell al costat d'una papallona de paper",
-      "Dos nens miren a través de binocles casolans al costat d'una adulta",
-      "Una nena i una adulta treballen amb argila i materials naturals a l'aire lliure",
-      "Una obra pintada amb mans, un cor i una papallona de paper",
-      "Una taula de manualitats amb tisores, adhesius i un collage en procés"
-    ],
-    "carouselDotLabel": "Anar a la foto {n}",
-    "carouselAltFallback": "Foto {n} d'una sessió d'art-teràpia"
+    "tagline": "Un espai per crear, sentir i créixer.",
+    "intro": {
+      "prefix": "Aquí, acompanyo processos de creixement emocional a través de ",
+      "art": "l'art",
+      "mid1": ", combinant ",
+      "escolta": "escolta",
+      "mid2": ", ",
+      "presencia": "presència",
+      "mid3": " i ",
+      "creativitat": "creativitat",
+      "suffix": ". Cada persona troba el seu propi llenguatge per expressar allò que de vegades les paraules no arriben a dir."
+    },
+    "photoGridAlt1": "Sessió d'art-teràpia: materials i creació",
+    "photoGridAlt2": "Espai d'art-teràpia"
   },
   "artTherapy": {
-    "title": "Art-teràpia",
-    "intro": {
-      "quote": "L'art ofereix un espai perquè el descobriment emergeixi de manera natural, abans del pensament conscient.",
-      "author": "Shaun McNiff"
+    "label": "Sobre l'art-teràpia",
+    "session": {
+      "prefix": "Cada sessió combina un espai de ",
+      "creacio": "creació plàstica",
+      "mid1": " i ",
+      "joc": "joc",
+      "mid2": " amb un moment de ",
+      "paraula": "paraula ",
+      "mid3": "i ",
+      "reflexio": "reflexió",
+      "suffix": " sobre allò creat, sempre respectant el ritme de cada persona."
     },
-    "cards": [
-      {
-        "title": "Què és l'art-teràpia?",
-        "quote": {
-          "text": "L'art-teràpia és una professió basada en les aplicacions psicoterapèutiques del procés artístic i en la importància de la relació entre la persona usuària i l'art-terapeuta. Utilitza essencialment els mitjans propis de les arts visuals per promoure canvis significatius i duradors en les persones, potenciant el seu desenvolupament i evolució com a éssers individuals i socials.",
-          "author": "Asociación Profesional Española de Arteterapeutas (ATe)"
-        },
-        "paragraphs": [
-          "L'art-teràpia relacional és un espai de cura on, a través de la creació artística i la relació terapèutica, s'afavoreixen l'expressió, l'autoconeixement i el benestar emocional. No cal saber d'art; el que importa és el procés, no el resultat."
-        ]
-      },
-      {
-        "title": "En quines situacions pot ajudar?",
-        "list": [
-          "Dificultats en la regulació emocional.",
-          "Dificultats en l'expressió verbal.",
-          "Processos de dol o pèrdua.",
-          "Estrès, ansietat o sobrecàrrega emocional.",
-          "Moments de canvi o transició.",
-          "Conflictes familiars, escolars o en les relacions.",
-          "Baixa autoestima o inseguretat.",
-          "Necessitat d'un espai d'expressió i contenció emocional."
-        ]
-      },
-      {
-        "title": "Com és una sessió?",
-        "facts": [
-          { "label": "Durada", "value": "50 minuts" },
-          {
-            "label": "Freqüència",
-            "value": "Setmanal o quinzenal, segons el procés"
-          },
-          {
-            "label": "Materials",
-            "value": "Pintura, argila, materials naturals, collage, ceres i altres materials plàstics"
-          }
-        ],
-        "paragraphs": [
-          "Cada sessió combina un espai de creació plàstica i joc amb un moment de paraula i reflexió sobre allò creat, sempre respectant el ritme de cada persona. El procés comença amb una primera entrevista d'acollida, en la qual explorem les necessitats i els objectius de la persona."
-        ]
-      },
-      {
-        "title": "La meva manera d'acompanyar",
-        "paragraphs": [
-          "Realitzo l'acompanyament terapèutic des del respecte i sense judicis, respectant el ritme i les necessitats de cada persona. Treballo des d'un enfocament relacional, en el qual el vincle que es construeix forma una part essencial del procés terapèutic."
-        ]
-      }
-    ]
+    "cards": {
+      "duration": "50 minuts",
+      "frequency": "Setmanal o quinzenal, segons el procés",
+      "materials": "Pintura, argila, materials naturals, collage i més"
+    },
+    "stripAlt": "Sessió d'art-teràpia amb materials",
+    "what": {
+      "title": "Què és l'art-teràpia?",
+      "body": "L'{link} és un espai de cura on, a través de la creació artística i la relació terapèutica, s'afavoreixen l'expressió, l'autoconeixement i el benestar emocional. No cal saber d'art; el que importa és el procés, no el resultat.",
+      "linkWord": "art-teràpia relacional"
+    },
+    "when": {
+      "title": "En quines situacions ajuda?",
+      "body": "Dificultats emocionals, d'expressió o autoestima, situacions d'estrès, ansietat, dol, canvis vitals o conflictes, i necessitat d'un espai segur d'expressió i acompanyament emocional."
+    }
   },
   "about": {
-    "title": "Sobre mi",
-    "photoAlt": "Foto de Candela (properament)",
-    "introText": "Sóc Candela Sahade, metgessa i art-terapeuta relacional, amb experiència en l'acompanyament de nens i adolescents.",
-    "blocks": [
-      {
-        "title": "Què em va portar a l'art-teràpia",
-        "body": "Des de sempre, l'art ha estat la meva manera de processar allò que sentia. Cantar i pintar van ser, des de petita, maneres de conèixer-me i expressar-me. Una cosa que em caracteritza des de petita és el meu desig de comprendre i ajudar les persones, cosa que em va portar a formar-me com a metgessa i, més endavant, a interessar-me per la salut mental. Treballant en diferents països, vaig tenir l'oportunitat de conèixer persones de diferents edats, cultures i necessitats. En aquestes trobades, vaig notar que, a través de la creació artística, sorgien temàtiques que moltes vegades no s'havien pogut expressar amb paraules; els dibuixos parlaven de pors, desitjos, records i sentits. Va ser llavors quan vaig descobrir l'art-teràpia. Amb el temps vaig comprendre que volia acompanyar les persones des d'aquest lloc, unint la cura de la salut mental amb el poder transformador de l'expressió artística."
-      },
-      {
-        "title": "Formació",
-        "list": ["Màster en Art-teràpia Relacional", "Grau en Medicina"],
-        "link": {
-          "label": "Veure perfil de LinkedIn",
-          "url": "https://es.linkedin.com/in/candela-sahade-508b11257"
-        }
-      },
-      {
-        "title": "Experiència",
-        "list": [
-          "Metgessa en clíniques de salut mental i atenció primària.",
-          "Mestra en escoles infantils.",
-          "Monitora especialitzada a la Fundació Summae.",
-          "Art-terapeuta al CDIAP DAPSI de Sant Cugat."
-        ]
-      }
-    ]
+    "label": "Sobre mi",
+    "heading": "Una breu història sobre mi",
+    "photoAlt": "Candela Sahade, art-terapeuta relacional",
+    "bioParagraphs": [
+      "Sóc la Candela Sahade, metgessa i art-terapeuta relacional, especialitzada en l'acompanyament d'infants i adolescents.",
+      "Des de petita, l'art ha estat una manera d'expressar i comprendre el que sento. El desig de cuidar em va portar a la medicina i, més endavant, a l'art-teràpia, on vaig descobrir que crear pot donar veu a allò que les paraules no sempre poden dir.",
+      "Avui uneixo art, escolta i cura per acompanyar cada persona en el seu propi procés."
+    ],
+    "linkedinCta": "Connecta amb mi a LinkedIn"
   },
   "faq": {
-    "eyebrow": "Tot el que necessites saber",
-    "title": "Preguntes freqüents",
+    "label": "FAQ",
+    "heading": "Tot el que necessites saber",
     "items": [
       {
-        "question": "Necessito saber dibuixar o pintar?",
+        "question": "Necessito saber dibuixar?",
         "answer": "No. L'art-teràpia no busca resultats estètics ni habilitat artística. L'objectiu tampoc és aprendre a dibuixar o pintar, sinó utilitzar el procés artístic com un mitjà."
       },
       {
@@ -138,7 +97,7 @@
       },
       {
         "question": "Quant dura el procés terapèutic?",
-        "answer": "Cada procés d'art-teràpia és únic, per la qual cosa la seva durada s'adapta a les necessitats i els objectius de cada persona. En general, es pot organitzar en mòduls de 12 sessions. En finalitzar cada mòdul, es fa una valoració conjunta per decidir la continuïtat del procés."
+        "answer": "Cada procés d'art-teràpia és únic, per la qual cosa la seva durada s'adapta a les necessitats i els objectius de cada persona. En general, es pot organitzar en mòduls de 12 sessions."
       }
     ]
   },
@@ -148,9 +107,9 @@
     "requiredNote": "Camps obligatoris",
     "honeypotLabel": "No emplenar aquest camp",
     "labels": {
-      "nombre": "Nom",
-      "email": "Correu electrònic",
-      "mensaje": "Missatge"
+      "nombre": "Nom *",
+      "email": "Correu electrònic *",
+      "mensaje": "Missatge *"
     },
     "submit": {
       "idle": "Enviar missatge",
@@ -161,8 +120,8 @@
       "body": "Moltes gràcies per escriure'm. Et respondré en menys de 48 hores.",
       "retry": "Enviar un altre missatge"
     },
-    "error": "Alguna cosa ha anat malament en enviar el missatge. Si us plau, torna-ho a intentar o escriu-me directament per correu electrònic.",
+    "error": "Alguna cosa ha anat malament. Si us plau, torna-ho a intentar o escriu-me directament.",
     "phonePrefix": "O si ho prefereixes,",
-    "phoneCta": "truca al +34 692 665 220"
+    "phoneCta": "truca'm al +34 692 665 220"
   }
 }

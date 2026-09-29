@@ -1,333 +1,326 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { onMounted, onBeforeUnmount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import BaseSection from '../base/BaseSection.vue'
 
-interface ArtTherapyCard {
-  title: string
-  paragraphs: string[]
-  facts?: { label: string; value: string }[]
-  quote?: { text: string; author: string }
-  list?: string[]
-}
+const { t } = useI18n()
 
-const { t, tm } = useI18n()
+const fadeRefs = ref<HTMLElement[]>([])
+let observer: IntersectionObserver | null = null
 
-const cards = computed(() => tm('artTherapy.cards') as ArtTherapyCard[])
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible')
+          observer?.unobserve(e.target)
+        }
+      })
+    },
+    { threshold: 0.1 },
+  )
+  fadeRefs.value.forEach((el) => observer?.observe(el))
+})
+
+onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <template>
-  <BaseSection id="arteterapia" class="bg-alt">
-    <div class="art-therapy">
-      <div class="art-therapy__head">
-        <h2 class="art-therapy__title">{{ t('artTherapy.title') }}</h2>
-        <p class="art-therapy__intro">
-          <q class="art-therapy__intro-quote">{{
-            t('artTherapy.intro.quote')
-          }}</q>
-          <cite class="art-therapy__intro-author">{{
-            t('artTherapy.intro.author')
-          }}</cite>
-        </p>
+  <section id="arteterapia" class="at bg-cream">
+    <div class="at__inner">
 
-        <!-- Decorative only. On wide screens the pair flanks the heading from
-             the section edges (out of the flow, so it can't push text around);
-             below 1024px it collapses into a small centred posy under the
-             quote, where there is no room to flank without crowding it. -->
-        <div class="art-therapy__flowers" aria-hidden="true">
+      <!-- Label + large session text -->
+      <div
+        class="at__intro fade-in"
+        :ref="(el) => el && fadeRefs.push(el as HTMLElement)"
+      >
+        <p class="at__label">{{ t('artTherapy.label') }}</p>
+        <p class="at__session-text">
+          {{ t('artTherapy.session.prefix') }}<span class="text-blue">{{ t('artTherapy.session.creacio') }}</span>{{ t('artTherapy.session.mid1') }}<span class="text-blue">{{ t('artTherapy.session.joc') }}</span>{{ t('artTherapy.session.mid2') }}<span class="text-gold">{{ t('artTherapy.session.paraula') }}</span>{{ t('artTherapy.session.mid3') }}<span class="text-gold">{{ t('artTherapy.session.reflexio') }}</span>{{ t('artTherapy.session.suffix') }}
+        </p>
+      </div>
+
+      <!-- Session cards -->
+      <div
+        class="at__cards fade-in"
+        :ref="(el) => el && fadeRefs.push(el as HTMLElement)"
+      >
+        <!-- Leaf decoration -->
+        <img
+          class="at__leaf"
+          src="/adorno-hoja-master.png"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
+
+        <div class="at__card">
           <img
-            class="art-therapy__flower art-therapy__flower--small"
-            src="/flor-chica-400.webp"
+            class="at__card-icon"
+            src="/flor-grande-800.webp"
             alt=""
+            aria-hidden="true"
             loading="lazy"
             decoding="async"
           />
+          <p class="at__card-text">{{ t('artTherapy.cards.frequency') }}</p>
+        </div>
+
+        <div class="at__card">
           <img
-            class="art-therapy__flower art-therapy__flower--big"
-            src="/flor-grande-400.webp"
+            class="at__card-icon"
+            src="/arcoiris-800.webp"
             alt=""
+            aria-hidden="true"
             loading="lazy"
             decoding="async"
           />
+          <p class="at__card-text">{{ t('artTherapy.cards.duration') }}</p>
+        </div>
+
+        <div class="at__card">
+          <img
+            class="at__card-icon at__card-icon--sm"
+            src="/adorno-hoja-negro-400.webp"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+          <p class="at__card-text">{{ t('artTherapy.cards.materials') }}</p>
         </div>
       </div>
 
-      <div class="art-therapy__grid">
-        <article
-          v-for="(card, i) in cards"
-          :key="card.title"
-          class="art-therapy__card"
-        >
-          <div
-            class="art-therapy__blob"
-            :class="
-              i % 2 === 0
-                ? 'art-therapy__blob--accent'
-                : 'art-therapy__blob--secondary'
-            "
-            aria-hidden="true"
-          />
-          <h3 class="art-therapy__card-title">{{ card.title }}</h3>
-
-          <blockquote v-if="card.quote" class="art-therapy__card-quote">
-            <q>{{ card.quote.text }}</q>
-            <cite>{{ card.quote.author }}</cite>
-          </blockquote>
-
-          <dl v-if="card.facts" class="art-therapy__facts">
-            <div
-              v-for="fact in card.facts"
-              :key="fact.label"
-              class="art-therapy__fact"
-            >
-              <dt>{{ fact.label }}</dt>
-              <dd>{{ fact.value }}</dd>
-            </div>
-          </dl>
-
-          <ul v-if="card.list" class="art-therapy__list">
-            <li v-for="(item, li) in card.list" :key="li">{{ item }}</li>
-          </ul>
-
-          <p
-            v-for="(paragraph, pi) in card.paragraphs"
-            :key="pi"
-            class="art-therapy__card-text"
-          >
-            {{ paragraph }}
-          </p>
-        </article>
+      <!-- Photo strip -->
+      <div
+        class="at__strip fade-in"
+        :ref="(el) => el && fadeRefs.push(el as HTMLElement)"
+      >
+        <img
+          class="at__strip-photo"
+          src="/photo-strip-73bed6.png"
+          :alt="t('artTherapy.stripAlt')"
+          width="1239"
+          height="478"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
+
+      <!-- Definition panel -->
+      <div
+        class="at__panel fade-in"
+        :ref="(el) => el && fadeRefs.push(el as HTMLElement)"
+      >
+        <!-- Star decorations -->
+        <img class="at__star at__star--tl" src="/estrella-400.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <img class="at__star at__star--br" src="/estrella-400.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+
+        <div class="at__panel-col">
+          <h2 class="at__panel-heading">{{ t('artTherapy.what.title') }}</h2>
+          <p class="at__panel-text">
+            <i18n-t keypath="artTherapy.what.body" tag="span">
+              <template #link>
+                <span class="text-underline">{{ t('artTherapy.what.linkWord') }}</span>
+              </template>
+            </i18n-t>
+          </p>
+        </div>
+
+        <div class="at__panel-divider" aria-hidden="true" />
+
+        <div class="at__panel-col">
+          <h2 class="at__panel-heading">{{ t('artTherapy.when.title') }}</h2>
+          <p class="at__panel-text">{{ t('artTherapy.when.body') }}</p>
+        </div>
+      </div>
+
     </div>
-  </BaseSection>
+  </section>
 </template>
 
 <style scoped>
-.art-therapy {
-  flex: 1;
-  width: 100%;
+.at {
+  padding-block: var(--section-padding);
 }
 
-.art-therapy__head {
+.at__inner {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* ── Label + session text ───────────────────────────────── */
+.at__label {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 400;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-black);
+  margin: 0 0 1rem;
+}
+
+.at__session-text {
+  font-family: var(--font-body);
+  font-size: var(--text-headline);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-black);
+  margin: 0;
+}
+
+.text-gold { color: var(--color-gold); }
+.text-blue { color: var(--color-blue); }
+.text-underline { text-decoration: underline; }
+
+/* ── Session cards ──────────────────────────────────────── */
+.at__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
   position: relative;
 }
 
-.art-therapy__title {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem);
-  text-align: center;
-  margin: 0 0 0.75rem;
-}
-
-.art-therapy__intro {
-  font-family: var(--font-sans);
-  font-size: 1.0625rem;
-  text-align: center;
-  max-width: 52ch;
-  margin: 0 auto 3rem;
-  line-height: 1.7;
-}
-
-.art-therapy__intro-quote {
-  font-family: var(--font-serif);
-  font-style: italic;
-  color: var(--color-accent);
-}
-
-.art-therapy__intro-author {
-  display: block;
-  margin-top: 0.5rem;
-  font-style: normal;
-  font-size: 0.875rem;
-  color: var(--color-text-light);
-}
-
-.art-therapy__intro-author::before {
-  content: '— ';
-}
-
-.art-therapy__flowers {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 1.25rem;
-  margin: -1.25rem 0 2.25rem;
+.at__leaf {
+  position: absolute;
+  top: -3rem;
+  right: 0;
+  width: auto;
+  height: clamp(4rem, 7vw, 6rem);
   pointer-events: none;
   user-select: none;
 }
 
-/* Height (never width) is the fixed dimension: the space is reserved before
-   the lazy-loaded file arrives, so nothing jumps when it does. */
-.art-therapy__flower {
+.at__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
+  background-color: var(--color-white);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.at__card-icon {
   display: block;
   width: auto;
+  height: clamp(4rem, 7vw, 5.5rem);
+  object-fit: contain;
 }
 
-.art-therapy__flower--small {
-  height: 3.25rem;
-  transform: rotate(-6deg);
+.at__card-icon--sm {
+  height: clamp(3rem, 5vw, 4.5rem);
 }
 
-.art-therapy__flower--big {
-  height: 4.5rem;
-  transform: rotate(5deg);
-}
-
-.art-therapy__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-}
-
-.art-therapy__card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.875rem;
-  padding: 2rem;
-  background-color: var(--color-background);
-  border-radius: 1.25rem;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-soft);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.art-therapy__card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-card);
-}
-
-.art-therapy__blob {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  flex-shrink: 0;
-}
-
-.art-therapy__blob--accent {
-  background-color: color-mix(in srgb, var(--color-accent) 75%, transparent);
-}
-
-.art-therapy__blob--secondary {
-  background-color: color-mix(in srgb, var(--color-secondary) 75%, transparent);
-}
-
-.art-therapy__card-title {
-  font-family: var(--font-serif);
+.at__card-text {
+  font-family: var(--font-body);
+  font-size: var(--text-subhead);
   font-weight: 400;
-  font-size: 1.25rem;
-  line-height: 1.3;
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-black);
   margin: 0;
+  text-align: center;
 }
 
-.art-therapy__card-quote {
-  margin: 0;
-  padding: 0;
-  border: none;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 0.9375rem;
-  line-height: 1.7;
-}
-
-.art-therapy__card-quote cite {
-  font-style: normal;
-}
-
-.art-therapy__list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin: 0;
-  padding-left: 1.1rem;
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  color: var(--color-text-light);
-  line-height: 1.6;
-}
-
-.art-therapy__list li::marker {
-  color: var(--color-accent);
-}
-
-.art-therapy__card-text {
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  color: var(--color-text-light);
-  line-height: 1.7;
-  margin: 0;
-}
-
-.art-therapy__facts {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+/* ── Photo strip ────────────────────────────────────────── */
+.at__strip-photo {
+  display: block;
   width: 100%;
-  margin: 0;
-  padding: 1rem 1.25rem;
-  background-color: var(--color-surface);
-  border-radius: 0.875rem;
-  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  object-fit: cover;
+  max-height: 30rem;
 }
 
-.art-therapy__fact {
+/* ── Definition panel ───────────────────────────────────── */
+.at__panel {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2.5rem;
+  background-color: var(--color-white);
+  border-radius: var(--card-radius);
 }
 
-.art-therapy__fact dt {
-  font-weight: 600;
+.at__star {
+  position: absolute;
+  width: auto;
+  height: 3.5rem;
+  pointer-events: none;
+  user-select: none;
 }
 
-.art-therapy__fact dt::after {
-  content: ':';
+.at__star--tl {
+  top: -1.5rem;
+  left: 2rem;
+  transform: rotate(-10deg);
 }
 
-.art-therapy__fact dd {
+.at__star--br {
+  bottom: -1.5rem;
+  right: 3rem;
+  transform: rotate(15deg);
+}
+
+.at__panel-divider {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.at__panel-heading {
+  font-family: var(--font-body);
+  font-size: var(--text-subhead);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: var(--tracking-normal);
+  color: var(--color-black);
+  margin: 0 0 1rem;
+}
+
+.at__panel-text {
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 300;
+  line-height: 1.17;
+  color: var(--color-black);
   margin: 0;
-  color: var(--color-text-light);
+}
+
+/* ── Mobile adjustments ────────────────────────────────── */
+@media (max-width: 640px) {
+  .at__cards {
+    grid-template-columns: 1fr;
+  }
+
+  .at__leaf {
+    display: none;
+  }
 }
 
 @media (min-width: 768px) {
-  .art-therapy__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Wide enough for the flowers to sit beside the heading instead of under it. */
-@media (min-width: 1024px) {
-  .art-therapy__head {
-    padding-inline: 11rem;
+  .at__panel {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0;
   }
 
-  /* Narrower than the section: the pair tucks in beside the title instead of
-     sitting out on the corners, while still clearing the 52ch quote. */
-  .art-therapy__flowers {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: min(100%, 57rem);
-    transform: translateX(-50%);
-    align-items: center;
-    justify-content: space-between;
-    margin: 0;
+  .at__panel-divider {
+    width: 1px;
+    height: auto;
+    align-self: stretch;
+    margin-inline: 2.5rem;
   }
 
-  .art-therapy__flower--small {
-    height: clamp(6rem, 9vw, 8rem);
-    transform: rotate(-4deg);
-  }
-
-  .art-therapy__flower--big {
-    height: clamp(7.5rem, 11vw, 10.5rem);
-    transform: rotate(3deg);
+  .at__panel-col {
+    flex: 1;
   }
 }
 </style>

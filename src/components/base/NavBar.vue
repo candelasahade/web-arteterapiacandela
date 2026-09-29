@@ -6,6 +6,7 @@ import LanguageSwitcher from './LanguageSwitcher.vue'
 const { t } = useI18n()
 
 const isMenuOpen = ref(false)
+const showBackToTop = ref(false)
 
 const navItems = [
   { key: 'home', href: '#main' },
@@ -15,238 +16,206 @@ const navItems = [
   { key: 'contact', href: '#contacto' },
 ]
 
-// Which section is currently sitting behind the sticky nav — used to flip
-// the nav's own background so it never blends into a same-colored section.
-type SectionTone = 'base' | 'surface'
-const SECTION_TONES: Record<string, SectionTone> = {
-  main: 'base',
-  arteterapia: 'surface',
-  'sobre-mi': 'base',
-  'preguntas-frecuentes': 'surface',
-  contacto: 'surface',
+function onScroll() {
+  showBackToTop.value = window.scrollY > window.innerHeight * 0.8
 }
 
-const navRef = ref<HTMLElement | null>(null)
-const activeTone = ref<SectionTone>('base')
-
-let observer: IntersectionObserver | null = null
-
-function observeSections() {
-  observer?.disconnect()
-
-  const navHeight = navRef.value?.offsetHeight ?? 64
-  // Shrink the observed root down to a 1px line just below the nav, so
-  // whichever section crosses that line is the one currently behind it.
-  const bottomInset = Math.max(window.innerHeight - navHeight - 1, 0)
-
-  observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          const tone = SECTION_TONES[entry.target.id]
-          if (tone) activeTone.value = tone
-        }
-      }
-    },
-    { rootMargin: `-${navHeight}px 0px -${bottomInset}px 0px`, threshold: 0 },
-  )
-
-  for (const id of Object.keys(SECTION_TONES)) {
-    const el = document.getElementById(id)
-    if (el) observer.observe(el)
-  }
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 onMounted(() => {
-  observeSections()
-  window.addEventListener('resize', observeSections)
+  window.addEventListener('scroll', onScroll, { passive: true })
 })
 
 onBeforeUnmount(() => {
-  observer?.disconnect()
-  window.removeEventListener('resize', observeSections)
+  window.removeEventListener('scroll', onScroll)
 })
 </script>
 
 <template>
-  <nav
-    ref="navRef"
-    class="nav-bar"
-    :class="[
-      activeTone === 'base' ? 'nav-bar--on-base' : 'nav-bar--on-surface',
-    ]"
-    :aria-label="t('nav.ariaLabel')"
-  >
-    <a class="nav-bar__brand" href="#main"
-      >Arteterapia
-      <span class="nav-bar__brand-dot" aria-hidden="true"></span> Candela
-      <img
-        class="nav-bar__brand-mark"
-        src="/icon-192.png"
-        width="192"
-        height="192"
-        alt=""
-        aria-hidden="true"
-      /></a
-    >
+  <nav class="nav" :aria-label="t('nav.ariaLabel')">
+    <div class="nav__inner">
+      <ul class="nav__list nav__list--desktop" role="list">
+        <li v-for="item in navItems" :key="item.href">
+          <a class="nav__pill" :href="item.href">
+            {{ t(`nav.items.${item.key}`) }}
+          </a>
+        </li>
+        <li>
+          <LanguageSwitcher class="nav__lang-pill" />
+        </li>
+      </ul>
 
-    <div class="nav-bar__actions">
-      <LanguageSwitcher class="nav-bar__lang nav-bar__lang--desktop" />
+      <!-- Mobile: just show brand pill + hamburger -->
+      <div class="nav__mobile-bar">
+        <a class="nav__pill" href="#main">Candela</a>
+        <button
+          type="button"
+          class="nav__hamburger"
+          :aria-expanded="isMenuOpen"
+          aria-controls="nav-mobile-menu"
+          @click="isMenuOpen = !isMenuOpen"
+        >
+          <span class="nav__bar" />
+          <span class="nav__bar" />
+          <span class="nav__bar" />
+          <span class="sr-only">{{
+            isMenuOpen ? t('nav.toggleClose') : t('nav.toggleOpen')
+          }}</span>
+        </button>
+      </div>
 
-      <button
-        type="button"
-        class="nav-bar__toggle"
-        :class="{ 'nav-bar__toggle--open': isMenuOpen }"
-        aria-controls="nav-bar-menu"
-        :aria-expanded="isMenuOpen"
-        @click="isMenuOpen = !isMenuOpen"
+      <!-- Mobile dropdown -->
+      <ul
+        id="nav-mobile-menu"
+        class="nav__list nav__list--mobile"
+        :class="{ 'nav__list--open': isMenuOpen }"
+        role="list"
       >
-        <span class="nav-bar__toggle-bar" />
-        <span class="nav-bar__toggle-bar" />
-        <span class="nav-bar__toggle-bar" />
-        <span class="nav-bar__sr-only">{{
-          isMenuOpen ? t('nav.toggleClose') : t('nav.toggleOpen')
-        }}</span>
-      </button>
+        <li v-for="item in navItems" :key="item.href">
+          <a class="nav__pill nav__pill--mobile" :href="item.href" @click="isMenuOpen = false">
+            {{ t(`nav.items.${item.key}`) }}
+          </a>
+        </li>
+        <li>
+          <LanguageSwitcher class="nav__lang-pill" />
+        </li>
+      </ul>
     </div>
-
-    <ul
-      id="nav-bar-menu"
-      class="nav-bar__list"
-      :class="{ 'nav-bar__list--open': isMenuOpen }"
-    >
-      <li v-for="item in navItems" :key="item.href" class="nav-bar__item">
-        <a class="nav-bar__link" :href="item.href" @click="isMenuOpen = false">
-          {{ t(`nav.items.${item.key}`) }}
-        </a>
-      </li>
-
-      <!-- Mobile only: the flags live at the foot of the dropdown, so the
-           collapsed bar carries just the brand and the hamburger. -->
-      <li class="nav-bar__item nav-bar__item--lang">
-        <LanguageSwitcher class="nav-bar__lang nav-bar__lang--mobile" />
-      </li>
-    </ul>
   </nav>
+
+  <!-- Back-to-top -->
+  <Transition name="btt">
+    <button
+      v-if="showBackToTop"
+      type="button"
+      class="back-to-top"
+      :aria-label="t('nav.backToTop')"
+      @click="scrollToTop"
+    >
+      ↑
+    </button>
+  </Transition>
 </template>
 
 <style scoped>
-.nav-bar {
-  position: sticky;
-  top: 0;
+.nav {
+  position: relative;
   z-index: 100;
-  display: flex;
-  align-items: center;
-  height: var(--nav-height);
-  padding-inline: 1.25rem;
-  border-bottom: 1px solid transparent;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition:
-    background-color 0.4s ease,
-    border-color 0.4s ease,
-    box-shadow 0.4s ease;
+  padding: 1.0625rem var(--page-gutter);
+  background-color: var(--color-white);
 }
 
-/* Section behind is plain --color-background (Main/About): lift the nav
-   with the lighter surface tone so it doesn't disappear into it. */
-.nav-bar--on-base {
-  background-color: color-mix(in srgb, var(--color-surface) 92%, transparent);
-  border-bottom-color: var(--color-border);
-  box-shadow: var(--shadow-soft);
+.nav__inner {
+  max-width: var(--page-max);
+  margin-inline: auto;
 }
 
-/* Section behind is already surface/tinted (ArtTherapy/FAQ/Contact): the
-   original background-tinted nav reads fine against it. */
-.nav-bar--on-surface {
-  background-color: color-mix(
-    in srgb,
-    var(--color-background) 90%,
-    transparent
-  );
-  border-bottom-color: color-mix(in srgb, var(--color-border) 55%, transparent);
-  box-shadow: none;
-}
-
-.nav-bar__brand {
-  font-family: var(--font-serif);
-  font-size: 1.1875rem;
-  font-weight: 400;
-  color: var(--color-text);
-  text-decoration: none;
-  white-space: nowrap;
-  letter-spacing: 0.01em;
-  transition: color 0.2s ease;
-}
-
-.nav-bar__brand:hover,
-.nav-bar__brand:focus-visible {
-  color: var(--color-accent);
-}
-
-.nav-bar__brand-dot {
-  display: inline-block;
-  width: 0.3em;
-  height: 0.3em;
-  border-radius: 50%;
-  background-color: var(--color-accent);
-  vertical-align: middle;
-}
-
-/* The mark is taller than the brand's line box; the negative block margins keep
-   it from stretching that line box, so the nav keeps its exact --nav-height. */
-.nav-bar__brand-mark {
-  display: inline-block;
-  width: auto;
-  height: 2.25rem;
-  margin-inline-start: 0.4rem;
-  margin-block: -1rem;
-  vertical-align: middle;
-}
-
-.nav-bar__actions {
-  display: flex;
-  align-items: center;
+/* Desktop */
+.nav__list--desktop {
+  display: none;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  margin-left: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.nav-bar__toggle {
+.nav__pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.75rem;
+  padding: 0 1.875rem;
+  background-color: rgba(255, 255, 255, 0.61);
+  box-shadow: var(--shadow-pill);
+  border: none;
+  border-radius: 1.875rem;
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 400;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-black);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.nav__pill:hover,
+.nav__pill:focus-visible {
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), var(--shadow-pill);
+}
+
+/* Mobile bar */
+.nav__mobile-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav__hamburger {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   gap: 5px;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 3rem;
+  height: 3rem;
   padding: 0;
+  background: rgba(255, 255, 255, 0.61);
   border: none;
-  background: none;
+  border-radius: 50%;
   cursor: pointer;
+  align-items: center;
+  box-shadow: var(--shadow-pill);
 }
 
-.nav-bar__toggle-bar {
-  width: 1.5rem;
+.nav__bar {
+  display: block;
+  width: 1.25rem;
   height: 2px;
-  background-color: var(--color-text);
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+  background-color: var(--color-black);
+  border-radius: 1px;
 }
 
-.nav-bar__toggle--open .nav-bar__toggle-bar:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+.nav__list--mobile {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
 }
 
-.nav-bar__toggle--open .nav-bar__toggle-bar:nth-child(2) {
-  opacity: 0;
+.nav__list--open {
+  max-height: 30rem;
 }
 
-.nav-bar__toggle--open .nav-bar__toggle-bar:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+.nav__pill--mobile {
+  width: 100%;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.61);
 }
 
-.nav-bar__sr-only {
+.nav__lang-pill {
+  height: 3.75rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 1.25rem;
+  background-color: rgba(255, 255, 255, 0.61);
+  box-shadow: var(--shadow-pill);
+  border-radius: 1.875rem;
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-tight);
+}
+
+.sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -257,105 +226,59 @@ onBeforeUnmount(() => {
   border: 0;
 }
 
-.nav-bar__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-bar__link {
-  display: inline-block;
-  padding: 0.5rem 0.75rem;
-  color: var(--color-text);
-  text-decoration: none;
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: 0.375rem;
+/* Back to top */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 200;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-size: 1.125rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition:
-    color 0.2s ease,
-    background-color 0.2s ease;
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.nav-bar__link:hover,
-.nav-bar__link:focus-visible {
-  color: var(--color-accent);
-  background-color: color-mix(in srgb, var(--color-border) 50%, transparent);
+.back-to-top:hover {
+  background-color: var(--color-crimson);
+  transform: translateY(-2px);
 }
 
-/* Mobile: hamburger + collapsible dropdown */
-@media (max-width: 767px) {
-  .nav-bar__list {
-    position: absolute;
-    top: var(--nav-height);
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.75rem 1rem 1.25rem;
-    background-color: var(--color-background);
-    border-bottom: 1px solid var(--color-border);
-    box-shadow: var(--shadow-card);
-    transform: translateY(-8px);
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    transition:
-      transform 0.2s ease,
-      opacity 0.2s ease,
-      visibility 0s 0.2s;
-  }
-
-  .nav-bar__list--open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-    visibility: visible;
-    transition:
-      transform 0.2s ease,
-      opacity 0.2s ease,
-      visibility 0s 0s;
-  }
-
-  .nav-bar__item {
-    width: 100%;
-    text-align: center;
-  }
-
-  .nav-bar__lang--desktop {
-    display: none;
-  }
-
-  .nav-bar__item--lang {
-    display: flex;
-    justify-content: center;
-    margin-top: 0.5rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--color-border);
-  }
+.btt-enter-active,
+.btt-leave-active {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
-/* Desktop: brand left, language switcher + links right */
+.btt-enter-from,
+.btt-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Desktop layout */
 @media (min-width: 768px) {
-  .nav-bar {
-    justify-content: flex-start;
-    gap: 1.5rem;
-    padding-inline: 2rem;
-  }
-
-  .nav-bar__toggle {
+  .nav__mobile-bar {
     display: none;
   }
 
-  .nav-bar__list {
+  .nav__list--mobile {
+    display: none !important;
+  }
+
+  .nav__list--desktop {
     display: flex;
-    gap: 0.25rem;
-  }
-
-  .nav-bar__item--lang {
-    display: none;
   }
 }
 </style>
