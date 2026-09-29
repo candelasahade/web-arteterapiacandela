@@ -115,12 +115,12 @@ const { t } = useI18n()
 <style scoped>
 .footer {
   width: 100%;
-  background-color: var(--color-surface);
+  background-color: var(--color-cream);
   border-top: 1px solid var(--color-border);
 }
 
 .footer__inner {
-  max-width: 1200px;
+  max-width: var(--page-max);
   margin-inline: auto;
   padding: 3rem 1.25rem 2rem;
 }
@@ -139,16 +139,19 @@ const { t } = useI18n()
 }
 
 .footer__name {
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-size: 1.125rem;
+  font-weight: 400;
+  letter-spacing: var(--tracking-tight);
   margin: 0;
-  color: var(--color-text);
+  color: var(--color-black);
 }
 
 .footer__tagline {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: 0.9375rem;
-  color: var(--color-text-light);
+  font-weight: 300;
+  color: var(--color-black);
   margin: 0;
   line-height: 1.5;
   max-width: 36ch;
@@ -168,7 +171,7 @@ const { t } = useI18n()
   justify-content: center;
   width: 2.375rem;
   height: 2.375rem;
-  color: var(--color-text-light);
+  color: var(--color-black);
   text-decoration: none;
   border: 1px solid var(--color-border);
   border-radius: 0.625rem;
@@ -209,7 +212,7 @@ const { t } = useI18n()
 .footer__location {
   font-family: var(--font-sans);
   font-size: 0.8125rem;
-  color: var(--color-text-light);
+  color: var(--color-black);
   margin: 0;
 }
 

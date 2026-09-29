@@ -1,306 +1,256 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { onMounted, onBeforeUnmount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import BaseSection from '../base/BaseSection.vue'
-import { heroCarouselSlides } from '@/data/heroCarousel'
 
-const { t, tm } = useI18n()
+const { t } = useI18n()
 
-const phraseLines = computed(() => tm('main.phraseLines') as string[])
-
-// Hand-picked crop focal points per photo (object-fit: cover crops
-// landscape photos horizontally and portrait photos vertically — these
-// keep the subject in frame instead of a blind center crop). Falls back
-// to 'center' for any photo without an entry here.
-const FOCAL_POSITIONS: Record<string, string> = {
-  'carrusel-1': '60% center',
-  'carrusel-2': '65% center',
-  'carrusel-3': 'center 25%',
-  'carrusel-5': 'center 35%',
-}
-
-const AUTOPLAY_MS = 5500
-
-const activeIndex = ref(0)
-let timer: ReturnType<typeof setInterval> | undefined
-let reduceMotion = false
-
-function slideAlt(index: number): string {
-  const alts = tm('main.carouselAlt') as string[]
-  return alts[index] ?? t('main.carouselAltFallback', { n: index + 1 })
-}
-
-function stopAutoplay() {
-  clearInterval(timer)
-  timer = undefined
-}
-
-function startAutoplay() {
-  if (reduceMotion || heroCarouselSlides.length < 2) return
-  stopAutoplay()
-  timer = setInterval(() => {
-    activeIndex.value = (activeIndex.value + 1) % heroCarouselSlides.length
-  }, AUTOPLAY_MS)
-}
-
-function goTo(index: number) {
-  activeIndex.value = index
-  startAutoplay()
-}
-
-let touchStartX = 0
-
-function onTouchStart(event: TouchEvent) {
-  touchStartX = event.touches[0]?.clientX ?? 0
-}
-
-function onTouchEnd(event: TouchEvent) {
-  const endX = event.changedTouches[0]?.clientX
-  if (endX === undefined) return
-  const delta = endX - touchStartX
-  if (Math.abs(delta) < 40) return
-  const count = heroCarouselSlides.length
-  activeIndex.value =
-    delta < 0
-      ? (activeIndex.value + 1) % count
-      : (activeIndex.value - 1 + count) % count
-  startAutoplay()
-}
+// Fade-in on scroll
+const fadeRefs = ref<HTMLElement[]>([])
+let observer: IntersectionObserver | null = null
 
 onMounted(() => {
-  reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  startAutoplay()
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible')
+          observer?.unobserve(e.target)
+        }
+      })
+    },
+    { threshold: 0.12 },
+  )
+  fadeRefs.value.forEach((el) => observer?.observe(el))
 })
 
-onBeforeUnmount(stopAutoplay)
+onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <template>
-  <BaseSection id="main" :full-height="true">
-    <div class="main-section">
-      <div class="main-section__text">
-        <p class="main-section__eyebrow">{{ t('main.eyebrow') }}</p>
-        <h1 class="main-section__phrase">
-          <template v-for="(line, i) in phraseLines" :key="i"
-            >{{ line }}<br v-if="i < phraseLines.length - 1"
-          /></template>
-        </h1>
-        <p class="main-section__lead">
-          {{ t('main.lead') }}
-        </p>
-        <a class="main-section__cta" href="#contacto">{{ t('main.cta') }}</a>
-      </div>
-
-      <div
-        class="hero-carousel"
-        @mouseenter="stopAutoplay"
-        @mouseleave="startAutoplay"
-        @focusin="stopAutoplay"
-        @focusout="startAutoplay"
-        @touchstart.passive="onTouchStart"
-        @touchend.passive="onTouchEnd"
-      >
-        <div class="hero-carousel__frame">
+  <section id="main" class="main">
+    <!-- Hero photo -->
+    <div class="hero">
+      <div class="hero__inner">
+        <div class="hero__photo-wrap">
           <img
-            v-for="(slide, index) in heroCarouselSlides"
-            :key="slide.id"
-            class="hero-carousel__slide"
-            :class="{ 'hero-carousel__slide--active': index === activeIndex }"
-            :style="{ objectPosition: FOCAL_POSITIONS[slide.id] ?? 'center' }"
-            :src="slide.src"
-            :srcset="slide.srcset"
-            sizes="(min-width: 768px) 624px, 546px"
-            :width="slide.width"
-            :height="slide.height"
-            :alt="slideAlt(index)"
-            :loading="index === 0 ? undefined : 'lazy'"
-            :fetchpriority="index === 0 ? 'high' : undefined"
+            class="hero__photo"
+            src="/hero.png"
+            alt=""
+            width="2048"
+            height="1365"
+            fetchpriority="high"
             decoding="async"
           />
-        </div>
-
-        <div
-          v-if="heroCarouselSlides.length > 1"
-          class="hero-carousel__dots"
-          role="tablist"
-        >
-          <button
-            v-for="(slide, index) in heroCarouselSlides"
-            :key="slide.id"
-            type="button"
-            class="hero-carousel__dot"
-            :class="{ 'hero-carousel__dot--active': index === activeIndex }"
-            role="tab"
-            :aria-selected="index === activeIndex"
-            :aria-label="t('main.carouselDotLabel', { n: index + 1 })"
-            @click="goTo(index)"
-          />
+          <div class="hero__overlay" aria-hidden="true" />
+          <p class="hero__tagline">{{ t('main.tagline') }}</p>
         </div>
       </div>
     </div>
-  </BaseSection>
+
+    <!-- Birds row -->
+    <div class="birds" aria-hidden="true">
+      <img class="birds__img birds__img--1" src="/pajaro-800.webp" alt="" loading="lazy" decoding="async" />
+      <img class="birds__img birds__img--2" src="/pajaro-400.webp" alt="" loading="lazy" decoding="async" />
+      <img class="birds__img birds__img--3" src="/pajaro-800.webp" alt="" loading="lazy" decoding="async" />
+    </div>
+
+    <!-- Large intro text -->
+    <div
+      class="intro fade-in"
+      :ref="(el) => el && fadeRefs.push(el as HTMLElement)"
+    >
+      <div class="intro__inner">
+        <p class="intro__text">
+          {{ t('main.intro.prefix') }}
+          <span class="text-gold">{{ t('main.intro.art') }}</span>{{ t('main.intro.mid1') }}<span class="text-crimson">{{ t('main.intro.escolta') }}</span>{{ t('main.intro.mid2') }}<span class="text-blue">{{ t('main.intro.presencia') }}</span>{{ t('main.intro.mid3') }}<span class="text-gold">{{ t('main.intro.creativitat') }}</span>{{ t('main.intro.suffix') }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Photo grid -->
+    <div
+      class="photo-grid fade-in"
+      :ref="(el) => el && fadeRefs.push(el as HTMLElement)"
+    >
+      <div class="photo-grid__inner">
+        <img
+          class="photo-grid__wide"
+          src="/photo-grid-wide.png"
+          :alt="t('main.photoGridAlt1')"
+          width="819"
+          height="546"
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          class="photo-grid__tall"
+          src="/photo-grid-tall.png"
+          :alt="t('main.photoGridAlt2')"
+          width="400"
+          height="698"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
 </template>
 
 <style scoped>
-.main-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3rem;
-  width: 100%;
+.main {
+  background-color: var(--color-white);
 }
 
-.main-section__text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
-  text-align: center;
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+  padding: 0 var(--page-gutter) 2rem;
 }
 
-.main-section__eyebrow {
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-secondary);
-  margin: 0;
+.hero__inner {
+  max-width: var(--page-max);
+  margin-inline: auto;
 }
 
-.main-section__phrase {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(2rem, 5vw + 0.75rem, 3.5rem);
-  line-height: 1.2;
-  margin: 0;
-  color: var(--color-text);
-}
-
-.main-section__lead {
-  font-family: var(--font-sans);
-  font-size: clamp(1rem, 1vw + 0.875rem, 1.125rem);
-  line-height: 1.7;
-  color: var(--color-text-light);
-  max-width: 42ch;
-  margin: 0;
-}
-
-.main-section__cta {
-  display: inline-block;
-  margin-top: 0.5rem;
-  padding: 0.9375rem 2rem;
-  background-color: var(--color-accent);
-  color: var(--color-surface);
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 0.9375rem;
-  text-decoration: none;
-  border-radius: 999px;
-  letter-spacing: 0.02em;
-  box-shadow: 0 4px 16px
-    color-mix(in srgb, var(--color-accent) 30%, transparent);
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.main-section__cta:hover,
-.main-section__cta:focus-visible {
-  background-color: color-mix(in srgb, var(--color-accent) 85%, black);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px
-    color-mix(in srgb, var(--color-accent) 40%, transparent);
-}
-
-/* Photo carousel — same slot the single hero drawing used to occupy */
-.hero-carousel {
-  flex-shrink: 0;
-  width: min(628px, 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.hero-carousel__frame {
+.hero__photo-wrap {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1;
-  background-color: var(--color-surface);
-  border-radius: 1.5rem;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-card);
+  border-radius: var(--card-radius);
   overflow: hidden;
-  touch-action: pan-y;
+  aspect-ratio: 16 / 10;
+  background-color: var(--color-cream);
 }
 
-.hero-carousel__slide {
-  position: absolute;
-  inset: 0;
+.hero__photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.6s ease;
+  display: block;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.15);
   pointer-events: none;
 }
 
-.hero-carousel__slide--active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.hero-carousel__dots {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.hero-carousel__dot {
-  width: 2rem;
-  height: 2rem;
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
+.hero__tagline {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  padding: 1rem;
+  font-family: var(--font-body);
+  font-size: var(--text-headline);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-white);
+  text-align: center;
 }
 
-.hero-carousel__dot::before {
-  content: '';
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background-color: var(--color-border);
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
+/* ── Birds ──────────────────────────────────────────────── */
+.birds {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 6rem);
+  padding: 0 var(--page-gutter);
+  pointer-events: none;
+  user-select: none;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
-.hero-carousel__dot--active::before {
-  background-color: var(--color-accent);
-  transform: scale(1.35);
+.birds__img {
+  display: block;
+  width: auto;
+  height: clamp(4rem, 8vw, 7rem);
+}
+
+.birds__img--1 {
+  transform: scaleX(-1) rotate(-5deg);
+}
+
+.birds__img--2 {
+  height: clamp(3.5rem, 7vw, 6rem);
+  transform: rotate(3deg);
+}
+
+.birds__img--3 {
+  transform: rotate(6deg);
+}
+
+/* ── Intro text ─────────────────────────────────────────── */
+.intro {
+  padding: 0 var(--page-gutter) clamp(3rem, 5vw, 5rem);
+}
+
+.intro__inner {
+  max-width: var(--page-max);
+  margin-inline: auto;
+}
+
+.intro__text {
+  font-family: var(--font-body);
+  font-size: var(--text-headline);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-black);
+  margin: 0;
+}
+
+.text-gold { color: var(--color-gold); }
+.text-crimson { color: var(--color-crimson); }
+.text-blue { color: var(--color-blue); }
+
+/* ── Photo grid ─────────────────────────────────────────── */
+.photo-grid {
+  padding: 0 var(--page-gutter) clamp(3rem, 5vw, 5rem);
+}
+
+.photo-grid__inner {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.photo-grid__wide,
+.photo-grid__tall {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--card-radius);
+}
+
+.photo-grid__wide {
+  aspect-ratio: 16 / 10;
+}
+
+.photo-grid__tall {
+  aspect-ratio: 9 / 16;
+  max-height: 30rem;
+  width: 100%;
+  object-position: center top;
 }
 
 @media (min-width: 768px) {
-  .main-section {
-    flex-direction: row;
-    gap: 4rem;
+  .photo-grid__inner {
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
   }
 
-  .main-section__text {
-    flex: 1;
-    align-items: flex-start;
-    text-align: left;
+  .photo-grid__wide {
+    aspect-ratio: 3 / 2;
   }
 
-  .hero-carousel {
-    width: min(718px, 46%);
+  .photo-grid__tall {
+    max-height: none;
+    aspect-ratio: 9 / 14;
   }
 }
 </style>
