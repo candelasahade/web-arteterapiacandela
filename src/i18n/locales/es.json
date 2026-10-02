@@ -60,8 +60,11 @@
     "stripAlt": "Sesión de arteterapia con materiales",
     "what": {
       "title": "¿Qué es la arteterapia?",
-      "body": "La {link} es un espacio de cuidado donde, a través de la creación artística y la relación terapéutica, se favorecen la expresión, el autoconocimiento y el bienestar emocional. No es necesario saber de arte; lo que importa es el proceso, no el resultado.",
-      "linkWord": "arteterapia relacional"
+      "paragraphs": [
+        "La arteterapia es una disciplina y profesión asistencial que utiliza el proceso de creación artística como una herramienta psicoterapéutica. Su objetivo es facilitar la expresión de emociones, resolver conflictos psicológicos y mejorar el bienestar emocional, físico y social de las personas.",
+        "El enfoque relacional es un modelo en el que el proceso terapéutico se construye a través del vínculo y el intercambio constante entre tres elementos esenciales: el paciente, la obra de arte y el terapeuta."
+      ],
+      "moreInfo": "Más información:"
     },
     "when": {
       "title": "¿En qué situaciones ayuda?",
@@ -74,7 +77,7 @@
     "photoAlt": "Candela Sahade, arteterapeuta relacional",
     "bioParagraphs": [
       "Soy Candela Sahade, médica y arteterapeuta relacional, especializada en el acompañamiento de niños y adolescentes.",
-      "Desde pequeña, el arte ha sido una manera de expresar y comprender lo que siento. El deseo de cuidar me llevó a la medicina y, más adelante, a la arteterapia, donde descubrí que crear puede dar voz a lo que las palabras no siempre pueden decir.",
+      "Desde pequeña, el arte ha sido una manera de expresar y comprender lo que siento. El deseo de cuidar me llevó a la medicina y, más adelante, a la arteterapia, donde encontré una manera de acompañar desde la creatividad, la presencia y el vínculo.",
       "Hoy uno arte, escucha y cuidado para acompañar a cada persona en su propio proceso."
     ],
     "linkedinCta": "Conéctate conmigo en LinkedIn"

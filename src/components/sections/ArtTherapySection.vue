@@ -2,7 +2,12 @@
 import { onMounted, onBeforeUnmount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const { t, tm } = useI18n()
+
+const infoLinks = [
+  { href: 'https://feapa.es', label: 'feapa.es' },
+  { href: 'https://arteterapia.org.es', label: 'arteterapia.org.es' },
+]
 
 const fadeRefs = ref<HTMLElement[]>([])
 let observer: IntersectionObserver | null = null
@@ -125,12 +130,16 @@ onBeforeUnmount(() => observer?.disconnect())
 
         <div class="at__panel-col">
           <h2 class="at__panel-heading">{{ t('artTherapy.what.title') }}</h2>
+          <p
+            v-for="(para, i) in (tm('artTherapy.what.paragraphs') as string[])"
+            :key="i"
+            class="at__panel-text"
+          >{{ para }}</p>
           <p class="at__panel-text">
-            <i18n-t keypath="artTherapy.what.body" tag="span">
-              <template #link>
-                <span class="text-underline">{{ t('artTherapy.what.linkWord') }}</span>
-              </template>
-            </i18n-t>
+            {{ t('artTherapy.what.moreInfo') }}
+            <template v-for="(link, i) in infoLinks" :key="link.href">
+              <a class="at__panel-link" :href="link.href" target="_blank" rel="noopener noreferrer">{{ link.label }}</a><template v-if="i < infoLinks.length - 1">&nbsp;· </template>
+            </template>
           </p>
         </div>
 
@@ -182,7 +191,6 @@ onBeforeUnmount(() => observer?.disconnect())
 
 .text-gold { color: var(--color-gold); }
 .text-blue { color: var(--color-blue); }
-.text-underline { text-decoration: underline; }
 
 /* ── Session cards ──────────────────────────────────────── */
 .at__cards {
@@ -293,11 +301,28 @@ onBeforeUnmount(() => observer?.disconnect())
 
 .at__panel-text {
   font-family: var(--font-body);
-  font-size: var(--text-body-lg);
+  /* 75% of body-lg (~22px at 1280): the definition copy is ~3× longer than
+     the original design, so it's scaled down to keep the panel's proportions */
+  font-size: max(1rem, calc(var(--text-body-lg) * 0.75));
   font-weight: 300;
-  line-height: 1.17;
+  line-height: 1.25;
   color: var(--color-black);
   margin: 0;
+}
+
+.at__panel-text + .at__panel-text {
+  margin-top: 0.75em;
+}
+
+.at__panel-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  transition: color 0.2s ease;
+}
+
+.at__panel-link:hover {
+  color: var(--color-crimson);
 }
 
 /* ── Mobile adjustments ────────────────────────────────── */

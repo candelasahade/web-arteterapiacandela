@@ -60,8 +60,11 @@
     "stripAlt": "Sessió d'art-teràpia amb materials",
     "what": {
       "title": "Què és l'art-teràpia?",
-      "body": "L'{link} és un espai de cura on, a través de la creació artística i la relació terapèutica, s'afavoreixen l'expressió, l'autoconeixement i el benestar emocional. No cal saber d'art; el que importa és el procés, no el resultat.",
-      "linkWord": "art-teràpia relacional"
+      "paragraphs": [
+        "L'art-teràpia és una disciplina i professió assistencial que utilitza el procés de creació artística com una eina psicoterapèutica. El seu objectiu és facilitar l'expressió d'emocions, resoldre conflictes psicològics i millorar el benestar emocional, físic i social de les persones.",
+        "L'enfocament relacional és un model on el procés terapèutic es construeix a través del vincle i intercanvi constant entre tres elements essencials: el pacient, l'obra d'art i el terapeuta."
+      ],
+      "moreInfo": "Més informació:"
     },
     "when": {
       "title": "En quines situacions ajuda?",
@@ -73,8 +76,8 @@
     "heading": "Una breu història sobre mi",
     "photoAlt": "Candela Sahade, art-terapeuta relacional",
     "bioParagraphs": [
-      "Sóc la Candela Sahade, metgessa i art-terapeuta relacional, especialitzada en l'acompanyament d'infants i adolescents.",
-      "Des de petita, l'art ha estat una manera d'expressar i comprendre el que sento. El desig de cuidar em va portar a la medicina i, més endavant, a l'art-teràpia, on vaig descobrir que crear pot donar veu a allò que les paraules no sempre poden dir.",
+      "Soc la Candela Sahade, metgessa i art-terapeuta relacional, especialitzada en l'acompanyament d'infants i adolescents.",
+      "Des de petita, l'art ha estat una manera d'expressar i comprendre el que sento. El desig de cuidar em va portar a la medicina i, més endavant, a l'art-teràpia, on vaig trobar una manera d'acompanyar des de la creativitat, la presència i el vincle.",
       "Avui uneixo art, escolta i cura per acompanyar cada persona en el seu propi procés."
     ],
     "linkedinCta": "Connecta amb mi a LinkedIn"
