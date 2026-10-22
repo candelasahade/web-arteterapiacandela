@@ -146,13 +146,13 @@ onBeforeUnmount(() => observer?.disconnect())
   margin: 0;
 }
 
-/* Figma: waves 183×51px, 41px below heading bottom, 63px above bio */
+/* Figma: waves 183×51px, 41px below heading bottom, 13px above bio */
 .about__waves {
   display: block;
   width: 11.4375rem; /* 183px — matches Figma 1280px frame */
   height: auto;
   margin-top: 2.5625rem;   /* 41px */
-  margin-bottom: 3.9375rem; /* 63px */
+  margin-bottom: 0.8125rem; /* 13px */
   pointer-events: none;
   user-select: none;
 }
@@ -192,16 +192,31 @@ onBeforeUnmount(() => observer?.disconnect())
 @media (min-width: 768px) {
   .about__inner {
     display: grid;
-    /* Left col ≈ 400px (32% of 1240px content), gap 55px, right col fills rest */
-    grid-template-columns: clamp(16rem, 32%, 26rem) 1fr;
-    column-gap: 3.4375rem; /* 55px */
+    /* Figma (1240px content): portrait 419px, gap 36px, text 785px — kept as ratios
+       so the text never outgrows the photo on wide screens */
+    grid-template-columns: 34% 1fr;
+    column-gap: 3%;
     row-gap: 0;
     align-items: start;
+    container-type: inline-size;
   }
 
   .about__photo {
     max-width: 100%;
     width: 100%;
+    aspect-ratio: 419 / 563; /* Figma crop */
+    object-position: center top;
+  }
+
+  /* Type scales with the section width (cqi), not the viewport tiers.
+     Figma 1240px content: bio 30px ≈ 2.42cqi; heading ≈ 3.2cqi (40px) */
+  .about__heading {
+    font-size: clamp(1.75rem, 3.2cqi, 3.75rem);
+  }
+
+  .about__bio-text,
+  .about__linkedin {
+    font-size: clamp(1.25rem, 2.42cqi, 2.875rem);
   }
 
   /* Push heading down to align with portrait top: label (1.5rem) + gap (2.5rem) = 4rem */
