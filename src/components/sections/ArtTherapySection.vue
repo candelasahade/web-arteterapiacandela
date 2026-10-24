@@ -56,16 +56,6 @@ onBeforeUnmount(() => observer?.disconnect())
         class="at__cards fade-in"
         :ref="(el) => el && fadeRefs.push(el as HTMLElement)"
       >
-        <!-- Leaf decoration -->
-        <img
-          class="at__leaf"
-          src="/adorno-hoja-master.png"
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-          decoding="async"
-        />
-
         <div class="at__card">
           <img
             class="at__card-icon"
@@ -93,7 +83,7 @@ onBeforeUnmount(() => observer?.disconnect())
         <div class="at__card">
           <img
             class="at__card-icon at__card-icon--sm"
-            src="/adorno-hoja-negro-400.webp"
+            src="/adorno-hoja-master.png"
             alt=""
             aria-hidden="true"
             loading="lazy"
@@ -198,16 +188,6 @@ onBeforeUnmount(() => observer?.disconnect())
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
   position: relative;
-}
-
-.at__leaf {
-  position: absolute;
-  top: -3rem;
-  right: 0;
-  width: auto;
-  height: clamp(4rem, 7vw, 6rem);
-  pointer-events: none;
-  user-select: none;
 }
 
 .at__card {
@@ -329,10 +309,6 @@ onBeforeUnmount(() => observer?.disconnect())
 @media (max-width: 640px) {
   .at__cards {
     grid-template-columns: 1fr;
-  }
-
-  .at__leaf {
-    display: none;
   }
 }
 
