@@ -127,8 +127,6 @@
       "body": "Muchas gracias por escribirme. Te responderé en menos de 48 horas.",
       "retry": "Enviar otro mensaje"
     },
-    "error": "Algo salió mal. Por favor, inténtalo de nuevo o escríbeme directamente.",
-    "phonePrefix": "O si lo prefieres,",
-    "phoneCta": "llámame al +34 692 665 220"
+    "error": "Algo salió mal. Por favor, inténtalo de nuevo o escríbeme directamente."
   }
 }

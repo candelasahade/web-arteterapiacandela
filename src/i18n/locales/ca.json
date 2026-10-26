@@ -127,8 +127,6 @@
       "body": "Moltes gràcies per escriure'm. Et respondré en menys de 48 hores.",
       "retry": "Enviar un altre missatge"
     },
-    "error": "Alguna cosa ha anat malament. Si us plau, torna-ho a intentar o escriu-me directament.",
-    "phonePrefix": "O si ho prefereixes,",
-    "phoneCta": "truca'm al +34 692 665 220"
+    "error": "Alguna cosa ha anat malament. Si us plau, torna-ho a intentar o escriu-me directament."
   }
 }

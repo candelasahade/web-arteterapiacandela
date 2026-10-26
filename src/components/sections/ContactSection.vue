@@ -186,11 +186,6 @@ async function handleSubmit() {
           }}
         </button>
       </form>
-
-      <p class="contact__phone">
-        {{ t('contact.phonePrefix') }}
-        <a href="tel:+34692665220">{{ t('contact.phoneCta') }}</a>
-      </p>
     </div>
   </section>
 </template>
@@ -425,27 +420,5 @@ async function handleSubmit() {
 
 .contact__retry:hover {
   background-color: rgba(0, 0, 0, 0.05);
-}
-
-/* ── Phone ──────────────────────────────────────────────── */
-.contact__phone {
-  font-family: var(--font-body);
-  font-size: 1.375rem;
-  font-weight: 400;
-  letter-spacing: 0;
-  text-align: center;
-  color: var(--color-black);
-  margin: 0;
-}
-
-.contact__phone a {
-  color: var(--color-black);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-  transition: color 0.2s ease;
-}
-
-.contact__phone a:hover {
-  color: var(--color-crimson);
 }
 </style>
