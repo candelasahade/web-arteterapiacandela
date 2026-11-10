@@ -40,6 +40,22 @@ function setLocale(value: AppLocale) {
         <rect y="14" width="27" height="2" fill="#DA121A" />
       </svg>
     </button>
+    <button
+      type="button"
+      class="lang-switcher__btn"
+      :class="{ 'lang-switcher__btn--active': locale === 'en' }"
+      :aria-pressed="locale === 'en'"
+      aria-label="English"
+      @click="setLocale('en')"
+    >
+      <svg class="lang-switcher__flag" viewBox="0 0 27 18" aria-hidden="true">
+        <rect width="27" height="18" fill="#012169" />
+        <path d="M0 0L27 18M27 0L0 18" stroke="#FFFFFF" stroke-width="3.6" />
+        <path d="M0 0L27 18M27 0L0 18" stroke="#C8102E" stroke-width="1.2" />
+        <path d="M13.5 0V18M0 9H27" stroke="#FFFFFF" stroke-width="6" />
+        <path d="M13.5 0V18M0 9H27" stroke="#C8102E" stroke-width="3.6" />
+      </svg>
+    </button>
   </div>
 </template>
 

@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "title": "Art therapy for children and teens in Barcelona {'|'} Candela",
+    "description": "Art therapy for children and teenagers in Barcelona and Sant Cugat del Vallès. A space to grow emotionally through art."
+  },
+  "skipLink": "Skip to main content",
+  "nav": {
+    "ariaLabel": "Main navigation",
+    "toggleOpen": "Open menu",
+    "toggleClose": "Close menu",
+    "backToTop": "Back to top",
+    "items": {
+      "home": "Home",
+      "artTherapy": "Art therapy",
+      "about": "About me",
+      "faq": "FAQ",
+      "contact": "Let's talk"
+    }
+  },
+  "footer": {
+    "tagline": "A space to express, play and feel.",
+    "socialAriaLabel": "Social media",
+    "instagramLabel": "Arteterapia Candela on Instagram",
+    "linkedinLabel": "Candela Sahade on LinkedIn"
+  },
+  "main": {
+    "tagline": "A space to create, feel and grow.",
+    "intro": {
+      "prefix": "Here, I support emotional growth through ",
+      "art": "art",
+      "mid1": ", combining ",
+      "escolta": "listening",
+      "mid2": ", ",
+      "presencia": "presence",
+      "mid3": " and ",
+      "creativitat": "creativity",
+      "suffix": ". Each person finds their own language to express what words sometimes can't say."
+    },
+    "photoGridAlt1": "Art therapy session: materials and creation",
+    "photoGridAlt2": "Art therapy space"
+  },
+  "artTherapy": {
+    "label": "About art therapy",
+    "session": {
+      "prefix": "Each session combines a space for ",
+      "creacio": "creative making",
+      "mid1": " and ",
+      "joc": "play",
+      "mid2": " with a moment of ",
+      "paraula": "words ",
+      "mid3": "and ",
+      "reflexio": "reflection",
+      "suffix": " on what was created, always respecting each person's pace."
+    },
+    "cards": {
+      "duration": "50 minutes",
+      "frequency": "Weekly or every two weeks, depending on the process",
+      "materials": "Paint, clay, natural materials, collage and more"
+    },
+    "stripAlt": "Art therapy session with materials",
+    "what": {
+      "title": "What is art therapy?",
+      "paragraphs": [
+        "Art therapy is a discipline that uses the process of artistic creation as a means of expression, exploration and support, with the aim of promoting people's emotional and personal well-being.",
+        "The relational approach understands the art therapy process as an experience built through the bond and exchange between the person, the artwork and the art therapist. It offers a space for listening and creating that respects each person's uniqueness, pace and needs."
+      ],
+      "moreInfo": "More information:"
+    },
+    "when": {
+      "title": "When can it help?",
+      "body": "Difficulties with emotional expression and regulation, self-esteem, stress, anxiety, grief, life changes or interpersonal conflicts, as well as the need to find a safe space for creation, expression and emotional support."
+    }
+  },
+  "about": {
+    "label": "About me",
+    "heading": "A short story about me",
+    "photoAlt": "Candela Sahade, relational art therapist",
+    "bioParagraphs": [
+      "I'm Candela Sahade, a medical doctor with a degree recognised in Spain and a relational art therapist, with experience supporting children and teenagers.",
+      "Since I was little, art has been a way of expressing and understanding what I feel. The desire to care led me to medicine and, later, to art therapy, where I found a way to support others through creativity, presence and connection.",
+      "Today I bring together art, listening and care to accompany each person on their own journey."
+    ],
+    "linkedinCta": "Connect with me on LinkedIn"
+  },
+  "faq": {
+    "label": "FAQ",
+    "heading": "Everything you need to know",
+    "items": [
+      {
+        "question": "Do I need to know how to draw?",
+        "answer": "No. Art therapy is not about aesthetic results or artistic skill. The goal isn't to learn to draw or paint, but to use the artistic process as a means."
+      },
+      {
+        "question": "From what age can children take part?",
+        "answer": "From 3 years old."
+      },
+      {
+        "question": "Are the sessions online or in person?",
+        "answer": "Both options are available: in person in Barcelona and Sant Cugat, or online (adults only)."
+      },
+      {
+        "question": "How do I know if art therapy is right for my child?",
+        "answer": "In the first interview we talk about your particular situation and decide together whether this is the right space."
+      },
+      {
+        "question": "How long does the therapeutic process last?",
+        "answer": "Every art therapy process is unique, so its length adapts to each person's needs and goals. In general, it can be organised in blocks of 12 sessions."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Let's talk",
+    "lead": "Write to me to schedule a first interview or to ask any question. I try to reply within 48 hours.",
+    "requiredNote": "Required fields",
+    "honeypotLabel": "Do not fill in this field",
+    "labels": {
+      "nombre": "Name",
+      "email": "Email",
+      "mensaje": "Message"
+    },
+    "submit": {
+      "idle": "Send message",
+      "loading": "Sending…"
+    },
+    "success": {
+      "title": "Message sent!",
+      "body": "Thank you so much for writing to me. I'll reply within 48 hours.",
+      "retry": "Send another message"
+    },
+    "error": "Something went wrong. Please try again or write to me directly."
+  }
+}
