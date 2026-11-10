@@ -125,7 +125,9 @@ onBeforeUnmount(() => observer?.disconnect())
   width: 100%;
   max-width: 22rem;
   height: auto;
+  aspect-ratio: 419 / 524; /* crops out the bare foot at the bottom of the source photo */
   object-fit: cover;
+  object-position: center top;
   border-radius: var(--card-radius);
 }
 
@@ -204,8 +206,6 @@ onBeforeUnmount(() => observer?.disconnect())
   .about__photo {
     max-width: 100%;
     width: 100%;
-    aspect-ratio: 419 / 563; /* Figma crop */
-    object-position: center top;
   }
 
   /* Type scales with the section width (cqi), not the viewport tiers.
