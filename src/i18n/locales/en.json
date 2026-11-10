@@ -60,10 +60,16 @@
     "stripAlt": "Art therapy session with materials",
     "what": {
       "title": "What is art therapy?",
-      "paragraphs": [
-        "Art therapy is a discipline that uses the process of artistic creation as a means of expression, exploration and support, with the aim of promoting people's emotional and personal well-being.",
-        "The relational approach understands the art therapy process as an experience built through the bond and exchange between the person, the artwork and the art therapist. It offers a space for listening and creating that respects each person's uniqueness, pace and needs."
-      ],
+      "p1": {
+        "prefix": "",
+        "term": "Art therapy",
+        "suffix": " is a discipline that uses the process of artistic creation as a means of expression, exploration and support, with the aim of promoting people's emotional and personal well-being."
+      },
+      "p2": {
+        "prefix": "The ",
+        "term": "relational approach",
+        "suffix": " understands the art therapy process as an experience built through the bond and exchange between the person, the artwork and the art therapist. It offers a space for listening and creating that respects each person's uniqueness, pace and needs."
+      },
       "moreInfo": "More information:"
     },
     "when": {

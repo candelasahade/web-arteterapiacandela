@@ -60,10 +60,16 @@
     "stripAlt": "Sessió d'art-teràpia amb materials",
     "what": {
       "title": "Què és l'art-teràpia?",
-      "paragraphs": [
-        "L'art-teràpia és una disciplina que utilitza el procés de creació artística com a mitjà d'expressió, exploració i acompanyament, amb l'objectiu d'afavorir el benestar emocional i personal de les persones.",
-        "L'enfocament relacional entén el procés art-terapèutic com una experiència que es construeix a través del vincle i l'intercanvi entre la persona, la producció artística i l'art-terapeuta. S'ofereix un espai d'escolta i creació que respecta la singularitat, el ritme i les necessitats de cada persona."
-      ],
+      "p1": {
+        "prefix": "L'",
+        "term": "art-teràpia",
+        "suffix": " és una disciplina que utilitza el procés de creació artística com a mitjà d'expressió, exploració i acompanyament, amb l'objectiu d'afavorir el benestar emocional i personal de les persones."
+      },
+      "p2": {
+        "prefix": "L'",
+        "term": "enfocament relacional",
+        "suffix": " entén el procés art-terapèutic com una experiència que es construeix a través del vincle i l'intercanvi entre la persona, la producció artística i l'art-terapeuta. S'ofereix un espai d'escolta i creació que respecta la singularitat, el ritme i les necessitats de cada persona."
+      },
       "moreInfo": "Més informació:"
     },
     "when": {

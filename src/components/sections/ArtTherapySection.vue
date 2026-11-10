@@ -2,7 +2,7 @@
 import { onMounted, onBeforeUnmount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const { t, tm } = useI18n()
+const { t } = useI18n()
 
 const infoLinks = [
   { href: 'https://feapa.es', label: 'feapa.es' },
@@ -120,11 +120,9 @@ onBeforeUnmount(() => observer?.disconnect())
 
         <div class="at__panel-col">
           <h2 class="at__panel-heading">{{ t('artTherapy.what.title') }}</h2>
-          <p
-            v-for="(para, i) in (tm('artTherapy.what.paragraphs') as string[])"
-            :key="i"
-            class="at__panel-text"
-          >{{ para }}</p>
+          <p v-for="key in ['p1', 'p2']" :key="key" class="at__panel-text">
+            {{ t(`artTherapy.what.${key}.prefix`) }}<u class="at__panel-term">{{ t(`artTherapy.what.${key}.term`) }}</u>{{ t(`artTherapy.what.${key}.suffix`) }}
+          </p>
           <p class="at__panel-text">
             {{ t('artTherapy.what.moreInfo') }}
             <template v-for="(link, i) in infoLinks" :key="link.href">
@@ -292,6 +290,10 @@ onBeforeUnmount(() => observer?.disconnect())
 
 .at__panel-text + .at__panel-text {
   margin-top: 0.75em;
+}
+
+.at__panel-term {
+  text-underline-offset: 0.15em;
 }
 
 .at__panel-link {

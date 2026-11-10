@@ -60,10 +60,16 @@
     "stripAlt": "Sesión de arteterapia con materiales",
     "what": {
       "title": "¿Qué es la arteterapia?",
-      "paragraphs": [
-        "La arteterapia es una disciplina que utiliza el proceso de creación artística como medio de expresión, exploración y acompañamiento, con el objetivo de favorecer el bienestar emocional y personal de las personas.",
-        "El enfoque relacional entiende el proceso arteterapéutico como una experiencia que se construye a través del vínculo y el intercambio entre la persona, la producción artística y el arteterapeuta. Se ofrece un espacio de escucha y creación que respeta la singularidad, el ritmo y las necesidades de cada persona."
-      ],
+      "p1": {
+        "prefix": "La ",
+        "term": "arteterapia",
+        "suffix": " es una disciplina que utiliza el proceso de creación artística como medio de expresión, exploración y acompañamiento, con el objetivo de favorecer el bienestar emocional y personal de las personas."
+      },
+      "p2": {
+        "prefix": "El ",
+        "term": "enfoque relacional",
+        "suffix": " entiende el proceso arteterapéutico como una experiencia que se construye a través del vínculo y el intercambio entre la persona, la producción artística y el arteterapeuta. Se ofrece un espacio de escucha y creación que respeta la singularidad, el ritmo y las necesidades de cada persona."
+      },
       "moreInfo": "Más información:"
     },
     "when": {
